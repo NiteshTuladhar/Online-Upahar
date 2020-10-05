@@ -1,0 +1,66 @@
+{% extends 'master/base.html' %}
+{% load static %}
+    {% block title %}Login | Online Upahar {% endblock %}
+{% block body %}
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Login</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Form Section Begin -->
+    {% if messages %}
+                {% for m in messages %}
+                    <div class="alert {% if m.tags == 'success' %} alert-primary {% else %} alert-danger {% endif %}" style="text-align: center;">
+                        {{m}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="login-form">
+                        <h2>Login</h2>
+                        <form method="POST" action="">
+                            <div class="group-input">
+                                {% csrf_token %}
+                                <label for="username">Username or email address *</label>
+                                <input type="text" name="email" id="username">
+                            </div>
+                            <div class="group-input">
+                                <label for="pass">Password *</label>
+                                <input type="password" name="password" id="pass">
+                            </div>
+                            <div class="group-input gi-check">
+                                <div class="gi-more">
+                                    <label for="save-pass">
+                                        Save Password
+                                        <input type="checkbox" id="save-pass">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <a href="#" class="forget-pass">Forget your Password</a>
+                                </div>
+                            </div>
+                            <button type="submit" class="site-btn login-btn">Sign In</button>
+                        </form>
+                        <div class="switch-login">
+                            <a href="{% url 'Account:register' %}" class="or-login">Or Create An Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+
+   {% endblock %}

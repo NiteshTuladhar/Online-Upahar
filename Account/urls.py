@@ -19,13 +19,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
+app_name = 'Account'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('Home.urls',namespace='home')),
-    path('',include('Account.urls',namespace='account'))
+   path('login/',views.userLogin,name='login'),
+   path('register/',views.userRegister,name='register'),
 ]
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
