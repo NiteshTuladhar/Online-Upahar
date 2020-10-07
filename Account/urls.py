@@ -26,4 +26,5 @@ app_name = 'Account'
 urlpatterns = [
    path('login/',views.userLogin,name='login'),
    path('register/',views.userRegister,name='register'),
+    path('account-verify/<int:id>/<str:token>/',views.verifyaccount,name='verify_token'),
 ]
