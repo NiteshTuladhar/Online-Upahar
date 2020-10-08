@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 
+
 gender_list = [('Male','male'),('Female','female'),('Other','other')]
 
 class AccountManager(BaseUserManager):
@@ -87,4 +88,36 @@ class Account(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+def sendAccountCreationMail(sender, **kwargs):
+    current_user = kwargs['instance']
+    current_user_mail = current_user.email
+    token = current_user.token
+    s = "Account Creation"
+    context = {
+        'id' : current_user.id,
+        'name' : current_user.account_name,
+        'subject' : s,
+        'message' : "Your Account Has Been Created Successfully.",
+        'token': token
+    }
+    temp = get_template('welcomemail.html').render(context)
+    email = EmailMessage(
+
+        subject=s, 
+        body=temp, 
+        to= [current_user_mail]
+
+        )
+
+    email.content_subtype = 'html'
+
+    try:
+        email.send()
+            
+    except:
+        pass
+
+post_save.connect(sendAccountCreationMail,sender=Account)
 

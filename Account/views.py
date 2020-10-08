@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Account
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-
+from .token import generatetoken
 # Create your views here.
 def userLogin(request):
 	if request.method == 'POST':
@@ -31,6 +31,7 @@ def userRegister(request):
 			account = Account(email=email, account_name=account_name)
 			account.set_password(password)
 			try:
+				account.token = generatetoken()
 				account.save()
 				messages.success(request, message="Account created successfully")
 			except:
@@ -41,3 +42,36 @@ def userRegister(request):
 			messages.error(request, message="Password must be greater than 6")
 			return redirect('Account:register')
 	return render(request,'register.html')
+
+
+
+#Sends Email with token to verify account.
+
+def verifyaccount(request,id,token):
+
+	a = Account.objects.get(id=id)
+
+	if a.is_verified == False:
+
+		if a.token == token:
+			a.is_verified = True
+			a.save()
+			login(request, a)
+			return redirect('Home:homepage')
+			messages.success(request,mark_safe("Your account is activated. Hey!! It's a great time to <a href="" >create your profile.</a>"))#mark_safe is used to allow link in a messages
+
+		else:
+			messages.error( request,message="Error occured ")
+
+		return render(request,'index.html')
+
+	else:
+		messages.success(request,mark_safe("Your account is already activated. Hey!! It's a great time to <a href="">create your profile.</a>"))
+		return render(request,'index.html')
+
+	return render(request,'index.html')
+
+
+def userProfile(request):
+
+	return render(request,'userprofile/profile.html')
