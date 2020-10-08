@@ -120,3 +120,4 @@ def sendAccountCreationMail(sender, **kwargs):
         pass
 
 post_save.connect(sendAccountCreationMail,sender=Account)
+

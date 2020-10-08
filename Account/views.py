@@ -70,3 +70,8 @@ def verifyaccount(request,id,token):
 		return render(request,'index.html')
 
 	return render(request,'index.html')
+
+
+def userProfile(request):
+
+	return render(request,'userprofile/profile.html')
