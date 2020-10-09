@@ -3,6 +3,7 @@ from .models import Account
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .token import generatetoken
+from Profile.models import Profile
 # Create your views here.
 def userLogin(request):
 	if request.method == 'POST':
@@ -12,6 +13,12 @@ def userLogin(request):
 
 		if user is not None:
 			login(request, user)
+			account = Account.objects.get(id=request.user.id)
+			if account.profile_create is False:
+				profile = Profile(user=request.user)
+				account.profile_create = True
+				profile.save()
+				account.save()
 			return redirect('Store:homepage')
 
 		else:
@@ -57,8 +64,8 @@ def verifyaccount(request,id,token):
 			a.is_verified = True
 			a.save()
 			login(request, a)
-			return redirect('Home:homepage')
-			messages.success(request,mark_safe("Your account is activated. Hey!! It's a great time to <a href="" >create your profile.</a>"))#mark_safe is used to allow link in a messages
+			return redirect('Store:homepage')
+			messages.success(request,"Your account is activated. Hey!! It's a great time to create your profile")
 
 		else:
 			messages.error( request,message="Error occured ")
@@ -66,7 +73,7 @@ def verifyaccount(request,id,token):
 		return render(request,'index.html')
 
 	else:
-		messages.success(request,mark_safe("Your account is already activated. Hey!! It's a great time to <a href="">create your profile.</a>"))
+		messages.success(request,"Your account is already activated. Hey!! It's a great time to create your profile")
 		return render(request,'index.html')
 	return render(request,'index.html')
 

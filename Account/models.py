@@ -47,6 +47,7 @@ class Account(AbstractBaseUser):
     token = models.CharField(max_length=20, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     send_first_email = models.BooleanField(default=False)
+    profile_create = models.BooleanField(default=False)
 
 
 

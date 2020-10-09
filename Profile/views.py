@@ -19,7 +19,6 @@ def userProfile(request):
 		mobile = request.POST['mobile']
 		gender = request.POST['gender']
 		location = request.POST.get('location')
-		
 		profile = Profile(first_name=first_name, last_name=last_name,phone=phone,mobile=mobile,gender=gender,location=location)
 		try:
 			profile.save()
