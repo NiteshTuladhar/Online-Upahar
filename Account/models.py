@@ -90,6 +90,15 @@ class Account(AbstractBaseUser):
         return self.is_admin
 
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
+
 def sendAccountCreationMail(sender, **kwargs):
     current_user = kwargs['instance']
     current_user_mail = current_user.email

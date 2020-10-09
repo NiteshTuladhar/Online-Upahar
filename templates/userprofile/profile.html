@@ -32,12 +32,11 @@
               
 
       <div class="text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <img src="{{request.user.imageURL}}" class="avatar img-circle img-thumbnail" alt="avatar">
         <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block file-upload">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
       </div></hr><br>
 
-               
           <div class="panel panel-default">
             <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
             <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
@@ -292,8 +291,18 @@
         </div><!--/col-9-->
     </div><!--/row-->
 
-
-
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <form method="POST" action="{% url 'Account:profilechange' %}" enctype="multipart/form-data" name="image">
+          {% csrf_token %}
+          <input type="file" name="image" class="btn btn-light">
+          <input type="submit" class="btn btn-primary" value="Upload Profile">
+      </form>
+    </div>
+  </div>
+</div>
 <script>
   $(document).ready(function() {
 

@@ -75,3 +75,14 @@ def verifyaccount(request,id,token):
 def userProfile(request):
 
 	return render(request,'userprofile/profile.html')
+
+
+def profile_edit(request):
+	images = request.FILES['image']
+	print(images)
+	user_id = request.user.id
+	acc = Account.objects.get(id=user_id)
+	acc.image = images
+	acc.save()
+	print('Done')
+	return redirect('Account:userprofile')
