@@ -12,7 +12,7 @@ def userLogin(request):
 
 		if user is not None:
 			login(request, user)
-			return redirect('Home:homepage')
+			return redirect('Store:homepage')
 
 		else:
 			messages.error(request, 'Email or password does not match')
@@ -33,7 +33,7 @@ def userRegister(request):
 			try:
 				account.token = generatetoken()
 				account.save()
-				messages.success(request, message="Account created successfully")
+				messages.success(request, message="Account created successfully. Please check your email to verify.")
 			except:
 				messages.error(request, message="Email is already taken or Invalid Email")
 			return redirect('Account:login')
@@ -72,6 +72,4 @@ def verifyaccount(request,id,token):
 	return render(request,'index.html')
 
 
-def userProfile(request):
 
-	return render(request,'userprofile/profile.html')
