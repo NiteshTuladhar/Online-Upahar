@@ -7,7 +7,7 @@ from django.template.loader import get_template
 from django.core.mail import EmailMessage
 
 
-gender_list = [('Male','male'),('Female','female'),('Other','other')]
+
 
 class AccountManager(BaseUserManager):
     def create_user(self, email, date_of_birth,country,image,address,gender,contact_no, password=None):
@@ -16,12 +16,8 @@ class AccountManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            date_of_birth=date_of_birth,
-            country=country,
-            image=image,
-            address=address,
-            gender=gender,
-            contact_no=contact_no
+            account_name = account_name
+            
         )
 
         user.set_password(password)
@@ -31,13 +27,7 @@ class AccountManager(BaseUserManager):
     def create_superuser(self, email,address,gender,contact_no, password=None):
         user = self.create_user(
             email,
-            password=password,
-            date_of_birth=None ,
-            country=None,
-            image=None,
-            address=address,
-            gender=gender,
-            contact_no=contact_no
+            account_name=account_name,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -52,16 +42,16 @@ class Account(AbstractBaseUser):
         unique=True,
     )
     account_name = models.CharField(max_length=50, null=True)
-    date_of_birth = models.DateField(blank=True,null=True,)
-    country = models.CharField(max_length=100,null=True,blank=True)
-    image = models.ImageField(upload_to='user/',blank=True,null=True, default='user/unknown.jpg')
-    address = models.CharField(max_length=100, null=True, blank=True)
-    gender = models.CharField(max_length=30,choices=gender_list, null=True, blank=True)
-    contact_no = models.CharField(max_length=15, null=True, blank=True)
+    
+  
+    
+    
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     token = models.CharField(max_length=20, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
+    send_first_email = models.BooleanField(default=False)
 
 
 
@@ -123,7 +113,10 @@ def sendAccountCreationMail(sender, **kwargs):
     email.content_subtype = 'html'
 
     try:
-        email.send()
+        if current_user.send_first_email==False:
+            email.send()
+            current_user.send_first_email=True
+            current_user.save()
             
     except:
         pass
