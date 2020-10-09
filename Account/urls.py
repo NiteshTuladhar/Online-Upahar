@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
@@ -27,9 +27,6 @@ urlpatterns = [
    path('login/',views.userLogin,name='login'),
    path('register/',views.userRegister,name='register'),
    path('account-verify/<int:id>/<str:token>/',views.verifyaccount,name='verify_token'),
-<<<<<<< HEAD
-   path('userprofile/',views.userProfile,name='userprofile'),
-   path('profilechange/', views.profile_edit, name="profilechange")
-=======
->>>>>>> origin
+   #path('userprofile/',views.userProfile,name='userprofile'),
+   path('profilechange/', views.profile_edit, name="profilechange"),
 ]

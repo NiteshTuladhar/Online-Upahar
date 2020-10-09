@@ -68,14 +68,7 @@ def verifyaccount(request,id,token):
 	else:
 		messages.success(request,mark_safe("Your account is already activated. Hey!! It's a great time to <a href="">create your profile.</a>"))
 		return render(request,'index.html')
-
 	return render(request,'index.html')
-
-
-
-<<<<<<< HEAD
-	return render(request,'userprofile/profile.html')
-
 
 def profile_edit(request):
 	images = request.FILES['image']
@@ -86,5 +79,3 @@ def profile_edit(request):
 	acc.save()
 	print('Done')
 	return redirect('Account:userprofile')
-=======
->>>>>>> origin
