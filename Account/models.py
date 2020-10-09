@@ -42,16 +42,12 @@ class Account(AbstractBaseUser):
         unique=True,
     )
     account_name = models.CharField(max_length=50, null=True)
-    
-  
-    
-    
-
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     token = models.CharField(max_length=20, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     send_first_email = models.BooleanField(default=False)
+    profile_create = models.BooleanField(default=False)
 
 
 
@@ -78,6 +74,9 @@ class Account(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+
 
 
 def sendAccountCreationMail(sender, **kwargs):
