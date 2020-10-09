@@ -24,7 +24,7 @@
 <hr>
 <div class="container bootstrap snippet">
     <div class="row">
-  		<div class="col-sm-10"><h1>{{userinfo.email}}</h1></div>
+  		<div class="col-sm-10"><h2>{{request.user.account_name}}</h2></div>
     	
     </div>
     <div class="row">
@@ -32,9 +32,9 @@
               
 
       <div class="text-center">
-        <img src="{{request.user.imageURL}}" class="avatar img-circle img-thumbnail" alt="avatar">
+        <img src="{{profile.profile_image.url}}" class="avatar img-circle img-thumbnail" alt="avatar">
         <h6>Upload a different photo...</h6>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Change Profile</button>
       </div></hr><br>
 
           <div class="panel panel-default">
@@ -281,7 +281,7 @@
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-      <form method="POST" action="{% url 'Account:profilechange' %}" enctype="multipart/form-data" name="image">
+      <form method="POST" action="{% url 'Profile:profilechange' %}" enctype="multipart/form-data" name="image">
           {% csrf_token %}
           <input type="file" name="image" class="btn btn-light">
           <input type="submit" class="btn btn-primary" value="Upload Profile">
@@ -289,6 +289,7 @@
     </div>
   </div>
 </div>
+<!----------------------->
 <script>
   $(document).ready(function() {
 

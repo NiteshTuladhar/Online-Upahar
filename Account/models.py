@@ -42,11 +42,6 @@ class Account(AbstractBaseUser):
         unique=True,
     )
     account_name = models.CharField(max_length=50, null=True)
-    
-  
-    
-    
-
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     token = models.CharField(max_length=20, blank=True, null=True)
@@ -80,13 +75,7 @@ class Account(AbstractBaseUser):
         return self.is_admin
 
 
-    @property
-    def imageURL(self):
-        try:
-            url = self.image.url
-        except:
-            url = ''
-        return url
+
 
 
 def sendAccountCreationMail(sender, **kwargs):

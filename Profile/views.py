@@ -9,7 +9,8 @@ from django.contrib.auth import authenticate, login, logout
 def userProfile(request):
 	if request.method == 'GET':
 		userinfo = Account.objects.get(id=request.user.id)
-		return render(request,'userprofile/profile.html',context={'userinfo':userinfo})
+		profile = Profile.objects.get(user_id=request.user.id)
+		return render(request,'userprofile/profile.html',context={'userinfo':userinfo, 'profile': profile})
 
 	else:
 		first_name = request.POST['first_name']
@@ -29,3 +30,13 @@ def userProfile(request):
 		return redirect('Profile:userprofile')
 
 	return render(request,'userprofile/profile.html')
+
+
+def profile_edit(request):
+	images = request.FILES['image']
+	print(images)
+	profile = Profile.objects.get(user__id=request.user.id)
+	profile.profile_image = images
+	profile.save()
+	print('Done')
+	return redirect('Profile:userprofile')

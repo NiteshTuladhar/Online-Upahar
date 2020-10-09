@@ -1,4 +1,3 @@
-Please Note here Installed Library Here
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+---------------------
+10/09/2020----------- Profile app is added.
 
-Pip install pillow
