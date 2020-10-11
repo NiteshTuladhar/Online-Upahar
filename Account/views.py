@@ -30,6 +30,8 @@ def userLogin(request):
 
 	return render (request,'login.html')
 
+	
+
 @unauthenticated_user
 def userRegister(request):
 	if request.method == 'POST':
@@ -51,10 +53,12 @@ def userRegister(request):
 			messages.error(request, message="Password must be greater than 6")
 			return redirect('Account:register')
 	return render(request,'register.html')
-@unauthenticated_user
+
+
+
 def userlogout(request):
 	logout(request)
-	return redirect('Account:login')
+	return redirect('Store:homepage')
 
 
 

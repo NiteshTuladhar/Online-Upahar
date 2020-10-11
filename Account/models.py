@@ -10,13 +10,14 @@ from django.core.mail import EmailMessage
 
 
 class AccountManager(BaseUserManager):
-    def create_user(self, email, date_of_birth,country,image,address,gender,contact_no, password=None):
+    def create_user(self, email,account_name, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=self.normalize_email(email),
-            account_name = account_name
+            account_name = account_name,
+            password=password
             
         )
 
@@ -24,10 +25,11 @@ class AccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email,address,gender,contact_no, password=None):
+    def create_superuser(self, email,account_name, password=None):
         user = self.create_user(
             email,
             account_name=account_name,
+            password=password
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -48,7 +50,7 @@ class Account(AbstractBaseUser):
     is_verified = models.BooleanField(default=False)
     send_first_email = models.BooleanField(default=False)
     profile_create = models.BooleanField(default=False)
-
+    is_seller = models.BooleanField(default=False)
 
 
     objects = AccountManager()

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Store',
     'Account',
     'Profile',
+    'SellerAccount',
 ]
 
 MIDDLEWARE = [
