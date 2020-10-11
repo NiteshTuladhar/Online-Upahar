@@ -15,8 +15,6 @@ class Profile(models.Model):
     gender = models.CharField(max_length=30,choices=gender_list, null=True, blank=True)
     location = models.CharField(max_length=50, null=True, blank=True)
 
-    def __str__(self):
-        return self.user.account_name
 
 
     @property

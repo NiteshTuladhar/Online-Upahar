@@ -11,5 +11,6 @@ app_name = 'Profile'
 urlpatterns = [
    path('userprofile/',views.userProfile,name='userprofile'),
    path('profilechange/', views.profile_edit, name="profilechange"),
+   path('profileuser/',views.completeuserprofile, name='completeuserprofile')
    
 ]
