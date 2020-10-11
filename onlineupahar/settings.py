@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Account',
     'Profile',
     'SellerAccount',
+    'ContactMail'
 ]
 
 MIDDLEWARE = [

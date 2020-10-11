@@ -25,9 +25,10 @@ from django.contrib.auth import views as auth_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('Store.urls',namespace='home')),
-    path('',include('Account.urls',namespace='account')),
-    path('',include('SellerAccount.urls',namespace='selleraccount')),
+    path('useraccounts/',include('Account.urls',namespace='account')),
+    path('accounts/',include('SellerAccount.urls',namespace='selleraccount')),
     path('',include('Profile.urls',namespace='profile')),
+    path('contactmail/', include('ContactMail.urls', namespace='acontactmail')),
     path('reset_password/', auth_view.PasswordResetView.as_view(
         template_name='password_reset_form/passwordresetview.html'
     ), name='reset_password'),

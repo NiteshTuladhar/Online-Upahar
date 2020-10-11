@@ -9,5 +9,3 @@ def home(request):
 def cartpage(request):
 	return render(request,'cart.html')
 
-def contactpage(request):
-	return render(request,'contact.html')

@@ -26,5 +26,5 @@ app_name = 'Store'
 urlpatterns = [
    path('',views.home,name='homepage'),
    path('cart/',views.cartpage,name='cartpage'),
-   path('contact/',views.contactpage,name='contactpage')
+
 ]
