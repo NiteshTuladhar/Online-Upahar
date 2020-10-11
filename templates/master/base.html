@@ -60,13 +60,6 @@
 		</div>
 	</div>
 	<!-- End Preloader -->
-	{% if messages %}
-    {% for m in messages %}
-        <div class="alert {% if m.tags == 'success' %} alert-primary {% else %} alert-danger {% endif %}" style="text-align: center;">
-            {{m}}
-        </div>
-    {% endfor %}
-    {% endif %}
 	<!-- Header -->
 		<header class="header shop">
 			<!-- Topbar -->
@@ -89,8 +82,12 @@
 								<ul class="list-main">
 									<li><i class="ti-location-pin"></i> Store location</li>
 									<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
+									{% if user.is_authenticated %}
 									<li><i class="ti-user"></i> <a href="">My account</a></li>
+									<li><i class="ti-power-off"></i><a href="{% url 'Account:logout' %}">Logout</a></li>
+									{% else %}
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}}">Login</a></li>
+									{% endif %}
 								</ul>
 							</div>
 							<!-- End Top Right -->
@@ -105,7 +102,7 @@
 						<div class="col-lg-2 col-md-2 col-12">
 							<!-- Logo -->
 							<div class="logo">
-								<a href="index.html"><img src="images/Contentder.png" alt="logo"></a>
+								<a href="index.html"><img src="{% static 'images/Contentder.png' %}" alt="logo"></a>
 							</div>
 							<!--/ End Logo -->
 							<!-- Search Form -->
@@ -199,7 +196,7 @@
 										<div class="navbar-collapse">	
 											<div class="nav-inner">	
 												<ul class="nav main-menu menu navbar-nav">
-													<li class="active"><a href="index.html">Home</a></li>
+													<li class="active"><a href="{% url 'Store:homepage' %}">Home</a></li>
 													<li><a href="#">Product</a></li>												
 													<li><a href="#">Service</a></li>
 													<li><a href="#">Shop<i class="ti-angle-down"></i><!--<span class="new">New</span>--></a>

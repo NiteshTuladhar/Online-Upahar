@@ -4,7 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .token import generatetoken
 from Profile.models import Profile
+from .decorators import unauthenticated_user
 # Create your views here.
+@unauthenticated_user
 def userLogin(request):
 	if request.method == 'POST':
 		email = request.POST.get('email')
@@ -28,7 +30,7 @@ def userLogin(request):
 
 	return render (request,'login.html')
 
-
+@unauthenticated_user
 def userRegister(request):
 	if request.method == 'POST':
 		email = request.POST['email']
@@ -49,6 +51,10 @@ def userRegister(request):
 			messages.error(request, message="Password must be greater than 6")
 			return redirect('Account:register')
 	return render(request,'register.html')
+@unauthenticated_user
+def userlogout(request):
+	logout(request)
+	return redirect('Account:login')
 
 
 

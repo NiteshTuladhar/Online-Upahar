@@ -6,7 +6,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .form import ProfileEdit 
 # Create your views here.
-
 def userProfile(request):
 	if request.method == 'GET':
 		userinfo = Account.objects.get(id=request.user.id)
@@ -26,6 +25,7 @@ def userProfile(request):
 		mobile = request.POST['mobile']
 		gender = request.POST['gender']
 		location = request.POST.get('location')
+		print(location)
 
 		p = Profile.objects.get(user_id=request.user.id)
 		if request.method == 'POST':
