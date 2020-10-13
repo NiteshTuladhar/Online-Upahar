@@ -32,45 +32,46 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
                         <h2>Register As a Seller </h2>
-                        <form>
+                        <form method="POST" action="">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
+                                    {% csrf_token %}
                                     <label for="inputEmail4"><h6 style="font-weight:300">First Name</h6></label>
-                                    <input type="text" class="form-control form-control-lg" id="inputEmail4" placeholder="First Name">
+                                    <input type="text" class="form-control form-control-lg" id="inputEmail4" placeholder="First Name" name="first_name">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4"><h6 style="font-weight:300">Last Name</h6></label>
-                                    <input type="text" class="form-control form-control-lg" id="inputPassword4" placeholder="Last Name">
+                                    <input type="text" class="form-control form-control-lg" id="inputPassword4" placeholder="Last Name" name="last_name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress"><h6 style="font-weight:300">Email</h6></label>
-                                <input type="email" class="form-control form-control-lg" id="inputAddress" placeholder="Email ID">
+                                <input type="email" class="form-control form-control-lg" id="inputAddress" placeholder="Email ID" name="email">
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress"><h6 style="font-weight:300">Account Name</h6></label>
-                                <input type="text" class="form-control form-control-lg" id="inputAddress" placeholder="Account Name">
+                                <input type="text" class="form-control form-control-lg" id="inputAddress" placeholder="Account Name" name="account_name">
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress"><h6 style="font-weight:300">Password</h6></label>
-                                <input type="password" class="form-control form-control-lg" id="inputAddress" placeholder="Password">
+                                <input type="password" class="form-control form-control-lg" id="inputAddress" placeholder="Password" name="password">
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress2"><h6 style="font-weight:300">Address</h6></label>
-                                <input type="text" class="form-control form-control-lg" id="inputAddress2" placeholder="City, Zone, Country">
+                                <input type="text" class="form-control form-control-lg" id="inputAddress2" placeholder="City, Zone, Country" name="address">
                             </div>
                             <div class="form-group">
                                     <label for="inputaddress2"><h6 style="font-weight:300">Website</h6></label>
-                                    <input type="text" class="form-control form-control-lg" id="inputAddress" placeholder="www.example.com">
+                                    <input type="text" class="form-control form-control-lg" id="inputAddress" placeholder="www.example.com" name="website">
                                 </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                 <label for="inputAddress"><h6 style="font-weight:300">Date of Established</h6></label>
-                                <input type="date" class="form-control form-control-lg" id="inputAddress" placeholder="">
+                                <input type="date" class="form-control form-control-lg" id="inputAddress" placeholder="" name="date_of_establishment">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputaddress2"><h6 style="font-weight:300">Buisness Type</h6></label>
-                                    <select id="inputState" class="form-control">
+                                    <select id="inputState" class="form-control" name="business_type">
                                         <option selected>Limited Liability Company</option>
                                         <option>Sole Proprietorship</option>
                                         <option>Partnership</option>

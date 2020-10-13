@@ -14,20 +14,13 @@ def sellerLogin(request):
 		email = request.POST.get('email')
 		password = request.POST.get('password')
 		user = authenticate(request, email=email, password=password)
-
 		if user is not None:
 			login(request, user)
-			account = Account.objects.get(id=request.user.id)
-			if account.profile_create is False:
-				profile = Profile(user=request.user)
-				account.profile_create = True
-				profile.save()
-				account.save()
-			return redirect('Store:homepage')
+			return redirect('SellerAccount:sellerdashboard')
 
 		else:
 			messages.error(request, 'Email or password does not match')
-			return redirect("SellerAccount:login")
+			return redirect("SellerAccount:sellerlogin")
 
 
 	return render (request,'seller/login.html')
@@ -39,24 +32,35 @@ def sellerLogin(request):
 @unauthenticated_user
 def sellerRegister(request):
 	if request.method == 'POST':
+		first_name = request.POST['first_name']
+		last_name = request.POST['last_name']
 		email = request.POST['email']
 		account_name = request.POST['account_name']
 		password = request.POST['password']
-		shopname = request.POST['shopname']
+		address = request.POST['address']
+		website = request.POST['website']
+		date_of_establishment = request.POST['date_of_establishment']
+
+
 		if (len(password) > 6):
-			account = Account(email=email, account_name=account_name)
+			account = SellerAccount(email=email, account_name=account_name,first_name=first_name,last_name=last_name,address=address,
+								website=website,date_of_establishment=date_of_establishment)
 			account.set_password(password)
+			print('a')
 			try:
 				account.token = generatetoken()
 				account.save()
+				print('b')
 				messages.success(request, message="Account created successfully. Please check your email to verify.")
 			except:
 				messages.error(request, message="Email is already taken or Invalid Email")
-			return redirect('SellerAccount:login')
+			return redirect('SellerAccount:sellerlogin')
+			print('c')
 
 		else:
 			messages.error(request, message="Password must be greater than 6")
-			return redirect('SellerAccount:register')
+			return redirect('SellerAccount:sellerregister')
+			print('d')
 	return render(request,'seller/register.html')
 
 
@@ -91,4 +95,4 @@ def verifyaccount(request,id,token):
 
 def sellerdashboard(request):
 
-	return render(request,seller/sellerdashboard.html)
+	return render(request,'seller/sellerdashboard.html')

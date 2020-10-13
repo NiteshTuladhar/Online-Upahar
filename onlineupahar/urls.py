@@ -28,6 +28,7 @@ urlpatterns = [
     path('useraccounts/',include('Account.urls',namespace='account')),
     path('accounts/',include('SellerAccount.urls',namespace='selleraccount')),
     path('',include('Profile.urls',namespace='profile')),
+    path('',include('Products.urls',namespace='products')),
     path('contactmail/', include('ContactMail.urls', namespace='acontactmail')),
     path('reset_password/', auth_view.PasswordResetView.as_view(
         template_name='password_reset_form/passwordresetview.html'

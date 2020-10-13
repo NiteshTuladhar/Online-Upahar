@@ -7,7 +7,7 @@ from django.template.loader import get_template
 from django.core.mail import EmailMessage
 
 
-
+business_type = [('Sole Proprietorship','Sole Proprietorship'), ('Partnership','Partnership'), ('Corporation','Corporation'),('Shop','Shop')]
 
 class AccountManager(BaseUserManager):
     def create_user(self, email,account_name,password=None):
@@ -34,10 +34,15 @@ class SellerAccount(AbstractBaseUser):
         unique=True,
     )
     account_name = models.CharField(max_length=50, null=True)
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
+    address = models.CharField(max_length=50, null=True)
+    website = models.URLField(max_length=50, null=True)
+    date_of_establishment = models.DateField(null=True)
+    business_type = models.CharField(max_length=30,choices=business_type,null=True,blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     token = models.CharField(max_length=20, blank=True, null=True)
-    shop_name = models.CharField(max_length=50, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     send_first_email = models.BooleanField(default=False)
     profile_create = models.BooleanField(default=False)
