@@ -7,10 +7,10 @@
     <main class="containers">
  
   <!-- Left Column / Headphones Image -->
-  <div class="left-columns">
-    <img data-image="black" src="{% static 'images/pd_1.jpg' %}" alt="">
-    <img data-image="blue" src="{% static 'images/pd_1.jpg' %}" alt="">
-    <img data-image="red" class="active" src="{% static 'images/pd_1.jpg' %}" alt="">
+  <div class="left-columns" style="margin: 55px 45px auto auto">
+    <img data-image="black" src="{{details.product_image.url}}" alt="">
+    <img data-image="blue" src="{{details.product_image.url}}" alt="">
+    <img data-image="red" class="active" src="{{details.product_image.url}}" alt="">
   </div>
  
  
@@ -19,9 +19,9 @@
  
     <!-- Product Description -->
     <div class="product-descriptions">
-      <span>Accessories</span>
-      <h1>Hand Bag</h1>
-      <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
+      <span>{{details.category}}</span>
+      <h1>{{details.product_name}}</h1>
+      <p>{{details.product_details}}</p>
     </div>
  
     <!-- Product Configuration -->
@@ -64,7 +64,7 @@
  
     <!-- Product Pricing -->
     <div class="product-prices">
-      <span>148$</span>
+      <span>Nrs. {{details.product_price}}</span>
       <a href="#" class="cart-btn">Add to cart</a>
     </div>
   </div>

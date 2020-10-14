@@ -1,5 +1,6 @@
 from django.db import models
-
+from autoslug import AutoSlugField
+from django.utils.text import slugify
 # Create your models here.
 
 class Product(models.Model):
@@ -8,6 +9,7 @@ class Product(models.Model):
     product_price = models.PositiveIntegerField()
     product_image = models.ImageField(null=True, upload_to ='product_details_img/')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
+    slug = AutoSlugField(populate_from='product_name',unique=True,null=True,blank=True)
 
     def __str__(self):
         return self.product_name

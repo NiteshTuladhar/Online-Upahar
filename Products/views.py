@@ -7,7 +7,13 @@ from .models import Product
 # Create your views here.
 
 
-def productDetails(request):
+def productDetails(request,slug):
 
+	details = Product.objects.get(slug=slug)
+	
+	context = {
 
-	return render(request,'product_details/product_details.html')
+		'details' : details
+	}
+
+	return render(request,'product_details/product_details.html',context)
