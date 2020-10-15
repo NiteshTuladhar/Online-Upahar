@@ -10,11 +10,11 @@ def userProfile(request):
 	if request.method == 'GET':
 		userinfo = Account.objects.get(id=request.user.id)
 		profile = Profile.objects.get(user_id=request.user.id)
-		form = ProfileEdit(request.GET or None,instance=profile)
+
 		context = {
 			'profile' : profile,
 			'userinfo' : userinfo,
-			'form' : form
+
 		}
 		return render(request,'userprofile/profile.html',context)
 
@@ -25,15 +25,19 @@ def userProfile(request):
 		mobile = request.POST['mobile']
 		gender = request.POST['gender']
 		location = request.POST.get('location')
-		print(location)
+
 
 		p = Profile.objects.get(user_id=request.user.id)
 		if request.method == 'POST':
-			profile = ProfileEdit(request.POST or None,instance=p)
-			data=profile.save(commit=False)
-			data.user=request.user
+			p.first_name = first_name
+			p.last_name = last_name
+			p.phone = phone
+			p.mobile = mobile
+			p. gender = gender
+			p.location = location
+
 			try:
-				data.save()
+				p.save()
 				messages.success(request, message="Your profile is set.")
 				return redirect('Profile:completeuserprofile')
 			except:

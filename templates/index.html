@@ -368,7 +368,7 @@
 												<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="{% url 'Products:productdetails' %}">
+														<a href="{% url 'Products:productdetails' p.slug %}">
 															<img class="default-img" src="{{p.product_image.url}}" alt="#">
 															<img class="hover-img" src="{{p.product_image.url}}" alt="#">
 														</a>
@@ -384,7 +384,7 @@
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="{% url 'Products:productdetails' %}">{{p.product_name}}</a></h3>
+														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
 															<span>$ {{p.product_price}}</span>
 														</div>
@@ -1507,29 +1507,19 @@
 			<div class="container">
 				<div class="row">
 					<!-- Single Banner  -->
+					{% for b in banner %}
 					<div class="col-lg-6 col-md-6 col-12">
 						<div class="single-banner">
-							<img src="images/gifts/gifts-1.jpg" alt="#">
+							<img src="{{b.banner_image.url}}" alt="#">
 							<div class="content">
-								<p>The Perfect Gift</p>
-								<h3>For Every<span><br>Occasion </span></h3>
-								<a href="#">Gift Now</a>
+								<p>{{b.heading}}</p>
+								<h3>{{b.title}}<span><br>{{b.sub_title}} </span></h3>
+								<a href="#">{{b.button_text}}</a>
 							</div>
 						</div>
 					</div>
 					<!-- /End Single Banner  -->
-					<!-- Single Banner  -->
-					<div class="col-lg-6 col-md-6 col-12">
-						<div class="single-banner">
-							<img src="images/gifts/gifts-1.jpg" alt="#">
-							<div class="content">
-								<p>Birthday Gift</p>
-								<h3>Gifts up to <span><br>20% off</span></h3>
-								<a href="#" class="btn">Gift Now</a>
-							</div>
-						</div>
-					</div>
-					<!-- /End Single Banner  -->
+					{% endfor %}
 				</div>
 			</div>
 		</section>

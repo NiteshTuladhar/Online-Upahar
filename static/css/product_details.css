@@ -168,7 +168,8 @@
   transition: all .5s;
 }
 .cart-btn:hover {
-  background-color: #64af3d;
+  background-color: #3d79b1;
+  color: white;
 }
 
 /* Responsive */
