@@ -72,12 +72,38 @@
           <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <hr>
-                  <h3>First Name:{{userinfo.first_name}}</h3>
-                  <h3>Last Name:{{userinfo.last_name}}</h3>
-                  <h3>Phone:{{userinfo.phone}}</h3>
-                  <h3>Mobile:{{userinfo.mobile}}</h3>
-                  <h3>Gender:{{userinfo.gender}}</h3>
-                  <h3>Address:{{userinfo.location}}</h3>
+                <form>
+                  <div class="row">
+                    <div class="col">
+                      <span><h4>First name</h4></span>
+                      <input type="text" class="form-control" placeholder="First name" value="{{userinfo.first_name}}" disabled>
+                    </div>
+                    <div class="col">
+                      <span><h4>Last name</h4></span>
+                      <input type="text" class="form-control" placeholder="Last name" value="{{userinfo.last_name}}" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span><h4>Phone Number</h4></span>
+                      <input type="text" class="form-control" placeholder="" value="{{userinfo.phone}}" disabled>
+                    </div>
+                    <div class="col">
+                      <span><h4>Mobile Number</h4></span>
+                      <input type="text" class="form-control" placeholder="" value="{{userinfo.mobile}}" disabled>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span><h4>Gender</h4></span>
+                      <input type="text" class="form-control" placeholder="" value="{{userinfo.gender}}" disabled>
+                    </div>
+                    <div class="col">
+                      <span><h4>Location</h4></span>
+                      <input type="text" class="form-control" placeholder="" value="{{userinfo.location}}" disabled>
+                    </div>
+                  </div>
+                </form>
              </div><!--/tab-pane-->
              <div class="tab-pane" id="messages">
                
@@ -92,7 +118,7 @@
                   <h3>Address:{{userinfo.location}}</h3>
                
              </div><!--/tab-pane-->
-             <a href="{% url 'Profile:userprofile' %}">Edit</a>
+             <a href="{% url 'Profile:userprofile' %}" class="btn btn-primary" style="color:white; margin-top: 20px;">Edit</a>
              <div class="tab-pane" id="settings">
             		
                	
