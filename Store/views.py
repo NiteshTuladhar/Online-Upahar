@@ -7,10 +7,12 @@ def home(request):
 
 	product = Product.objects.all()
 	banner = SmallBanner.objects.all()
+	id=request.user.id
 
 	context = {
 		'product': product,
 		'banner' : banner,
+		'id': id,
 	}
 
 	return render(request,'index.html', context)
