@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from Account.models import Account
 # Create your models here.
 
 
@@ -24,3 +25,6 @@ class SmallBanner(models.Model):
 
     def clean(self):
         validate_only_one_instance(self)
+
+
+
