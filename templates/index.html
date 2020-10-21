@@ -43,6 +43,27 @@
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+   
+    <script type="text/javascript">
+    	var user = '{{request.user}}'
+
+    	function getToken(name) {
+		    let cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        const cookies = document.cookie.split(';');
+		        for (let i = 0; i < cookies.length; i++) {
+		            const cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		const csrftoken = getToken('csrftoken');
+    </script>
 
 	
 	
@@ -157,7 +178,7 @@
 								<a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
 							<div class="sinlge-bar shopping">
-								<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
+								<a href="{% url 'Store:cartpage' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>
 								<!-- Yo Chai Add To Cart ko Dropdown aile ko lai disabled xa, Search Bar ra user icon ko sangai By Sushek on 9/22/2020 -->
 								<!-- Shopping Item -->
 								<!--<div class="shopping-item">
@@ -367,6 +388,7 @@
 									<div class="tab-single">
 										<div class="row">
 											{% for p in product %}
+
 												{% if p.category.product_category == 'Love' %}
 												<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
@@ -382,7 +404,7 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
 															</div>
 														</div>
 													</div>
@@ -421,7 +443,7 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
 															</div>
 														</div>
 													</div>
@@ -460,7 +482,7 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
 															</div>
 														</div>
 													</div>
@@ -498,7 +520,7 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
 															</div>
 														</div>
 													</div>
@@ -536,7 +558,7 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
 															</div>
 														</div>
 													</div>
@@ -1098,7 +1120,7 @@
 	</footer>
 	<!-- /End Footer Area -->
 
-	
+
 
 	
 
@@ -1115,6 +1137,7 @@
 
  
 	<!-- Jquery -->
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery-migrate-3.0.0.js' %}"></script>
 	<script src="{% static 'js/jquery-ui.min.js' %}"></script>
