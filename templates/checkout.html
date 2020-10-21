@@ -36,7 +36,9 @@
 								<div class="content">
 									<ul>
 										<li>Sub Total<span>Nrs. {{order.get_cart_total|floatformat:2}}</span></li>
-										<li>(+) Delivaery<span>Nrs. 50</span></li>
+										<div id="delivery-charge">
+											<li>(+) Delivaery<span>Nrs. 50</span></li>
+										</div>
 										<li class="last">Total<span>{{order.get_cart_grandtotal|floatformat:2}}</span></li>
 									</ul>
 								</div>
@@ -122,4 +124,11 @@
 		</section>
 		<!-- End Shop Services -->
 
+		<script type="text/javascript">
+			var shipping = '{{order.shipping}}'
+
+			if(shipping == 'False'){
+				document.getElementById('delivery-charge').innerHTML = ''
+			}
+		</script>
 	{% endblock %}

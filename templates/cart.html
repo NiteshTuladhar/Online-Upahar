@@ -47,21 +47,18 @@
 									<p class="product-des">{{item.product.product_details}}</p>
 								</td>
 								<td class="price" data-title="Price"><span>Nrs. {{item.product.product_price|floatformat:2}} </span></td>
-								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
-										<div class="button minus">
-											<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-												<i class="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="{{item.quantity}}">
-										<div class="button plus">
-											<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-												<i class="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-									<!--/ End Input Order -->
+								<td class="qty" data-title="Qty">
+
+										<!-- Input Order -->
+									<p>{{item.quantity}}</p>
+										
+								
+									<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data- action="add" 
+										style="width: 15px;height:15px;cursor: pointer;display: block;">
+									<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data- action="remove"
+										style="width: 15px;height:15px;cursor: pointer;display: block;-webkit-transform:rotate(180deg);">
+								
+
 								</td>
 								<td class="total-amount" data-title="Total"><span>Nrs {{item.get_total|floatformat:2}}</span></td>
 								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
@@ -100,7 +97,7 @@
 								<div class="right">
 									<ul>
 										<li>Cart Subtotal<span>{{order.get_cart_total|floatformat:2}}</span></li>
-										<li>Delivery<span>Nrs 50</span></li>
+
 										
 										<li class="last">Total Amount<span>Nrs {{order.get_cart_grandtotal|floatformat:2}}</span></li>
 									</ul>

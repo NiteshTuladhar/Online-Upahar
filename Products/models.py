@@ -14,6 +14,7 @@ class Product(models.Model):
     product_image = models.ImageField(null=True, upload_to ='product_details_img/')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
     slug = AutoSlugField(populate_from='product_name',unique=True,null=True,blank=True)
+    digital = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
         return self.product_name
@@ -44,15 +45,31 @@ class Order(models.Model):
         return str(self.id)
 
     @property
+    def shipping(self):
+        shipping = False
+        orderitems = self.orderitem_set.all()
+        for i in orderitems:
+            if i.product.digital == False:
+                shipping = True
+
+        return shipping
+    
+
+    @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
         return total
+
     @property
     def get_cart_grandtotal(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
-        grandtotal = total + 50
+        for i in orderitems:
+            if i.product.digital == False:
+                grandtotal = total + 50
+            else:
+                grandtotal = total
         return grandtotal
 
     @property
