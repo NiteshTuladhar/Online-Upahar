@@ -69,11 +69,8 @@ class Order(models.Model):
                 grandtotal = total + 50
             else:
                 grandtotal = total
-<<<<<<< HEAD
-=======
 
 
->>>>>>> ac572a4ca5b2c983b6e337dc8cbb38f5520a2ec9
         return grandtotal
 
 
@@ -110,6 +107,7 @@ class Wishlist(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     seller_account = models.ForeignKey(SellerAccount, on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True, blank=True)
+    liked = models.BooleanField(default=True)
 
 
     def __str__(self):

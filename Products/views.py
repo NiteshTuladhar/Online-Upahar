@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from Profile.models import Profile
@@ -40,4 +40,12 @@ def wishlist_edit(request, id):
 	wishlist = Wishlist(user=user, seller_account=seller_account, product=product)
 	wishlist.save()
 
-	return redirect('Store:homepage')
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def wishlist_delete(request, id):
+	user = request.user.id
+	wishlist = Wishlist.objects.get(id=id)
+	wishlist.delete()
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

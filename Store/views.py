@@ -3,9 +3,14 @@ from Products.models import Product,Order, OrderItem, ShippingAdress
 from Store.models import SmallBanner
 from django.http import JsonResponse
 import json
+from Products.models import Wishlist
 
 # Create your views here.
 def home(request):
+	product = Product.objects.all()
+	banner = SmallBanner.objects.all()
+	wishlist = Wishlist.objects.all()
+	id=request.user.id
 	if request.user.is_authenticated:
 		customer = request.user.profile
 		print(customer)
@@ -17,15 +22,14 @@ def home(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	product = Product.objects.all()
-	banner = SmallBanner.objects.all()
-	id=request.user.id
+
 
 	context = {
 		'product': product,
 		'banner' : banner,
 		'id': id,
-		'cartItems' : cartItems
+		'cartItems' : cartItems,
+		'wishlist': wishlist,
 	}
 
 	return render(request,'index.html', context)
