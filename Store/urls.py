@@ -28,5 +28,8 @@ urlpatterns = [
    path('cart/',views.cartpage,name='cartpage'),
    path('checkout/',views.checkoutpage,name='checkoutpage'),
    path('update_item/',views.updateItem,name='update_item'),
+<<<<<<< HEAD
+=======
 
+>>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
 ]
