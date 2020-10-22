@@ -45,7 +45,6 @@ class Order(models.Model):
         return str(self.id)
 
     @property
-
     def shipping(self):
         shipping = False
         orderitems = self.orderitem_set.all()
@@ -74,8 +73,9 @@ class Order(models.Model):
             else:
                 grandtotal = total
 
-        grandtotal = total + 50
+
         return grandtotal
+
 
     @property
     def get_cart_items(self):
