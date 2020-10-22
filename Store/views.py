@@ -14,8 +14,17 @@ def home(request):
 		cartItems = order.get_cart_items
 	else:
 		items = []
+<<<<<<< HEAD
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
+=======
+
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0}
+		cardItems = order['get_cart_items']
+>>>>>>> 0ec6907e22d91592b73e54cd128bb91c5ccfa892
 
 	product = Product.objects.all()
 	banner = SmallBanner.objects.all()
@@ -37,12 +46,22 @@ def cartpage(request):
 		print(customer)
 		order, created = Order.objects.get_or_create(customer=customer,complete=False)
 		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
+		cartItems = order['get_cart_items']
 		print(items)
 	else:
 		items = []
+<<<<<<< HEAD
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
+=======
+
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0}
+		cartItems = order['get_cart_items']
+
+>>>>>>> 0ec6907e22d91592b73e54cd128bb91c5ccfa892
 
 	context={'items' : items, 'order':order,'cartItems':cartItems}
 	return render(request,'cart.html',context)
@@ -60,8 +79,18 @@ def checkoutpage(request):
 		print(items)
 	else:
 		items = []
+<<<<<<< HEAD
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
+=======
+
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0}
+		cartItems = order['get_cart_items']
+
+>>>>>>> 0ec6907e22d91592b73e54cd128bb91c5ccfa892
 
 	context={'items' : items, 'order':order,'cartItems':cartItems}
 	return render(request,'checkout.html',context)

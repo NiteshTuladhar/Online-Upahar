@@ -36,13 +36,13 @@
 								<div class="content">
 									<ul>
 										<li>Sub Total<span>Nrs. {{order.get_cart_total|floatformat:2}}</span></li>
-<<<<<<< HEAD
+
 										<div id="delivery-charge">
 											<li>(+) Delivaery<span>Nrs. 50</span></li>
 										</div>
-=======
+
 										<li>(+) Delivaery<span>Nrs. 50</span></li>
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
+
 										<li class="last">Total<span>{{order.get_cart_grandtotal|floatformat:2}}</span></li>
 									</ul>
 								</div>
@@ -128,7 +128,7 @@
 		</section>
 		<!-- End Shop Services -->
 
-<<<<<<< HEAD
+
 		<script type="text/javascript">
 			var shipping = '{{order.shipping}}'
 
@@ -136,6 +136,5 @@
 				document.getElementById('delivery-charge').innerHTML = ''
 			}
 		</script>
-=======
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
+
 	{% endblock %}
