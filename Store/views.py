@@ -14,13 +14,12 @@ def home(request):
 		cartItems = order.get_cart_items
 	else:
 		items = []
-<<<<<<< HEAD
+
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
-=======
+
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0}
 		cardItems = order['get_cart_items']
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
 
 	product = Product.objects.all()
 	banner = SmallBanner.objects.all()
@@ -42,17 +41,17 @@ def cartpage(request):
 		print(customer)
 		order, created = Order.objects.get_or_create(customer=customer,complete=False)
 		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
+		cartItems = order['get_cart_items']
 		print(items)
 	else:
 		items = []
-<<<<<<< HEAD
+
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
-=======
+
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0}
-		cartItems = order.get_cart_items
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
+		cartItems = order['get_cart_items']
+
 
 	context={'items' : items, 'order':order,'cartItems':cartItems}
 	return render(request,'cart.html',context)
@@ -70,13 +69,13 @@ def checkoutpage(request):
 		print(items)
 	else:
 		items = []
-<<<<<<< HEAD
+
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
-=======
+
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0}
-		cartItems = order.get_cart_items
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
+		cartItems = order['get_cart_items']
+
 
 	context={'items' : items, 'order':order,'cartItems':cartItems}
 	return render(request,'checkout.html',context)
