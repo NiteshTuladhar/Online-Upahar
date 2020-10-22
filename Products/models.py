@@ -69,7 +69,13 @@ class Order(models.Model):
                 grandtotal = total + 50
             else:
                 grandtotal = total
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ac572a4ca5b2c983b6e337dc8cbb38f5520a2ec9
         return grandtotal
+
 
     @property
     def get_cart_items(self):
