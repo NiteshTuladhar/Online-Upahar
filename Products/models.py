@@ -45,7 +45,6 @@ class Order(models.Model):
         return str(self.id)
 
     @property
-<<<<<<< HEAD
     def shipping(self):
         shipping = False
         orderitems = self.orderitem_set.all()
@@ -57,29 +56,19 @@ class Order(models.Model):
     
 
     @property
-=======
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
         return total
-<<<<<<< HEAD
-
-=======
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
     @property
     def get_cart_grandtotal(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
-<<<<<<< HEAD
         for i in orderitems:
             if i.product.digital == False:
                 grandtotal = total + 50
             else:
                 grandtotal = total
-=======
-        grandtotal = total + 50
->>>>>>> c743f243a81aafcf561d293eb1b548849b623d85
         return grandtotal
 
     @property
