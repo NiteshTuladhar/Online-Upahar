@@ -25,6 +25,9 @@ class Profile(models.Model):
             url = ''
         return url
 
+    def __str__(self):
+        return self.first_name
+
 
 
 class SellerProfile(models.Model):

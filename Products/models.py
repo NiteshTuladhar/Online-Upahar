@@ -7,7 +7,7 @@ from Profile.models import Profile
 # Create your models here.
 
 class Product(models.Model):
-    seller_account = models.ForeignKey(SellerAccount, on_delete=models.CASCADE, null=True)
+    seller_account = models.ForeignKey(SellerAccount, on_delete=models.CASCADE, null=True, related_name='seller_account')
     product_name = models.CharField(max_length=50)
     product_details = models.TextField()
     product_price = models.PositiveIntegerField()
@@ -15,6 +15,7 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
     slug = AutoSlugField(populate_from='product_name',unique=True,null=True,blank=True)
     digital = models.BooleanField(default=False, null=True, blank=True)
+    liked = models.ManyToManyField(Account, default=None, blank=True, related_name='liked')
 
     def __str__(self):
         return self.product_name
@@ -102,12 +103,15 @@ class ShippingAdress(models.Model):
     postal_code = models.CharField(max_length=200,null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
-
+WISH_CHOICES = (
+    ('Wish', "Wish"),
+    ('Unwish', 'Unwish'),
+)
 class Wishlist(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     seller_account = models.ForeignKey(SellerAccount, on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True, blank=True)
-    liked = models.BooleanField(default=True)
+    liked = models.CharField(max_length=15, choices=WISH_CHOICES,default='Unwish')
 
 
     def __str__(self):
