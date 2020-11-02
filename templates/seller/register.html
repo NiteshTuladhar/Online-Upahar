@@ -1,0 +1,95 @@
+{% extends 'master/base.html' %}
+{% load static %}
+    {% block title %}Register | Online Upahar {% endblock %}
+{% block body %}
+<!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Register</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Form Section Begin -->
+
+            {% if messages %}
+                {% for m in messages %}
+                    <div class="alert {% if m.tags == 'success' %} alert-primary {% else %} alert-danger {% endif %}" style="text-align: center;">
+                        {{m}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="register-form">
+                        <h2>Register As a Seller </h2>
+                        <form method="POST" action="">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {% csrf_token %}
+                                    <label for="inputEmail4"><h6 style="font-weight:300">First Name</h6></label>
+                                    <input type="text" class="form-control form-control-lg" id="inputEmail4" placeholder="First Name" name="first_name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4"><h6 style="font-weight:300">Last Name</h6></label>
+                                    <input type="text" class="form-control form-control-lg" id="inputPassword4" placeholder="Last Name" name="last_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress"><h6 style="font-weight:300">Email</h6></label>
+                                <input type="email" class="form-control form-control-lg" id="inputAddress" placeholder="Email ID" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress"><h6 style="font-weight:300">Account Name</h6></label>
+                                <input type="text" class="form-control form-control-lg" id="inputAddress" placeholder="Account Name" name="account_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress"><h6 style="font-weight:300">Password</h6></label>
+                                <input type="password" class="form-control form-control-lg" id="inputAddress" placeholder="Password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress2"><h6 style="font-weight:300">Address</h6></label>
+                                <input type="text" class="form-control form-control-lg" id="inputAddress2" placeholder="City, Zone, Country" name="address">
+                            </div>
+                            <div class="form-group">
+                                    <label for="inputaddress2"><h6 style="font-weight:300">Website</h6></label>
+                                    <input type="text" class="form-control form-control-lg" id="inputAddress" placeholder="www.example.com" name="website">
+                                </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                <label for="inputAddress"><h6 style="font-weight:300">Date of Established</h6></label>
+                                <input type="date" class="form-control form-control-lg" id="inputAddress" placeholder="" name="date_of_establishment">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputaddress2"><h6 style="font-weight:300">Buisness Type</h6></label>
+                                    <select id="inputState" class="form-control" name="business_type">
+                                        <option selected>Limited Liability Company</option>
+                                        <option>Sole Proprietorship</option>
+                                        <option>Partnership</option>
+                                        <option>Corporation</option>
+                                        <option>S Corporation</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="site-btn register-btn">REGISTER</button>
+                        </form>
+                        <div class="switch-login">
+                            <a href="{% url 'SellerAccount:sellerlogin' %}" class="or-login">Or Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+    
+{% endblock %}

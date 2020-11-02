@@ -21,10 +21,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
-app_name = 'Home'
+app_name = 'Store'
 
 urlpatterns = [
    path('',views.home,name='homepage'),
    path('cart/',views.cartpage,name='cartpage'),
-   path('contact/',views.contactpage,name='contactpage')
+   path('checkout/',views.checkoutpage,name='checkoutpage'),
+   path('update_item/',views.updateItem,name='update_item'),
 ]

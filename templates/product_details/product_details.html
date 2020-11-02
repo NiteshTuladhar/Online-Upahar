@@ -1,0 +1,90 @@
+{% extends 'master/base.html' %}
+{% load static %}
+    {% block title %}Login | Online Upahar {% endblock %}
+
+{% block body %}
+
+    <main class="containers">
+ 
+  <!-- Left Column / Headphones Image -->
+  <div class="left-columns" style="margin: 55px 45px auto auto">
+    <img data-image="black" src="{{details.product_image.url}}" alt="">
+    <img data-image="blue" src="{{details.product_image.url}}" alt="">
+    <img data-image="red" class="active" src="{{details.product_image.url}}" alt="">
+  </div>
+ 
+ 
+  <!-- Right Column -->
+  <div class="right-columns">
+ 
+    <!-- Product Description -->
+    <div class="product-descriptions">
+      <span>{{details.category}}</span>
+      <h1>{{details.product_name}}</h1>
+      <p>{{details.product_details}}</p>
+    </div>
+ 
+    <!-- Product Configuration -->
+    <div class="product-configurations">
+ 
+      <!-- Product Color -->
+      <div class="product-colors">
+        <span>Color</span>
+ 
+        <div class="color-chooses">
+          <div>
+            <input data-image="red" type="radio" id="red" name="color" value="red" checked>
+            <label for="red"><span></span></label>
+          </div>
+          <div>
+            <input data-image="blue" type="radio" id="blue" name="color" value="blue">
+            <label for="blue"><span></span></label>
+          </div>
+          <div>
+            <input data-image="black" type="radio" id="black" name="color" value="black">
+            <label for="black"><span></span></label>
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <!-- Cable Configuration -->
+      <div class="cable-configs">
+        <span>Cable configuration</span>
+ 
+        <div class="cable-chooses">
+          <button>Straight</button>
+          <button>Coiled</button>
+          <button>Long-coiled</button>
+        </div>
+ 
+        <a href="#">How to configurate your headphones</a>
+      </div>
+    </div>
+ 
+    <!-- Product Pricing -->
+    <div class="product-prices">
+      <span>Nrs. {{details.product_price}}</span>
+      <a href="#" class="cart-btn">Add to cart</a>
+    </div>
+  </div>
+</main>
+
+<script>
+    $(document).ready(function() {
+ 
+  $('.color-choose input').on('click', function() {
+      var headphonesColor = $(this).attr('data-image');
+ 
+      $('.active').removeClass('active');
+      $('.left-column img[data-image = ' + headphonesColor + ']').addClass('active');
+      $(this).addClass('active');
+  });
+ 
+});
+</script>
+</body>
+</html>
+
+
+{% endblock %}

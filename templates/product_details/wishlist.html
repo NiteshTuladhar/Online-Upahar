@@ -1,0 +1,68 @@
+{% extends 'master/base.html' %}
+{% load static %}
+{% block title %}Wishlist {% endblock %}
+
+{% block body %}
+
+	<!-- Breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="{% url 'Store:homepage' %}">Home<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="#">Wishlist</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+			
+	<!-- Shopping Cart -->
+	<div class="shopping-cart section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<!-- Shopping Summery -->
+					<table class="table shopping-summery">
+						<thead>
+							<tr class="main-hading">
+								<th>PRODUCT</th>
+								<th>NAME</th>
+								<th class="text-center">UNIT PRICE</th>
+								<th class="text-center">Product Of</th>
+								<th class="text-center">Add to Cart</th> 
+								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+							</tr>
+						</thead>
+						<tbody>
+                            {% for wish in wishlist %}
+							<tr>
+								<td class="image" data-title="No"><img src="{{wish.product.product_image.url}}">
+								<td class="product-des" data-title="Description">
+									<p class="product-name"><a href="#">{{wish.product.product_name}}</a></p>
+									<p class="product-des">This is some random text and must be changed later.</p>
+								</td>
+								<td class="price" data-title="Price"><span>Nrs {{wish.product.product_price}} </span></td>
+								<td class="qty" data-title="Qty"><!-- Input Order -->
+									{{wish.seller_account.account_name}}
+									<!--/ End Input Order -->
+								</td>
+								<td class="total-amount" data-title="Total"><span>Nrs {{wish.product.product_price}}</span></td>
+								<td class="action" data-title="Remove"><a href="{% url 'Products:delete_wishlist' wish.id %}"><i class="ti-trash remove-icon"></i></a></td>
+                            </tr>
+                            {% endfor %}
+						</tbody>
+					</table>
+					<!--/ End Shopping Summery -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ End Shopping Cart -->
+
+
+{% endblock %}
