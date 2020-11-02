@@ -43,21 +43,12 @@ def wishlist_edit(request, id):
 		print(x)
 		if user in wish_obj.liked.all():
 			wish_obj.liked.remove(user)
+			wish = Wishlist.objects.get(user=user, product_id=product.id, seller_account=seller_account)
+			wish.delete()
 		else:
 			wish_obj.liked.add(user)
-			
-		wish, created = Wishlist.objects.get_or_create(user=user, product_id=wish_obj.id, seller_account=seller_account)
-
-		if not created:
-			if wish.liked == 'Wish':
-				wish.liked = 'Unwish'
-				wish.delete()
-				print('---------------remove---------------------')
-			else:
-				wish.liked = 'Wish'	
-				print('================added======================')
-
-			wish.save()  
+			wish, created = Wishlist.objects.get_or_create(user=user, product_id=wish_obj.id, seller_account=seller_account)
+			wish.save()
 
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -65,6 +56,10 @@ def wishlist_edit(request, id):
 def wishlist_delete(request, id):
 	user = request.user.id
 	wishlist = Wishlist.objects.get(id=id)
+	product = wishlist.product.id
+	wish_obj = Product.objects.get(id=product)
 	wishlist.delete()
+	wish_obj.liked.remove(user)
+
 
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

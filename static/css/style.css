@@ -1850,6 +1850,7 @@ Version:1.0
 }
 .single-product .product-img .product-action a i {
   line-height: 40px;
+  margin-right:15px;
 }
 .single-product .product-img .product-action a span {
 	visibility: hidden;
