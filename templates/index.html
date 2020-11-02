@@ -399,16 +399,20 @@
 														</a>
 														<div class="button-head">
 															<div class="product-action">
-																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-																{% for wish in wishlist %}
-																	{% if wish.product.id == p.id and wish.user.id == user.id %}
-																		<a title="Wishlist" href="{% url 'Products:delete_wishlist' wish.id %}"><i class=" ti-heart-broken "></i><span>Add to Wishlist</span></a>
-																	{% endif %}		
-																{% endfor %}
-													
-																<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-																	
-																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+																<!--<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>-->
+																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
+																	{% csrf_token %}
+																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
+																	{% if user not in p.liked.all %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% else %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																	{% endif %}
+
+																</form>	
+																
+
+																
 															</div>
 															<div class="product-action-2">
 																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
@@ -445,16 +449,20 @@
 														</a>
 														<div class="button-head">
 															<div class="product-action">
-																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-																{% for wish in wishlist %}
-																	{% if wish.product.id == p.id and wish.user.id == user.id %}
-																		<a title="Wishlist" href="{% url 'Products:delete_wishlist' wish.id %}"><i class=" ti-heart-broken "></i><span>Add to Wishlist</span></a>
-																	{% endif %}		
-																{% endfor %}
-													
-																<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																<!--<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>-->
+																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
+																	{% csrf_token %}
+																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
+																	{% if user not in p.liked.all %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% else %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																	{% endif %}
 
-																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+																</form>	
+																
+
+																
 															</div>
 															<div class="product-action-2">
 																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
@@ -491,15 +499,20 @@
 														</a>
 														<div class="button-head">
 															<div class="product-action">
-																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-																{% for wish in wishlist %}
-																	{% if wish.product.id == p.id and wish.user.id == user.id %}
-																		<a title="Wishlist" href="{% url 'Products:delete_wishlist' wish.id %}"><i class=" ti-heart-broken "></i><span>Add to Wishlist</span></a>
-																	{% endif %}		
-																{% endfor %}
-													
-																<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>	
-																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+																<!--<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>-->
+																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
+																	{% csrf_token %}
+																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
+																	{% if user not in p.liked.all %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% else %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																	{% endif %}
+
+																</form>	
+																
+
+																
 															</div>
 															<div class="product-action-2">
 																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
@@ -535,7 +548,7 @@
 														</a>
 														<div class="button-head">
 															<div class="product-action">
-																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+																<!--<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>-->
 																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
 																	{% csrf_token %}
 																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
@@ -548,7 +561,7 @@
 																</form>	
 																
 
-																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+																
 															</div>
 															<div class="product-action-2">
 																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
@@ -584,16 +597,20 @@
 														</a>
 														<div class="button-head">
 															<div class="product-action">
-																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-																{% for wish in wishlist %}
-																	{% if wish.product.id == p.id and wish.user.id == user.id %}
-																		<a title="Wishlist" href="{% url 'Products:delete_wishlist' wish.id %}"><i class=" ti-heart-broken "></i><span>Add to Wishlist</span></a>
-																	{% endif %}		
-																{% endfor %}
-													
-																<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																<!--<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>-->
+																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
+																	{% csrf_token %}
+																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
+																	{% if user not in p.liked.all %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% else %}
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																	{% endif %}
 
-																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+																</form>	
+																
+
+																
 															</div>
 															<div class="product-action-2">
 																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>

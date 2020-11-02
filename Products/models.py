@@ -103,15 +103,11 @@ class ShippingAdress(models.Model):
     postal_code = models.CharField(max_length=200,null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
-WISH_CHOICES = (
-    ('Wish', "Wish"),
-    ('Unwish', 'Unwish'),
-)
+
 class Wishlist(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     seller_account = models.ForeignKey(SellerAccount, on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True, blank=True)
-    liked = models.CharField(max_length=15, choices=WISH_CHOICES,default='Unwish')
 
 
     def __str__(self):
