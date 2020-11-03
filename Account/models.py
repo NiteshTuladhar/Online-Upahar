@@ -5,19 +5,21 @@ from django.contrib.auth.models import (
 from django.db.models.signals import post_save
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
-
+from .token import generatetoken
 
 
 
 class AccountManager(BaseUserManager):
-    def create_user(self, email,account_name, password=None):
+    def create_user(self, email,account_name=None, username=None, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=self.normalize_email(email),
             account_name = account_name,
+             username=username,
             password=password
+           
             
         )
 
@@ -43,7 +45,8 @@ class Account(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    account_name = models.CharField(max_length=50, null=True)
+    username = models.CharField(max_length=50, null=True, blank=True)
+    account_name = models.CharField(max_length=50, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     token = models.CharField(max_length=20, blank=True, null=True)
@@ -84,6 +87,14 @@ class Account(AbstractBaseUser):
 def sendAccountCreationMail(sender, **kwargs):
     current_user = kwargs['instance']
     current_user_mail = current_user.email
+    if current_user.token is None:
+        current_user.token = generatetoken()
+        current_user.profile_create = True
+        current_user.save()
+
+        #profile = Profile(user=current_user)
+        #profile.save()
+
     token = current_user.token
     s = "Account Creation"
     context = {

@@ -37,13 +37,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     
+    #Internal App Installation
     'Store',
     'Account',
     'Profile',
     'SellerAccount',
     'ContactMail',
-    'Products'
+    'Products',
+
+    #External App Instalation
+    'social_django',
+
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #providers
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -69,6 +83,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                #Extra Added
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -106,6 +124,49 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+AUTHENTICATION_BACKENDS = [
+
+    'social_core.backends.facebook.FacebookOAuth2',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+
+]
+SOCIALACCOUNT_PROVIDERS = \
+    {'facebook':
+       {'METHOD': 'oauth2',
+        'SCOPE': ['email',],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'kr_KR',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'}}
+SOCIAL_AUTH_FACEBOOK_KEY = '797282451054744'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'ee68bfb3aabe7a84f658561e8b68c974'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/done/'
+LOGOUT_REDIRECT_URL = '/'
+URL_PATH = ''
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id,name,email', 
+}
+
+LOGIN_REDIRECT_URL = '/'
+SITE_ID= 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

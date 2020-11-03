@@ -26,7 +26,7 @@ class Profile(models.Model):
         return url
 
     def __str__(self):
-        return self.first_name
+        return self.user.email
 
 
 
