@@ -43,6 +43,10 @@ urlpatterns = [
         template_name='password_reset_form/PasswordResetCompleteView.html'
     ), name='password_reset_complete'),
 
+
+    path('social/', include('social_django.urls', namespace='social')),
+    path('social_auth/', include('allauth.urls'))
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

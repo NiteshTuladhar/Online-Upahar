@@ -1,8 +1,31 @@
 {% extends 'master/base.html' %}
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
     {% block title %}Login | Online Upahar {% endblock %}
 {% block body %}
-
+<style>
+.btn-social {
+    position: relative;
+    padding-left: 44px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.btn-social:hover{
+    color: #eee !important;
+}
+.btn-facebook {
+    color: #fff !important; 
+    background-color: #3b5998;
+    border-color: rgba(0,0,0,0.2);
+}
+.btn-facebook:hover {
+        color: #eee !important;
+    
+}
+</style>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
         <div class="container">
@@ -54,7 +77,9 @@
                             <button type="submit" class="site-btn login-btn">Sign In</button>
                         </form>
                         <div class="switch-login">
-                            <a href="{% url 'Account:register' %}" class="or-login">Or Create An Account</a>
+                            <a href="{% url 'Account:register' %}" class="or-login">Or Create An Account</a><br>
+                            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-lg btn-social btn-facebook">
+                                <i class="fa fa-facebook fa-fw"></i> Or Sign in with Facebook</a>
                         </div>
                     </div>
                 </div>
@@ -62,5 +87,6 @@
         </div>
     </div>
     <!-- Register Form Section End -->
+    
 
    {% endblock %}

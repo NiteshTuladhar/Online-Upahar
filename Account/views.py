@@ -64,7 +64,7 @@ def userlogout(request):
 
 #Sends Email with token to verify account.
 
-def verifyaccount(request,id,token):
+def verifyaccount(request,id,token, backend='django.contrib.auth.backends.ModelBackend'):
 
 	a = Account.objects.get(id=id)
 
@@ -73,7 +73,12 @@ def verifyaccount(request,id,token):
 		if a.token == token:
 			a.is_verified = True
 			a.save()
-			login(request, a)
+			if a.profile_create is False:
+				profile = Profile(user=a)
+				a.profile_create = True
+				profile.save()
+				a.save()
+			login(request, a, backend='django.contrib.auth.backends.ModelBackend')
 			return redirect('Store:homepage')
 			messages.success(request,"Your account is activated. Hey!! It's a great time to create your profile")
 
