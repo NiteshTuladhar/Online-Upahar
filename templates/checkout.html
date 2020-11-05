@@ -26,6 +26,122 @@
 			<div class="container">
 				<div class="row"> 
 					<div class="col-lg-8 col-12">
+						<div class="row">
+							<div class="col-12">
+								<!-- Shopping Summery -->
+								<table class="table shopping-summery">
+									<thead>
+										<tr class="main-hading">
+											<th>PRODUCT</th>
+											<th>NAME</th>
+											<th class="text-center">UNIT PRICE</th>
+											<th class="text-center">QUANTITY</th>
+											<th class="text-center">TOTAL</th> 
+											<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for item in items %}
+										<tr>
+											<td class="image" data-title="No"><img src="{{item.product.imageURL}}" alt="#"></td>
+											<td class="product-des" data-title="Description">
+												<p class="product-name"><a href="#">{{item.product.product_name}}</a></p>
+												<p class="product-des">{{item.product.product_details}}</p>
+											</td>
+											<td class="price" data-title="Price"><span>Nrs. {{item.product.product_price|floatformat:2}} </span></td>
+
+											<td class="qty" data-title="Qty">
+
+													<!-- Input Order -->
+												<p>{{item.quantity}}</p>
+													
+											
+												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data- action="add" 
+													style="width: 15px;height:15px;cursor: pointer;display: block;">
+												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data- action="remove"
+													style="width: 15px;height:15px;cursor: pointer;display: block;-webkit-transform:rotate(180deg);">
+											
+
+
+											<!--<td class="qty" data-title="Qty">
+												<div class="input-group">
+													<div class="button minus">
+														<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+															<i class="ti-minus"></i>
+														</button>
+													</div>
+													<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="{{item.quantity}}">
+													<div class="button plus">
+														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+															<i class="ti-plus"></i>
+														</button>
+													</div>
+												</div>
+												/ End Input Order -->
+
+											</td>
+											<td class="total-amount" data-title="Total"><span>Nrs {{item.get_total|floatformat:2}}</span></td>
+											<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<!--/ End Shopping Summery -->
+							</div>
+						</div>
+
+						<div class="rows" id="billing">
+  <div class="col-75">
+    <div class="containers">
+      <form id='form'>
+
+        <div class="rows">
+          <div class="col-50">
+            <h3>Billing Address</h3>
+            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required>
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required>
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" name="address1" placeholder="542 W. 15th Street" required>
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="city" name="city" placeholder="New York" required>
+
+            <div class="rows">
+              <div class="col-50">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" placeholder="NY" required>
+              </div>
+              <div class="col-50">
+                <label for="zip">Zip</label>
+                <input type="text" id="zip" name="zip" placeholder="10001" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-50">
+            
+            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+            <input type="text" id="email" name="email" placeholder="john@example.com" required>
+           
+            <label for="ccnum">Contact No</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+
+            
+            
+          </div>
+
+        </div>
+        <label>
+          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+        </label>
+        <input type="submit" value="Continue to checkout" class="btns" id="form-button" >
+      </form>
+    </div>
+  </div>
+
+
+</div>
 
 					</div>
 					<div class="col-lg-4 col-12">
@@ -68,15 +184,14 @@
 							</div>
 							<!--/ End Payment Method Widget -->
 							<!-- Button Widget -->
-							<div class="single-widget get-button">
+							<div class="single-widget get-button" id="checkout">
 								<div class="content">
 									<div class="button">
 										<a href="#" class="btn">proceed to checkout</a>
 									</div>
 								</div>
 							</div>
-							<!--/ End Button Widget -->
-						</div>
+
 					</div>
 				</div>
 			</div>
@@ -131,10 +246,78 @@
 
 		<script type="text/javascript">
 			var shipping = '{{order.shipping}}'
+			var total = '{{order.get_cart_grandtotal|floatformat:2}}'
 
 			if(shipping == 'False'){
 				document.getElementById('delivery-charge').innerHTML = ''
+				document.getElementById('billing').innerHTML = ''
+
 			}
-		</script>
+
+			else{
+				document.getElementById('checkout').innerHTML = ''
+			}
+
+
+			if (user != 'AnonymousUser'){
+				document.getElementById('user-info').innerHTML = ''
+			}
+
+			var form = document.getElementById('form')
+
+			document.getElementById('form-button').addEventListener('click',function(e){
+				submitFormData()
+			})
+
+			function submitFormData(){
+				console.log('payment button clicked')
+
+				var userFormData = {
+
+					'total' : total,
+				}
+
+				var shippingInfo = {
+					'firstname' :  null,
+					'address' :  null,
+					'address1' : null,
+					'city' :  null,
+					'state' :  null,
+					'zip' :  null,
+
+			}
+
+			if (shipping != 'false'){
+				shippingInfo.firstname = form.firstname.value
+				shippingInfo.address = form.address.value
+				shippingInfo.address1 = form.address1.value
+				shippingInfo.city = form.city.value
+				shippingInfo.state = form.state.value
+				shippingInfo.zip = form.zip .value
+			}
+
+
+
+
+
+
+			var url = '/process_order/'
+			fetch(url,{
+				method:'POST',
+				header:{
+					'Content-Type':'application/json',
+					'X-CSRFToken' : csrftoken,
+				},
+				body:JSON.stringify({'form':userFormData,'shiping':shippingInfo})
+			})
+			.then((response) => response.json())
+    		.then((data) =>{
+        		console.log('Success:', data);
+        		alert('Transaction Completed');
+
+        		window.location.href ="{% url 'Store:homepage' %}"
+    		})
+		}
+	</script>
 
 	{% endblock %}

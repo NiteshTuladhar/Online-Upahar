@@ -101,3 +101,10 @@ def updateItem(request):
 		orderItem.delete()
 
 	return JsonResponse('Item was added', safe=False)
+
+
+def processOrder(request):
+
+	print('Data:', request.body)
+
+	return JsonResponse('payment complete', safe=False)
