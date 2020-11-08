@@ -54,10 +54,10 @@
 									<p>{{item.quantity}}</p>
 										
 								
-									<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data-action="add" 
+									<img src="{% static 'images/arrow-up.png' %}" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action="add" 
 										style="width: 15px;height:15px;cursor: pointer;display: block;">
-									<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data-action="remove"
-										style="width: 15px;height:15px;cursor: pointer;display: block;-webkit-transform:rotate(180deg);">
+									<img src="{% static 'images/arrow-up.png' %}" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action="remove"
+										style="width: 15px;height:15px;cursor: pointer;display: block; -webkit-transform:rotate(180deg);">
 								
 
 

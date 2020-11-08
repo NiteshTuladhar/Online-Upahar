@@ -56,9 +56,9 @@
 												<p>{{item.quantity}}</p>
 													
 											
-												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data- action="add" 
+												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product="{{item.product.id}}" data-action="add" 
 													style="width: 15px;height:15px;cursor: pointer;display: block;">
-												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product={{item.product.id}} data- action="remove"
+												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product="{{item.product.id}}" data-action="remove"
 													style="width: 15px;height:15px;cursor: pointer;display: block;-webkit-transform:rotate(180deg);">
 											
 
@@ -97,45 +97,45 @@
 
         <div class="rows">
           <div class="col-50">
-            <h3>Billing Address</h3>
-            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required>
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required>
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address1" placeholder="542 W. 15th Street" required>
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="New York" required>
+			<h3>Billing Address</h3>
+			
+			<div id = 'user-info'>
+				<label for="fname"><i class="fa fa-user"></i> Full Name</label>
+				<input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+				<label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+				<input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+				<label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+				<input type="text" id="adr" name="address1" placeholder="542 W. 15th Street">
+				<label for="city"><i class="fa fa-institution"></i> City</label>
+				<input type="text" id="city" name="city" placeholder="New York">
 
-            <div class="rows">
-              <div class="col-50">
-                <label for="state">State</label>
-                <input type="text" id="state" name="state" placeholder="NY" required>
-              </div>
-              <div class="col-50">
-                <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" placeholder="10001" required>
-              </div>
-            </div>
-          </div>
+				<div class="rows">
+				<div class="col-50">
+					<label for="state">State</label>
+					<input type="text" id="state" name="state" placeholder="NY" required>
+				</div>
+				<div class="col-50">
+					<label for="zip">Zip</label>
+					<input type="text" id="zip" name="zip" placeholder="10001" required>
+				</div>
+				</div>	
+	
 
-          <div class="col-50">
-            
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com" required>
-           
-            <label for="ccnum">Contact No</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
-
-            
-            
-          </div>
+				<div class="col-50">
+					
+					<label for="email"><i class="fa fa-envelope"></i> Email</label>
+					<input type="text" id="email" name="email" placeholder="john@example.com" required>
+				
+					<label for="ccnum">Contact No</label>
+					<input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+			  </div>
+			</div>	  
 
         </div>
         <label>
           <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
         </label>
-        <input type="submit" value="Continue to checkout" class="btns" id="form-button" >
+        <input type="submit" value="Continue" class="btns" id="form-button" >
       </form>
     </div>
   </div>
@@ -187,7 +187,7 @@
 							<div class="single-widget get-button" id="checkout">
 								<div class="content">
 									<div class="button">
-										<a href="#" class="btn">proceed to checkout</a>
+										<input type="submit" id="form-buttons" href="#" class="btn">proceed to checkout</a>
 									</div>
 								</div>
 							</div>
@@ -233,7 +233,7 @@
 						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="ti-tag"></i>
-							<h4>Best Peice</h4>
+							<h4>Best Price</h4>
 							<p>Guaranteed price</p>
 						</div>
 						<!-- End Single Service -->
@@ -247,14 +247,15 @@
 		<script type="text/javascript">
 			var shipping = '{{order.shipping}}'
 			var total = '{{order.get_cart_grandtotal|floatformat:2}}'
-
+			console.log(shipping)
 			if(shipping == 'False'){
 				document.getElementById('delivery-charge').innerHTML = ''
-				document.getElementById('billing').innerHTML = ''
+				document.getElementById('user-info').innerHTML = ''
+				console.log("if")
 
 			}
-
 			else{
+				console.log('else')
 				document.getElementById('checkout').innerHTML = ''
 			}
 
@@ -263,22 +264,26 @@
 				document.getElementById('user-info').innerHTML = ''
 			}
 
-			var form = document.getElementById('form')
 
+			var form = document.getElementById('form')
+			
 			document.getElementById('form-button').addEventListener('click',function(e){
-				submitFormData()
+				submitFormData();
+				
 			})
 
 			function submitFormData(){
 				console.log('payment button clicked')
-
+				
 				var userFormData = {
-
+					'firstname' :  null,
+					'email' : null,
 					'total' : total,
 				}
 
 				var shippingInfo = {
-					'firstname' :  null,
+					
+					
 					'address' :  null,
 					'address1' : null,
 					'city' :  null,
@@ -286,29 +291,30 @@
 					'zip' :  null,
 
 			}
-
-			if (shipping != 'false'){
-				shippingInfo.firstname = form.firstname.value
+			
+			if (user == 'AnonymousUser'){
+				userFormData.firstname = form.firstname.value
+				userFormData.email = form.email.value
 				shippingInfo.address = form.address.value
 				shippingInfo.address1 = form.address1.value
+			}
+			console.log(shippingInfo)
+			if (shipping != 'True'){
 				shippingInfo.city = form.city.value
 				shippingInfo.state = form.state.value
-				shippingInfo.zip = form.zip .value
+				shippingInfo.zip = form.zip.value
 			}
 
 
 
-
-
-
 			var url = '/process_order/'
-			fetch(url,{
+			fetch(url, {
 				method:'POST',
-				header:{
+				headers:{
 					'Content-Type':'application/json',
 					'X-CSRFToken' : csrftoken,
 				},
-				body:JSON.stringify({'form':userFormData,'shiping':shippingInfo})
+				body:JSON.stringify({'form':userFormData, 'shiping':shippingInfo}),
 			})
 			.then((response) => response.json())
     		.then((data) =>{
