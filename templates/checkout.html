@@ -90,61 +90,14 @@
 							</div>
 						</div>
 
-						<div class="rows" id="billing">
-  <div class="col-75">
-    <div class="containers">
-      <form id='form'>
 
-        <div class="rows">
-          <div class="col-50">
-			<h3>Billing Address</h3>
-			
-			<div id = 'user-info'>
-				<label for="fname"><i class="fa fa-user"></i> Full Name</label>
-				<input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-				<label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-				<input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-				<label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-				<input type="text" id="adr" name="address1" placeholder="542 W. 15th Street">
-				<label for="city"><i class="fa fa-institution"></i> City</label>
-				<input type="text" id="city" name="city" placeholder="New York">
 
-				<div class="rows">
-				<div class="col-50">
-					<label for="state">State</label>
-					<input type="text" id="state" name="state" placeholder="NY" required>
+
+
+
 				</div>
-				<div class="col-50">
-					<label for="zip">Zip</label>
-					<input type="text" id="zip" name="zip" placeholder="10001" required>
-				</div>
-				</div>	
-	
 
-				<div class="col-50">
-					
-					<label for="email"><i class="fa fa-envelope"></i> Email</label>
-					<input type="text" id="email" name="email" placeholder="john@example.com" required>
-				
-					<label for="ccnum">Contact No</label>
-					<input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
-			  </div>
-			</div>	  
-
-        </div>
-        <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-        </label>
-        <input type="submit" value="Continue" class="btns" id="form-button" >
-      </form>
-    </div>
-  </div>
-
-
-</div>
-
-					</div>
-					<div class="col-lg-4 col-12">
+					<div class="col-lg-4 col-12 pl-5">
 						<div class="order-details">
 							<!-- Order Widget -->
 							<div class="single-widget">
@@ -193,8 +146,51 @@
 							</div>
 
 					</div>
-				</div>
 			</div>
+<div class="rows" id="billing">
+  <div class="col-">
+    <div class="containers">
+      <form id='form'>
+
+        <div class="rows">
+          <div class="col-lg-8 col-12">
+			<h3>Delivery Address</h3>
+			
+			<div id = 'user-info'>
+				
+				<label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+				<input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+				
+				<label for="city"><i class="fa fa-institution"></i> City</label>
+				<input type="text" id="city" name="city" placeholder="New York">
+
+				<div class="rows">
+				<div class="col-50">
+					<label for="state">Zone</label>
+					<input type="text" id="zone" name="state" placeholder="NY" required>
+				</div>
+				<div class="col-50">
+					<label for="zip">Postal Code</label>
+					<input type="text" id="postal_code" name="zip" placeholder="10001" required>
+				</div>
+				</div>	
+	
+
+				
+			</div>	  
+
+        </div>
+        <label>
+          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+        </label>
+        <input type="submit" value="Continue" class="btns" id="form-button" >
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
 		</section>
 		<!--/ End Checkout -->
 		
@@ -248,21 +244,22 @@
 			var shipping = '{{order.shipping}}'
 			var total = '{{order.get_cart_grandtotal|floatformat:2}}'
 			console.log(shipping)
-			if(shipping == 'False'){
-				document.getElementById('delivery-charge').innerHTML = ''
-				document.getElementById('user-info').innerHTML = ''
+			if(shipping == 'True'){
+				document.getElementById('checkout').innerHTML = ''
 				console.log("if")
 
 			}
 			else{
 				console.log('else')
-				document.getElementById('checkout').innerHTML = ''
-			}
-
-
-			if (user != 'AnonymousUser'){
+				document.getElementById('delivery-charge').innerHTML = ''
 				document.getElementById('user-info').innerHTML = ''
+				
 			}
+
+
+			//if (user != 'AnonymousUser'){
+				//document.getElementById('user-info').innerHTML = ''
+			//}
 
 
 			var form = document.getElementById('form')
@@ -276,8 +273,7 @@
 				console.log('payment button clicked')
 				
 				var userFormData = {
-					'firstname' :  null,
-					'email' : null,
+
 					'total' : total,
 				}
 
@@ -287,22 +283,17 @@
 					'address' :  null,
 					'address1' : null,
 					'city' :  null,
-					'state' :  null,
-					'zip' :  null,
+					'zone' :  null,
+					'postal_code' :  null,
 
 			}
 			
-			if (user == 'AnonymousUser'){
-				userFormData.firstname = form.firstname.value
-				userFormData.email = form.email.value
+			
+			if (shipping != 'False'){
 				shippingInfo.address = form.address.value
-				shippingInfo.address1 = form.address1.value
-			}
-			console.log(shippingInfo)
-			if (shipping != 'True'){
 				shippingInfo.city = form.city.value
-				shippingInfo.state = form.state.value
-				shippingInfo.zip = form.zip.value
+				shippingInfo.zone = form.state.value
+				shippingInfo.postal_code = form.zip.value
 			}
 
 
@@ -314,7 +305,7 @@
 					'Content-Type':'application/json',
 					'X-CSRFToken' : csrftoken,
 				},
-				body:JSON.stringify({'form':userFormData, 'shiping':shippingInfo}),
+				body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
 			})
 			.then((response) => response.json())
     		.then((data) =>{
