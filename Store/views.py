@@ -4,7 +4,7 @@ from Store.models import SmallBanner
 from django.http import JsonResponse
 import json
 from Products.models import Wishlist
-
+import datetime
 # Create your views here.
 def home(request):
 	product = Product.objects.all()
@@ -105,6 +105,34 @@ def updateItem(request):
 
 def processOrder(request):
 
-	print('Data:', request.body)
+	dtransaction_id = datetime.datetime.now().timestamp()
+
+	data = json.loads(request.body)
+	print(data)
+	print('datadatadatadatadatadatadatadatadatadatadata')
+	
+	if request.user.is_authenticated:
+		customer = request.user.profile
+		order, created = Order.objects.get_or_create(customer=customer,complete=False)
+		total = float(data['form']['total'])
+
+		order.transaction_id = dtransaction_id
+
+		if total == order.get_cart_grandtotal:
+			order.complete  = True
+	
+		order.save()
+
+		if order.shipping == True:
+			ShippingAdress.objects.create(
+				customer = customer,
+				order = order,
+				address = data['shipping']['address'],
+				city = data['shipping']['city'],
+				zone = data['shipping']['zone'],
+				postal_code = data['shipping']['postal_code'],
+			)
+	else:
+		print('user is not logged in')
 
 	return JsonResponse('payment complete', safe=False)
