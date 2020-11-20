@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from .token import generatetoken
+from SellerAccount.models import SellerAccount
 
 
 

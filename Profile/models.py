@@ -1,12 +1,11 @@
 from django.db import models
-from Account.models import Account
-
+import Account
 # Create your models here.
 gender_list = [('Male','male'),('Female','female'),('Other','other')]
 
 class Profile(models.Model):
 
-    user = models.OneToOneField(Account,on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(Account.models.Account,on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
@@ -32,7 +31,7 @@ class Profile(models.Model):
 
 class SellerProfile(models.Model):
 
-    user = models.OneToOneField(Account,on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(Account.models.Account,on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
