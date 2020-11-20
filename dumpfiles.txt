@@ -1,0 +1,3 @@
+			if (user != 'AnonymousUser'){
+				document.getElementById('user-info').innerHTML = ''
+			}
