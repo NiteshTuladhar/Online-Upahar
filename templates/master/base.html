@@ -110,7 +110,7 @@
 									<li><i class="ti-user"></i> <a href="{% url 'Profile:completeuserprofile' %}">My account</a></li>
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:logout' %}">Logout</a></li>
 									{% else %}
-									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}}">Login</a></li>
+									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}">Login</a></li>
 									{% endif %}
 								</ul>
 							</div>
@@ -227,7 +227,7 @@
 														<ul class="dropdown">
 															<!--<li><a href="shop-grid.html">Shop Grid</a></li>-->
 															<li><a href="{% url 'Store:cartpage' %}">Cart</a></li>
-															<li><a href="checkout.html">Checkout</a></li>
+															<li><a href="{% url 'Store:checkoutpage' %}">Checkout</a></li>
 														</ul>
 													</li>
 													<!--<li><a href="#">Pages</a></li>-->									
@@ -280,7 +280,7 @@
 								<li><a href="#">About Us</a></li>
 								<!--<li><a href="#">Faq</a></li>-->
 								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="#">Contact Us</a></li>
+								<li><a href="{% url 'ContactMail:contactpage' %}">Contact Us</a></li>
 								<li><a href="#">Help</a></li>
 							</ul>
 						</div>
@@ -340,9 +340,9 @@
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="right">
-								<img src="images/esewa.png" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
-								<img src="images/khalti.jpg" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
-								<img src="images/fone.png" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+								<img src="{% static 'images/esewa.png' %" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+								<img src="{% static 'images/khalti.jpg' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+								<img src="{% static 'images/fone.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
 							</div>
 						</div>
 					</div>
