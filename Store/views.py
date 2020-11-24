@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
-from Products.models import Product,Order, OrderItem, ShippingAdress
+from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist
 from Store.models import SmallBanner
 from django.http import JsonResponse
 import json
-from Products.models import Wishlist
 import datetime
 # Create your views here.
 def home(request):
 	product = Product.objects.all()
 	banner = SmallBanner.objects.all()
 	wishlist = Wishlist.objects.all()
+	category = Category.objects.all()
 	id=request.user.id
 	if request.user.is_authenticated:
 		try:
@@ -33,6 +33,7 @@ def home(request):
 		'id': id,
 		'cartItems' : cartItems,
 		'wishlist': wishlist,
+		'category' : category,
 	}
 
 	return render(request,'index.html', context)

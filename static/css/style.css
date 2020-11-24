@@ -643,11 +643,12 @@ Version:1.0
 	position: relative;
 }
 .header.shop .search-bar {
-	width: 535px;
+	width: 450px;
 	height: 50px;
 	display: inline-block;
 	background: #fff;
 	position: relative;
+	left:90px;
 	margin: 0;
 	line-height: 45px;
 	border-radius: 5px;
@@ -667,6 +668,8 @@ Version:1.0
 	line-height: 50px;
 	font-size: 14px;
 	font-weight: 400;
+	right:150px;
+	bottom:45px;
 }
 .header.shop .nice-select::after {
 	border-color: #666;
@@ -702,7 +705,7 @@ Version:1.0
 	font-size: 14px;
 	font-weight: 400;
 	padding: 0 25px 0 20px;
-	width: 328px;
+	width: 389px;
 }
 .header.shop .search-bar .btnn {
 	height: 50px;

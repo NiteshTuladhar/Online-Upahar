@@ -147,15 +147,16 @@
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
 								<div class="search-bar">
-									<select>
-										<option selected="selected">All Category</option>
-										<option>Birthday</option>
-										<option>Occassion</option>
-										<option>Handicraft</option>
-									</select>
-									<form>
-										<input name="search" placeholder="Search Products Here....." type="search">
+									<form action="{% url 'search:search_result' %}" method="GET">
+										<input name="q" placeholder="Search Products Here....." type="search">
 										<button class="btnn"><i class="ti-search"></i></button>
+										<select name='category'>
+											<option selected="selected">All Category</option>
+											{% for cat in category %}
+											<option>{{cat}}</option>
+											{% endfor %}
+		
+										</select>
 									</form>
 								</div>
 							</div>
