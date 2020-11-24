@@ -156,15 +156,17 @@
 					<div class="col-lg-8 col-md-7 col-12">
 						<div class="search-bar-top">
 							<div class="search-bar">
-								<select>
-									<option selected="selected">All Category</option>
-									<option>Birthday</option>
-									<option>Occassion</option>
-									<option>Handicraft</option>
-								</select>
-								<form>
-									<input name="search" placeholder="Search Products Here....." type="search">
+
+								<form action="{% url 'search:search_result' %}" method="GET">
+									<input name='q' placeholder="Search Products Here....." type="search">
 									<button class="btnn"><i class="ti-search"></i></button>
+									<select name='category'>
+										<option selected="selected">All Category</option>
+										{% for cat in category %}
+										<option>{{cat}}</option>
+										{% endfor %}
+	
+									</select>
 								</form>
 							</div>
 						</div>
@@ -306,7 +308,7 @@
 														<ul class="dropdown">
 															<!--<li><a href="shop-grid.html">Shop Grid</a></li>-->
 															<li><a href="{% url 'Store:cartpage' %}">Cart</a></li>
-															<li><a href="checkout.html">Checkout</a></li>
+															<li><a href="{% url 'Store:checkoutpage' %}">Checkout</a></li>
 														</ul>
 													</li>
 													<!--<li><a href="#">Pages</a></li>-->									
@@ -446,7 +448,7 @@
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="{% url 'Products:productdetails' p.slug %}">
 															<img class="default-img" src="{{p.product_image.url}}" alt="#">
 															<img class="hover-img" src="{{p.product_image.url}}" alt="#">
 														</a>
@@ -473,7 +475,7 @@
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">{{p.product_name}}</a></h3>
+														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
 															<span>Nrs {{p.product_price}}</span>
 														</div>
@@ -496,7 +498,7 @@
 												<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="{% url 'Products:productdetails' p.slug %}">
 															<img class="default-img" src="{{p.product_image.url}}" alt="#">
 															<img class="hover-img" src="{{p.product_image.url}}" alt="#">
 														</a>
@@ -523,7 +525,7 @@
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">Toys</a></h3>
+														<h3><a href="{% url 'Products:productdetails' p.slug %}">Toys</a></h3>
 														<div class="product-price">
 															<span>Nrs {{p.product_price}}</span>
 														</div>
@@ -545,7 +547,7 @@
 												<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="{% url 'Products:productdetails' p.slug %}">
 															<img class="default-img" src="{{p.product_image.url}}" alt="#">
 															<img class="hover-img" src="{{p.product_image.url}}" alt="#">
 														</a>
@@ -572,7 +574,7 @@
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">{{p.product_name}}</a></h3>
+														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
 															<span>Nrs {{p.product_price}}</span>
 														</div>
@@ -594,7 +596,7 @@
 												<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
-														<a href="product-details.html">
+														<a href="{% url 'Products:productdetails' p.slug %}">
 															<img class="default-img" src="{{p.product_image.url}}" alt="#">
 															<img class="hover-img" src="{{p.product_image.url}}" alt="#">
 														</a>
@@ -621,7 +623,7 @@
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html">{{p.product_name}}</a></h3>
+														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
 															<span>Nrs {{p.product_price}}</span>
 														</div>
@@ -1106,7 +1108,7 @@
 								<li><a href="#">About Us</a></li>
 								<!--<li><a href="#">Faq</a></li>-->
 								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="#">Contact Us</a></li>
+								<li><a href="{% url 'ContactMail:contactpage' %}">Contact Us</a></li>
 								<li><a href="#">Help</a></li>
 							</ul>
 						</div>
@@ -1166,9 +1168,9 @@
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="right">
-								<img src="images/esewa.png" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
-								<img src="images/khalti.jpg" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
-								<img src="images/fone.png" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+								<img src="{% static 'images/esewa.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+								<img src="{% static 'images/khalti.jpg' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+								<img src="{% static 'images/fone.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
 							</div>
 						</div>
 					</div>
