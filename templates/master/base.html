@@ -107,11 +107,11 @@
 									<li><i class="ti-location-pin"></i> Store location</li>
 									<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
 									{% if user.is_authenticated %}
-									<li><i class="ti-user"></i> <a href="{% url 'Profile:completeuserprofile' %}">My account</a></li>
+									<li><i class="ti-user"></i> <a href="{% url 'Profile:userprofile' %}">My account</a></li>
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:logout' %}">Logout</a></li>
-									{% else %}
-									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}}">Login</a></li>
-									{% endif %}
+								{% else %}
+									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}">Login</a></li>
+								{% endif %}
 								</ul>
 							</div>
 							<!-- End Top Right -->
@@ -255,7 +255,7 @@
 		{% endblock %}
 
 		<!-- Start Footer Area -->
-	<footer class="footer">
+	<footer class="footer" style="position: relative;padding-bottom: 11px;">
 		<!-- Footer Top -->
 		<div class="footer-top section">
 			<div class="container">

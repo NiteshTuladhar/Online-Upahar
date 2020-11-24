@@ -1,21 +1,32 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from Profile.models import Profile
 from .models import Product,Wishlist
+from Products.models import Product,Order, OrderItem, ShippingAdress
 
 # Create your views here.
 
 
 def productDetails(request,slug):
 
-	details = Product.objects.get(slug=slug)
+	if request.user.is_authenticated:
+		details = Product.objects.get(slug=slug)
+		customer = request.user.profile
+		print(customer)
+		order, created = Order.objects.get_or_create(customer=customer,complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+		print(items)
+	else:
+		details = Product.objects.get(slug=slug)
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+	context={'details' : details,'items' : items, 'order':order,'cartItems':cartItems}
 	
-	context = {
-
-		'details' : details
-	}
-
+	
 	return render(request,'product_details/product_details.html',context)
 
 def wishlist(request, id):
@@ -62,4 +73,33 @@ def wishlist_delete(request, id):
 	wish_obj.liked.remove(user)
 
 
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+def details_add_to_cart(request,slug):
+ 
+	item = get_object_or_404(Product, slug=slug)
+	order, created = Order.objects.get_or_create(
+
+		customer=request.user.profile,
+		complete=False
+
+    )
+	print(order.order_items)
+	print('===============================================')
+	if order.order_items.filter(product__slug=item.slug).exists():
+
+		itemorder.quantity +=1
+		itemorder.save()
+
+		print('iffffffffffffffff')
+	else:
+		print('elseeeeeeeeeeeee')
+		itemorder, created = OrderItem.objects.get_or_create(
+	        product=item,
+	        order = order,
+	        quantity= 1,
+
+	    )
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

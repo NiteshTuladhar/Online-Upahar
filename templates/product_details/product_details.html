@@ -4,10 +4,10 @@
 
 {% block body %}
 
-    <main class="containers">
+<main class="containers" style="background-color: white;border: 1px solid white;">
  
   <!-- Left Column / Headphones Image -->
-  <div class="left-columns" style="margin: 55px 45px auto auto">
+  <div class="left-columns" style="margin: 55px 45px auto auto;">
     <img data-image="black" src="{{details.product_image.url}}" alt="">
     <img data-image="blue" src="{{details.product_image.url}}" alt="">
     <img data-image="red" class="active" src="{{details.product_image.url}}" alt="">
@@ -65,10 +65,15 @@
     <!-- Product Pricing -->
     <div class="product-prices">
       <span>Nrs. {{details.product_price}}</span>
-      <a href="#" class="cart-btn">Add to cart</a>
+      
+      <a href="{% url 'Products:add_to_cart' details.slug %}"  class="cart-btn">Add to cart</a>
     </div>
   </div>
 </main>
+
+<div class="container" style="height: 550px;width: auto;">
+  
+</div>
 
 <script>
     $(document).ready(function() {

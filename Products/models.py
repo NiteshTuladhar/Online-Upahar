@@ -28,6 +28,11 @@ class Product(models.Model):
             url = ''
         return url
 
+    def get_add_to_cart_url(self):
+        return reverse ("Product:add_to_cart", kwargs={
+            'slug' : self.slug
+            })
+
 class Category(models.Model):
     product_category = models.CharField(max_length=50)
 
@@ -41,6 +46,7 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=True)
     transaction_id = models.CharField(max_length=200,null=True)
+    order_items = models.ManyToManyField('OrderItem',related_name='orderitem')
 
     def __str__(self):
         return str(self.id)
@@ -61,6 +67,7 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
         return total
+        
     @property
     def get_cart_grandtotal(self):
         orderitems = self.orderitem_set.all()
