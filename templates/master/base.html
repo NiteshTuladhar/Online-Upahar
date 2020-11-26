@@ -38,7 +38,18 @@
     <link rel="stylesheet" href="{% static 'css/owl-carousel.css' %}">
 	<!-- Slicknav -->
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}">
-	
+
+
+    <!--Categories page -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Google fonts - Roboto-->
+
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
+	<!--Categories end-->
+
 	<!-- Eshop StyleSheet -->
 	<link rel="stylesheet" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -109,15 +120,11 @@
 									{% if user.is_authenticated %}
 									<li><i class="ti-user"></i> <a href="{% url 'Profile:userprofile' %}">My account</a></li>
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:logout' %}">Logout</a></li>
-<<<<<<< HEAD
+
 								{% else %}
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}">Login</a></li>
 								{% endif %}
-=======
-									{% else %}
-									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}">Login</a></li>
-									{% endif %}
->>>>>>> 6ebe185923fd263504634281476d5c5b214f6b68
+
 								</ul>
 							</div>
 							<!-- End Top Right -->

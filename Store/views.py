@@ -76,6 +76,41 @@ def checkoutpage(request):
 
 
 
+def categoriesItem(request):
+	product = Product.objects.all()
+	banner = SmallBanner.objects.all()
+	wishlist = Wishlist.objects.all()
+	category = Category.objects.all()
+	id=request.user.id
+	if request.user.is_authenticated:
+		try:
+			customer = request.user.profile	
+			print(customer)
+			order, created = Order.objects.get_or_create(customer=customer,complete=False)
+			items = order.orderitem_set.all()
+			cartItems = order.get_cart_items
+		except:
+			return redirect('ContactMail:contactpage')
+	else:
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+
+
+	context = {
+		'product': product,
+		'banner' : banner,
+		'id': id,
+		'cartItems' : cartItems,
+		'wishlist': wishlist,
+		'category' : category,
+	}
+
+	return render(request,'categories.html',context)
+
+
+
 def updateItem(request): 
 
 	data = json.loads(request.body)

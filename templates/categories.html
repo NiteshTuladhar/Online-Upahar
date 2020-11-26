@@ -1,0 +1,225 @@
+{% extends 'master/base.html' %}
+{% load static %}
+{% block title %}Cart {% endblock %}
+
+{% block body %}
+
+<!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="bread-inner">
+              <ul class="bread-list">
+                <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                <li class="active"><a href="blog-single.html">Checkout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Breadcrumbs -->
+        
+    <div id="all">
+      
+      <div id="heading-breadcrumbs">
+        <div class="container">
+          <div class="row d-flex align-items-center flex-wrap">
+            <div class="col-md-7">
+              <h1 class="h2">Category with left sidebar</h1>
+            </div>
+            <div class="col-md-5">
+              <ul class="breadcrumb d-flex justify-content-end">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Category with left sidebar</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="container">
+          <div class="row bar">
+            <div class="col-md-3">
+              <!-- MENUS AND FILTERS-->
+              <div class="panel panel-default sidebar-menu">
+                <div class="panel-heading">
+                  <h3 class="h4 panel-title">Categories</h3>
+                </div>
+                <div class="panel-body">
+                  <ul class="nav nav-pills flex-column text-sm category-menu">
+                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Gifts </span><span class="badge badge-secondary">42</span></a>
+                      <ul class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Love</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Birthday</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Handicrafts</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Kids</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Digital Products  </span><span class="badge badge-light">123</span></a>
+                      <ul class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Google Gift Card</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Qfx Movie Ticket</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Steam Wallet</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Resturant Coupons</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Kids</span><span class="badge badge-secondary">11</span></a>
+                      <ul class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Toys</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">School Materials</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Clothing</a></li>
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Accessories</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="panel panel-default sidebar-menu">
+                <div class="panel-heading d-flex align-items-center justify-content-between">
+                  <h3 class="h4 panel-title">Brands</h3>
+                </div>
+                <div class="panel-body">
+                  <form>
+                    <div class="form-group">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Armani  (10)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Versace  (12)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Carlo Bruni  (15)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Jack Honey  (14)
+                        </label>
+                      </div>
+                    </div>
+                    
+                  </form>
+                </div>
+              </div>
+              <div class="panel panel-default sidebar-menu">
+                <div class="panel-heading d-flex align-items-center justify-content-between">
+                  <h3 class="h4 panel-titlen">Colours</h3>
+                </div>
+                <div class="panel-body">
+                  <form>
+                    <div class="form-group">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour white"></span> White (14)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour blue"></span> Blue (10)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour green"></span>  Green (20)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour yellow"></span>  Yellow (13)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour red"></span>  Red (10)
+                        </label>
+                      </div>
+                    </div>
+                    
+                  </form>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-md-9">
+              <p class="text-muted lead"><strong>Handicrafts made in Nepal</strong></p>
+              <p style="font-size: 13px;margin-top: -30px;">355 items found in Handicraft</p>
+              
+              <div class="row products products-big" >
+                {% for p in product %}
+                <div class="col-lg-4 col-md-6">
+                      
+                        <div class="single-product">
+                          <div class="product-img">
+                            <a href="{% url 'Products:productdetails' p.slug %}">
+                              <img class="default-img" src="{{p.product_image.url}}" alt="#">
+                              <img class="hover-img" src="{{p.product_image.url}}" alt="#">
+                            </a>
+                            <div class="button-head">
+                              <div class="product-action">
+                                <!--<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>-->
+                                <form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
+                                  {% csrf_token %}
+                                  <input type="hidden" name='wish_id' value="{{p.id}}"> 
+                                  {% if user not in p.liked.all %}
+                                    <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                  {% else %}
+                                    <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+                                  {% endif %}
+
+                                </form> 
+                                
+
+                                
+                              </div>
+                              <div class="product-action-2">
+                                <a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="product-content">
+                            <h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
+                            <div class="product-price">
+                              <span>Nrs {{p.product_price}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      {% endfor %}
+                    
+                </div>
+              </div>
+                
+              
+              <!--<div class="pages">
+                <p class="loadMore text-center"><a href="#" class="btn btn-template-outlined"><i class="fa fa-chevron-down"></i> Load more</a></p>
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                  <ul class="pagination">
+                    <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>-->
+          </div>
+        </div>
+      </div>
+
+      
+      
+    </div>
+</div>
+
+  {% endblock %}
