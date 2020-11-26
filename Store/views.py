@@ -19,7 +19,7 @@ def home(request):
 			items = order.orderitem_set.all()
 			cartItems = order.get_cart_items
 		except:
-			return redirect('ContactMail:contactpage')
+			return redirect('Account:verifypage')
 	else:
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}

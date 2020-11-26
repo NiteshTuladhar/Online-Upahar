@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from SellerAccount.models import SellerAccount
 from Account.models import Account
 from Profile.models import Profile
+from datetime import datetime, timezone
 # Create your models here.
 
 class Product(models.Model):
@@ -16,6 +17,7 @@ class Product(models.Model):
     slug = AutoSlugField(populate_from='product_name',unique=True,null=True,blank=True)
     digital = models.BooleanField(default=False, null=True, blank=True)
     liked = models.ManyToManyField(Account, default=None, blank=True, related_name='liked')
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.product_name
