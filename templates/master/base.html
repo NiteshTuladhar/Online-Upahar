@@ -81,6 +81,27 @@
 			const csrftoken = getToken('csrftoken');
     </script>
 
+    <style>
+		
+		.img-round {
+		  position: relative;
+		  height: 0;
+		  overflow: hidden;
+		  border-radius: 50%;
+		  padding-bottom: 100%;
+		  width: 30px;
+	 	  height: 30px;
+		}
+		.img-round > img {
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			-o-object-fit: cover;
+			object-fit: cover;
+	}
+
+	</style>
+
 </head>
 <body class="js">
 	
@@ -175,49 +196,74 @@
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-12">
-							<div class="right-bar">
-								<!-- Search Form -->
-								<div class="sinlge-bar">
-									<a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-								</div>
-								<div class="sinlge-bar">
+						<div class="right-bar">
+							<!-- Search Form -->
+							{% if user.is_authenticated %}
+							<div class="sinlge-bar">
+								<a href="{% url 'Products:wishlist' request.user.id %}" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+							</div>
+							{% endif %}
+
+							
+
+							<div class="sinlge-bar shopping">
+								<a href="{% url 'Store:cartpage' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>
+								<!-- Yo Chai Add To Cart ko Dropdown aile ko lai disabled xa, Search Bar ra user icon ko sangai By Sushek on 9/22/2020 -->
+								<!-- Shopping Item -->
+								<!--<div class="shopping-item">
+									<div class="dropdown-cart-header">
+										<span>2 Items</span>
+										<a href="#">View Cart</a>
+									</div>
+									<ul class="shopping-list">
+										<li>
+											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+											<h4><a href="#">Woman Rings</a></h4>
+											<p class="quantity">1x - <span class="amount">$99.00</span></p>
+										</li>
+										<li>
+											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+											<h4><a href="#">Woman Necklace</a></h4>
+											<p class="quantity">1x - <span class="amount">$35.00</span></p>
+										</li>
+									</ul>
+									<div class="bottom">
+										<div class="total">
+											<span>Total</span>
+											<span class="total-amount">$134.00</span>
+										</div>
+										<a href="checkout.html" class="btn animate">Checkout</a>
+									</div>
+								</div>-->
+								<!--/ End Shopping Item -->
+								<!---------------------------------------------------------------------->
+							</div>
+							{% if user.is_authenticated %}
+								{% if customer.profile_image %}
+									<div class="sinlge-bar">
+										<a href="{% url 'Profile:userprofile' %}">
+											<div class='img-round'>
+		        							
+		        								<img src={{customer.profile_image.url}}>
+		      								</div>
+		      							</a>
+		      						</div>
+		      					{% else %}
+		      						<div class="sinlge-bar">
+										<div class='img-round'>
+		        							<img src="https://www.waterintegritynetwork.net/wp-content/uploads/2018/09/Portrait_Placeholder.png" style="height: 30px;width: 30px;">
+		      							</div>
+		      						</div>
+		      					{% endif %}
+
+      						{% else %}
+      							<div class="sinlge-bar">
 									<a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 								</div>
-								<div class="sinlge-bar shopping">
-									<a href="{% url 'Store:cartpage' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>
-									<!-- Shopping Item -->
-									<!--
-									<div class="shopping-item">
-										<div class="dropdown-cart-header">
-											<span>2 Items</span>
-											<a href="#">View Cart</a>
-										</div>
-										
-										<ul class="shopping-list">
-											<li>
-												<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-												<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-												<h4><a href="#">Woman Ring</a></h4>
-												<p class="quantity">1x - <span class="amount">$99.00</span></p>
-											</li>
-											<li>
-												<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-												<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-												<h4><a href="#">Woman Necklace</a></h4>
-												<p class="quantity">1x - <span class="amount">$35.00</span></p>
-											</li>
-										</ul>
-										<div class="bottom">
-											<div class="total">
-												<span>Total</span>
-												<span class="total-amount">$134.00</span>
-											</div>
-											<a href="checkout.html" class="btn animate">Checkout</a>
-										</div>
-									</div>-->
-									<!--/ End Shopping Item -->
-								</div>
-							</div>
+							{% endif %}
+						</div>
 						</div>
 					</div>
 				</div>
@@ -354,7 +400,7 @@
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="right">
-								<img src="{% static 'images/esewa.png' %" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+								<img src="{% static 'images/esewa.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
 								<img src="{% static 'images/khalti.jpg' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
 								<img src="{% static 'images/fone.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
 							</div>

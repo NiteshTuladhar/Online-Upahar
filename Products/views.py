@@ -4,20 +4,24 @@ from django.contrib.auth import authenticate, login, logout
 from Profile.models import Profile
 from .models import Product,Wishlist
 from Products.models import Product,Order, OrderItem, ShippingAdress
-
+import time
 # Create your views here.
 
 
 def productDetails(request,slug):
 
+	product_visit = Product.objects.get(slug=slug)
+
+
+	product_visit.visit = product_visit.visit + 1
+	product_visit.save()
+
 	if request.user.is_authenticated:
 		details = Product.objects.get(slug=slug)
 		customer = request.user.profile
-		print(customer)
 		order, created = Order.objects.get_or_create(customer=customer,complete=False)
 		items = order.orderitem_set.all()
 		cartItems = order.get_cart_items
-		print(items)
 	else:
 		details = Product.objects.get(slug=slug)
 		items = []
@@ -29,16 +33,30 @@ def productDetails(request,slug):
 	
 	return render(request,'product_details/product_details.html',context)
 
+
+
 def wishlist(request, id):
+
+	
 	wishlist = Wishlist.objects.filter(user_id=id)
 	id=request.user.id
 	print(wishlist)
 
-	context ={
-		'wishlist' : wishlist,
-		'id': id,
+	if request.user.is_authenticated:
+		customer = request.user.profile
+		print(customer)
+		order, created = Order.objects.get_or_create(customer=customer,complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+		print(items)
+	else:
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
 
-	}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'wishlist' : wishlist,'id': id,}
+
+
 
 	return render(request, 'product_details/wishlist.html', context)
 
