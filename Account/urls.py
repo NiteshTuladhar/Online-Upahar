@@ -28,4 +28,5 @@ urlpatterns = [
    path('register/',views.userRegister,name='register'),
    path('logout/', views.userlogout, name='logout'),
    path('account-verify/<int:id>/<str:token>/',views.verifyaccount,name='verify_token'),
+   path('verification-page/', views.verifypage, name='verifypage'),
 ]

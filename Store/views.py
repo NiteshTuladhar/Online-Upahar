@@ -22,7 +22,7 @@ def home(request):
 			items = order.orderitem_set.all()
 			cartItems = order.get_cart_items
 		except:
-			return redirect('ContactMail:contactpage')
+			return redirect('Account:verifypage')
 	else:
 		customer = 'Anonymous User'
 		items = []

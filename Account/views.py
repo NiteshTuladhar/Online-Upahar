@@ -72,11 +72,12 @@ def verifyaccount(request,id,token, backend='django.contrib.auth.backends.ModelB
 
 		if a.token == token:
 			a.is_verified = True
+			profile = Profile(user=a)
+			profile.save()
 			a.save()
 			if a.profile_create is False:
-				profile = Profile(user=a)
+				
 				a.profile_create = True
-				profile.save()
 				a.save()
 			login(request, a, backend='django.contrib.auth.backends.ModelBackend')
 			return redirect('Store:homepage')
@@ -93,3 +94,5 @@ def verifyaccount(request,id,token, backend='django.contrib.auth.backends.ModelB
 	return render(request,'index.html')
 
 
+def verifypage(request):
+	return render(request,'verifypage/verifypage.html')
