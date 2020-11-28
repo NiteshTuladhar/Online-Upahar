@@ -58,7 +58,10 @@ INSTALLED_APPS = [
 
     #providers
     'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
+
+    #to use commas in large numbers
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Profile
 from Account.models import Account
+from Products.models import Order
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .form import ProfileEdit 
@@ -11,11 +12,20 @@ def userProfile(request):
 		userinfo = Account.objects.get(id=request.user.id)
 		profile = Profile.objects.get(user_id=request.user.id)
 
-		context = {
-			'profile' : profile,
-			'userinfo' : userinfo,
+		if request.user.is_authenticated:
+			customer = request.user.profile
+			print(customer)
+			order, created = Order.objects.get_or_create(customer=customer,complete=False)
+			items = order.orderitem_set.all()
+			cartItems = order.get_cart_items
+			print(items)
+		else:
+			items = []
+			order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+			cartItems = order['get_cart_items']
 
-		}
+		context={'items' : items, 'order':order,'cartItems':cartItems,'profile' : profile,'userinfo' : userinfo,}
+
 		return render(request,'userprofile/profile.html',context)
 
 	else:
@@ -42,8 +52,10 @@ def userProfile(request):
 				return redirect('Profile:completeuserprofile')
 			except:
 				messages.error(request, message="Error occured")
+		
 			return redirect('Profile:userprofile')
 
+	
 
 	return render(request,'userprofile/profile.html')
 

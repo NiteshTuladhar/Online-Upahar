@@ -1,5 +1,6 @@
 {% extends 'master/base.html' %}
 {% load static %}
+{% load humanize %}
     {% block title %}Login | Online Upahar {% endblock %}
 
 {% block body %}
@@ -22,6 +23,7 @@
       <span>{{details.category}}</span>
       <h1>{{details.product_name}}</h1>
       <p>{{details.product_details}}</p>
+      <p><strong><i class="fa fa-eye"></i> {{details.visit|intcomma}} views</strong></p>
     </div>
  
     <!-- Product Configuration -->

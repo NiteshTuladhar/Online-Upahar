@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist
+from Profile.models import Profile
 from Store.models import SmallBanner
 from django.http import JsonResponse
 import json
 import datetime
 # Create your views here.
 def home(request):
+	
 	product = Product.objects.all()
+	popular_product = Product.objects.order_by('-visit')
 	banner = SmallBanner.objects.all()
 	wishlist = Wishlist.objects.all()
 	category = Category.objects.all()
@@ -21,6 +24,7 @@ def home(request):
 		except:
 			return redirect('Account:verifypage')
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
@@ -28,7 +32,9 @@ def home(request):
 
 
 	context = {
+		'customer' : customer,
 		'product': product,
+		'popular_product' : popular_product,
 		'banner' : banner,
 		'id': id,
 		'cartItems' : cartItems,
