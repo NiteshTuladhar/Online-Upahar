@@ -58,6 +58,7 @@ def cartpage(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
+	
 	context={'items' : items, 'order':order,'cartItems':cartItems}
 	return render(request,'cart.html',context)
 
@@ -102,8 +103,7 @@ def categoriesItem(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-
-
+	
 	context = {
 		'product': product,
 		'banner' : banner,
@@ -143,6 +143,7 @@ def updateItem(request):
 		orderItem.delete()
 
 	return JsonResponse('Item was added', safe=False)
+
 
 
 def processOrder(request):

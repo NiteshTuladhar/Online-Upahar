@@ -1,0 +1,95 @@
+<html>
+<head>
+    <script src="https://unpkg.com/khalti-checkout-web@latest/dist/khalti-checkout.iffe.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<style>
+  
+  .btn {
+  background-color: #4B276A; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 12px 16px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: #321749;
+}
+</style>
+</head>
+<body>
+
+    <!-- Place this where you need payment button -->
+    <h3>Product Id: {{order.id}}</h3> 
+    <h3>Total: Nrs{{order.get_cart_total}}</h3>
+    <h3>Grand Total (+Delivery Charge): Nrs{{order.get_cart_grandtotal}}</h3>
+
+    <h3>
+      {% for item in items %}
+        <p>{{item.quantity}}</p>
+      {% endfor %}
+    </h3>
+
+
+
+    <button id="payment-button" class="btn"><img src="https://i.pinimg.com/originals/25/73/78/257378d775079320e02591d4cb58bf12.png" style="height: 30px;width: auto;float: left;"><p style="float: right">Pay with Khalti<p></button>
+    <!-- Place this where you need payment button -->
+    <!-- Paste this code anywhere in you body tag -->
+
+
+    <script>
+
+        function verifyPayment(payload){
+            $.ajax({
+                url : "{% url 'payment:khalti' %}",
+                type: "POST",
+                data: payload,
+                dataType: 'json',
+                success: function (response) { alert('You Payment has been completed.') },
+                error: function (error) { alert(error.response.JSON['message']) }
+            })
+
+        }
+
+        var config = {
+            // replace the publicKey with yours
+            "publicKey": "test_public_key_40c0afaeccc94b2ab417a67229935f54",
+            "productIdentity": "{{order.id}}",
+            "productName": "Dragon",
+            "productUrl": "http://localhost:8000",
+            "paymentPreference": [
+                "MOBILE_BANKING",
+                "KHALTI",
+                "EBANKING",
+                "CONNECT_IPS",
+                "SCT",
+                ],
+            "eventHandler": {
+                onSuccess (payload) {
+                    // hit merchant api for initiating verfication
+                    console.log(payload);
+                    verifyPayment(payload)
+                },
+                onError (error) {
+                    console.log(error);
+                },
+                onClose () {
+                    console.log('widget is closing');
+                }
+            }
+        };
+
+        var checkout = new KhaltiCheckout(config);
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function () {
+            // minimum transaction amount must be 10, i.e 1000 in paisa.
+            checkout.show({amount: {{order.get_cart_grandtotal}} *100 });
+        }
+    </script>
+    <!-- Paste this code anywhere in you body tag -->
+
+</body>
+</html>

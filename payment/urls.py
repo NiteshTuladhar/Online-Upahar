@@ -11,5 +11,6 @@ app_name = 'payment'
 urlpatterns = [
    path('redirect/', views.paymentform, name='paymentform'),
    path('success/', views.esewa, name='esewa_success'),
+   path('khalti/', views.khalti, name='khalti'),
    
 ]

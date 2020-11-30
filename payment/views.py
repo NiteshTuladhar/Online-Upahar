@@ -4,6 +4,9 @@ from django.utils.crypto import get_random_string
 from .models import Payment
 import requests
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -16,6 +19,8 @@ def paymentform(request):
         reciever_email = request.GET['email']
         reciever_address = request.GET['address']
         payment_methods = request.GET['p']
+
+
 
         if request.user.is_authenticated:
             customer = request.user.profile
@@ -34,7 +39,7 @@ def paymentform(request):
         return render(request,'payment/esewa.html', context)
 
     if (payment_methods == "KHALTI"):
-        return render(request,'khalti.html', context)
+        return render(request,'payment/khalti.html', context)
 
 
 
@@ -44,9 +49,13 @@ def esewa(request):
         order = Order.objects.get(id=request.GET['oid'].split('-')[0])
         oid = request.GET['oid']
         refid = request.GET['refId']
-        orderitem = OrderItem.objects.get(order_id=order)
-        quantity = orderitem.quantity
-        productname= orderitem.product
+
+        orderitem = Order.objects.get(id=order.id)
+
+
+        items = order.orderitem_set.all()
+        print(items)
+        print('ppppppppppppppppppppp')
 
         import xml.etree.ElementTree as ET
 
@@ -62,7 +71,7 @@ def esewa(request):
         root = ET.fromstring(resp.content)
         status = root[0].text.strip()
         if status == 'Success':
-            payment = Payment(order = order, order_productname=productname, amount=totalAmt, referID = refid, mode = 'ESEWA', quantity=quantity) 
+            payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA') 
             payment.save()
     context = {
 
@@ -70,5 +79,63 @@ def esewa(request):
     return render(request, 'payment/success.html', context)
 
     
+
+@csrf_exempt
+def khalti(request):
+
+    data = request.POST
+
+    token = data["token"]
+    amount =data["amount"]
+    o_id = data["product_identity"]
+
+    
+
+    print('---------payload data---------------')
+    print(token, amount, o_id)
+    print('---------------------------------------')
+
+    url = "https://khalti.com/api/v2/payment/verify/"
+    payload = {
+      "token": token,
+      "amount": amount
+    }
+    headers = {
+      "Authorization": "Key test_secret_key_6ff60dcc167d4842bf4a84cca67480a9"
+    }
+
+    myorder = Order.objects.get(id=o_id)
+
+    items = myorder.orderitem_set.all()
+
+    print('---------my order---------------')
+    print(myorder)
+    print(items)
+    print('---------------------------------------')
+
+
+    response = requests.post(url, payload, headers = headers)
+
+    print('---------response status---------------')
+    print(response)
+    print('---------------------------------------')
+
+
+    resp_dict = response.json()
+
+    print('---------response data---------------')
+    print(resp_dict)
+    print('-------------------------------------')
+    
+    if resp_dict.get("idx"):
+        payment = Payment(order = myorder,amount=amount, referID = token, mode = 'KHALTI') 
+        payment.save()
+    else:
+        success = False
+    
+    data = {
+        "Success" : True
+    }
+    return JsonResponse(data)
 
 
