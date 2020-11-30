@@ -73,7 +73,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Profile,on_delete=models.SET_NULL, blank=True,null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=True)
-    transaction_id = models.CharField(max_length=200,null=True)
+    transaction_id = models.CharField(max_length=200,null=True, unique=True)
     order_items = models.ManyToManyField('OrderItem',related_name='orderitem')
 
     def __str__(self):

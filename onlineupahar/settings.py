@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ContactMail',
     'Products',
     'Search',
+    'payment',
 
     #External App Instalation
     'social_django',

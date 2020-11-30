@@ -31,6 +31,7 @@ urlpatterns = [
     path('search/', include('Search.urls', namespace='search')),
     path('',include('Products.urls',namespace='products')),
     path('contactmail/', include('ContactMail.urls', namespace='acontactmail')),
+    path('payment/', include('payment.urls', namespace='payment')),
     path('reset_password/', auth_view.PasswordResetView.as_view(
         template_name='password_reset_form/passwordresetview.html'
     ), name='reset_password'),
