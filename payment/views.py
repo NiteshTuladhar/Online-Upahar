@@ -3,10 +3,12 @@ from Products.models import *
 from django.utils.crypto import get_random_string
 from Products.models import Product,Order, OrderItem, ShippingAdress
 from .models import Payment
+from Profile.models import Profile 
 import requests
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from datetime import datetime, timezone
 
 import json
 import datetime
@@ -77,8 +79,13 @@ def esewa(request):
         if status == 'Success':
             payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA')
             payment.save()
+<<<<<<< HEAD
 
+=======
+    customer = Profile.objects.get(user=request.user)       
+>>>>>>> a7eecae6ef8d028443a4a83cc981e0ca5434265f
     context = {
+        'items' : items, 'customer': customer,
 
     }
     return render(request, 'payment/success.html', context)
