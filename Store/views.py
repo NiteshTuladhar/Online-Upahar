@@ -171,10 +171,13 @@ def processOrder(request):
 				customer = customer,
 				order = order,
 				address = data['shipping']['address'],
-				city = data['shipping']['city'],
-				zone = data['shipping']['zone'],
-				postal_code = data['shipping']['postal_code'],
+				first_name = data['shipping']['first_name'],
+				last_name = data['shipping']['last_name'],
+				email = data['shipping']['email'],
 			)
+			print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+			print(data['shipping']['address'],data['shipping']['first_name'],)
+			print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
 	else:
 		print('user is not logged in')
 

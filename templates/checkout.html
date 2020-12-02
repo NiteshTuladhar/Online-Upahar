@@ -50,18 +50,13 @@
 											</td>
 											<td class="price" data-title="Price"><span>Nrs. {{item.product.product_price|floatformat:2}} </span></td>
 
-											<td class="qty" data-title="Qty">
+											<td class="qty" data-title="Qty" >
 
 													<!-- Input Order -->
-												<p>{{item.quantity}}</p>
-													
-											
-												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product="{{item.product.id}}" data-action="add" 
-													style="width: 15px;height:15px;cursor: pointer;display: block;">
-												<img src="{% static 'images/arrow-up.png' %}" class="update-cart" data-product="{{item.product.id}}" data-action="remove"
-													style="width: 15px;height:15px;cursor: pointer;display: block;-webkit-transform:rotate(180deg);">
-											
 
+												<span>{{item.quantity}}</span>
+			
+										
 
 											<!--<td class="qty" data-title="Qty">
 												<div class="input-group">
@@ -101,7 +96,7 @@
 										<li>Sub Total<span>Nrs. {{order.get_cart_total|floatformat:2}}</span></li>
 
 										<div id="delivery-charge">
-											<li>(+) Delivaery<span>Nrs. 50</span></li>
+											<li>(+) Delivery<span>Nrs. 50</span></li>
 										</div>
 
 										
@@ -117,7 +112,7 @@
 								<div class="content">
 									<br>
 										
-											<form action="{% url 'payment:paymentform' %}" method="GET">
+											<form action="{% url 'payment:paymentform' %}" method="GET" id='form'>
 												<div class="form-row">
 													<div class="form-group col-md-6">
 														{% csrf_token %}
@@ -142,7 +137,7 @@
 													<option selected>ESEWA</option>
 													<option>KHALTI</option>
 												</select>
-												<button type="submit" class="site-btn register-btn">MAKE A PAYMENT FOR GIFT</button>
+												<button type="submit" class="site-btn register-btn" id="form-button">MAKE A PAYMENT FOR GIFT</button>
 											</form>
 							
 								
@@ -167,93 +162,9 @@
 
 					</div>
 			</div>
+		
 
 
-        <div class="rows">
-          <div class="col-50">
-			<h3>Billing Address</h3>
-			
-			<div id = 'user-info'>
-				<label for="fname"><i class="fa fa-user"></i> Full Name</label>
-				<input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-				<label for="email"><i class="fa fa-envelope"></i> Email</label>
-				<input type="text" id="email" name="email" placeholder="john@example.com" required>
-				<label for="adr"><i class="fa fa-address-card-o"></i> Address Line 1</label>
-				<input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-				<label for="adr"><i class="fa fa-address-card-o"></i> Address Line 2</label>
-				<input type="text" id="adr" name="address1" placeholder="542 W. 15th Street">
-				<label for="zip">Zip</label>
-				<input type="text" id="zip" name="zip" placeholder="10001" required>
-				<label for="city"><i class="fa fa-institution"></i> City</label>
-				<input type="text" id="city" name="city" placeholder="New York">
-
-				<div class="rows">
-				<div class="col-50">
-					<label for="state">State</label>
-					<input type="text" id="state" name="state" placeholder="NY" required>
-				</div>
-				<div class="col-50">
-
-				</div>
-				</div>	
-	
-
-				<div class="col-50">
-
-				
-					<label for="ccnum">Contact No</label>
-					<input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
-			  </div>
-			</div>	  
-
-
-		</div>
-	</div>
-					
-
-<div class="rows" id="billing">
-  <div class="col-">
-    <div class="containers">
-      <form id='form'>
-
-        <div class="rows">
-          <div class="col-lg-8 col-12">
-			<h3>Delivery Address</h3>
-			
-			<div id = 'user-info'>
-				
-				<label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-				<input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-				
-				<label for="city"><i class="fa fa-institution"></i> City</label>
-				<input type="text" id="city" name="city" placeholder="New York">
-
-				<div class="rows">
-				<div class="col-50">
-					<label for="state">Zone</label>
-					<input type="text" id="zone" name="state" placeholder="NY" required>
-				</div>
-				<div class="col-50">
-					<label for="zip">Postal Code</label>
-					<input type="text" id="postal_code" name="zip" placeholder="10001" required>
-				</div>
-				</div>	
-	
-
-				
-			</div>	  
-
-        </div>
-        <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-        </label>
-        <input type="submit" value="Continueddddddd" class="btns" id="form-button" >
-      </form>
-    </div>
-  </div>
-
-
-</div>
 
 		</section>
 		<!--/ End Checkout -->
@@ -343,18 +254,18 @@
 					
 					'address' :  null,
 					'address1' : null,
-					'city' :  null,
-					'zone' :  null,
-					'postal_code' :  null,s
+					'first_name' :  null,
+					'last_name' :  null,
+					'email' :  null,
 
 			}
 			
 			
 			if (shipping != 'False'){
 				shippingInfo.address = form.address.value
-				shippingInfo.city = form.city.value
-				shippingInfo.zone = form.state.value
-				shippingInfo.postal_code = form.zip.value
+				shippingInfo.first_name = form.first_name.value
+				shippingInfo.last_name = form.last_name.value
+				shippingInfo.email = form.email.value
 			}
 
 
@@ -371,9 +282,7 @@
 			.then((response) => response.json())
     		.then((data) =>{
         		console.log('Success:', data);
-        		alert('Transaction Completed');
-
-        		window.location.href ="{% url 'Store:homepage' %}"
+        		
     		})
 		}
 	</script>
