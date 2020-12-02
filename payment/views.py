@@ -2,10 +2,12 @@ from django.shortcuts import render
 from Products.models import *
 from django.utils.crypto import get_random_string
 from .models import Payment
+from Profile.models import Profile 
 import requests
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from datetime import datetime, timezone
 
 
 # Create your views here.
@@ -73,7 +75,9 @@ def esewa(request):
         if status == 'Success':
             payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA') 
             payment.save()
+    customer = Profile.objects.get(user=request.user)       
     context = {
+        'items' : items, 'customer': customer,
 
     }
     return render(request, 'payment/success.html', context)
