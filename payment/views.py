@@ -79,17 +79,11 @@ def esewa(request):
         if status == 'Success':
             payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA')
             payment.save()
-<<<<<<< HEAD
     customer = Profile.objects.get(user=request.user)  
     delivery_charge = order.get_cart_total - order.get_cart_total
   
-=======
-<<<<<<< HEAD
 
-=======
     customer = Profile.objects.get(user=request.user)       
->>>>>>> a7eecae6ef8d028443a4a83cc981e0ca5434265f
->>>>>>> cb10ef86ad58a4c092a9850ed7ba5d167cd9d105
     context = {
         'items' : items, 'customer': customer,'order' :order, 'dc': delivery_charge,
 
