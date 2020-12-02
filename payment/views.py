@@ -8,7 +8,6 @@ import requests
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from datetime import datetime, timezone
 
 import json
 import datetime
@@ -79,11 +78,18 @@ def esewa(request):
         if status == 'Success':
             payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA')
             payment.save()
+<<<<<<< HEAD
     customer = Profile.objects.get(user=request.user)  
     delivery_charge = order.get_cart_total - order.get_cart_total
   
 
     customer = Profile.objects.get(user=request.user)       
+=======
+
+
+    customer = Profile.objects.get(user=request.user)       
+
+>>>>>>> 2f70609fa159a25aea4f518482429d944504fb03
     context = {
         'items' : items, 'customer': customer,'order' :order, 'dc': delivery_charge,
 
@@ -142,6 +148,7 @@ def khalti(request):
     if resp_dict.get("idx"):
         payment = Payment(order = myorder,amount=amount, referID = token, mode = 'KHALTI') 
         payment.save()
+
     else:
         success = False
     
