@@ -159,25 +159,25 @@ def processOrder(request):
 		order, created = Order.objects.get_or_create(customer=customer,complete=False)
 		total = float(data['form']['total'])
 
-		order.transaction_id = dtransaction_id
+		#order.transaction_id = dtransaction_id
 
-		if total == order.get_cart_grandtotal:
-			order.complete  = True
-	
-			order.save()
-
-		if order.shipping == True:
-			ShippingAdress.objects.create(
-				customer = customer,
-				order = order,
-				address = data['shipping']['address'],
-				first_name = data['shipping']['first_name'],
-				last_name = data['shipping']['last_name'],
-				email = data['shipping']['email'],
-			)
-			print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-			print(data['shipping']['address'],data['shipping']['first_name'],)
-			print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+		# if total == order.get_cart_grandtotal:
+		# 	order.complete  = True
+			
+		# 	order.save()
+		print('HElloooooooooooooooooooooooooooooooooooooooooo')
+		
+		ShippingAdress.objects.create(
+			customer = customer,
+			order = order,
+			address = data['shipping']['address'],
+			first_name = data['shipping']['first_name'],
+			last_name = data['shipping']['last_name'],
+			email = data['shipping']['email'],
+		)
+		print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+		print(data['shipping']['address'],data['shipping']['first_name'],)
+		print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
 	else:
 		print('user is not logged in')
 

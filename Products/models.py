@@ -101,16 +101,16 @@ class Order(models.Model):
     def get_cart_grandtotal(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
+
         for i in orderitems:
-            if i.product.digital == False:
-                grandtotal = total + 50
+            if i.product.digital == True:
+                total = total
+
             else:
-                grandtotal = total
+                total = total + 50
 
-
-        return grandtotal
-
-
+        return total
+    
     @property
     def get_cart_items(self):
         orderitems = self.orderitem_set.all()
