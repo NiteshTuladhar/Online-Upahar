@@ -36,10 +36,14 @@ def paymentform(request):
     unique_id = get_random_string(length=40)
 
     delivery_charge = order.get_cart_grandtotal - order.get_cart_total
-    print('-----------vvv--------')
-    print(delivery_charge)
+    customer = Profile.objects.get(user=request.user)
+    Shipping = ShippingAdress.objects.get(order_id = order.id)
+    date = datetime.datetime.now()
 
-    context={'items' : items, 'order':order,'cartItems':cartItems, 'pid': unique_id,'delivery_charge':delivery_charge}
+
+    context={'items' : items, 'order':order,'cartItems':cartItems, 
+    'pid': unique_id,'dc':delivery_charge, 'customer': customer, 'shipping': Shipping, 'date': date,
+    }
 
     if (payment_methods == "ESEWA"):
 
@@ -80,22 +84,18 @@ def esewa(request):
         if status == 'Success':
             payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA')
             payment.save()
-<<<<<<< HEAD
-    customer = Profile.objects.get(user=request.user)  
-    delivery_charge = order.get_cart_total - order.get_cart_grandtotal
+            customer = Profile.objects.get(user=request.user)  
+            delivery_charge = order.get_cart_total - order.get_cart_grandtotal
   
-=======
-
             dtransaction_id = datetime.datetime.now().timestamp()
             orderitem.transaction_id = dtransaction_id
->>>>>>> e65433169f656f72bc5008c70d7b3b4b349635f0
-
             orderitem.complete = True
             orderitem.save()
-            
-    customer = Profile.objects.get(user=request.user)       
+    date = datetime.datetime.now()
+    customer = Profile.objects.get(user=request.user)  
+    Shipping = ShippingAdress.objects.get(order_id = orderitem)      
     context = {
-        'items' : items, 'customer': customer,'order' :order, 'dc': delivery_charge,
+        'items' : items, 'customer': customer,'order' :order, 'dc': delivery_charge, 'date': date, 'shipping': Shipping
 
     }
     return render(request, 'payment/success.html', context)
