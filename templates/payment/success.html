@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-header">
                 Invoice
-                <strong>01/01/2020</strong>
+                <strong>{{date}}</strong>
                 <span class="float-right"> <strong>Status:</strong> Paid</span>
             </div>
             <div class="card-body">
@@ -18,12 +18,12 @@
                     <div class="col-sm-6">
                         <h6 class="mb-3">From:</h6>
                         <div>
-                            <strong>Online Upahaar</strong>
+                            <strong>Reciever Details</strong>
                         </div>
-                        <div>Solti-Mode, Kathmandu, Nepal </div>
+                        <div>{{shipping.first_name}} {{shipping.last_name}} </div>
                         
-                        <div>Email: info@onlineupahaar.com</div>
-                        <div>Phone: +977 9876543211</div>
+                        <div>Email: {{shipping.email}}</div>
+                        <div>Address: {{shipping.address}}</div>
                     </div>
                     <div class="col-sm-6">
                         <h6 class="mb-3">To:</h6>
@@ -72,26 +72,21 @@
                                     <td class="left">
                                         <strong>Subtotal</strong>
                                     </td>
-                                    <td class="right">$8.497,00</td>
+                                    <td class="right">NRs. {{order.get_cart_total|floatformat:2}}</td>
                                 </tr>
                                 <tr>
                                     <td class="left">
-                                        <strong>Discount (20%)</strong>
+                                        <strong>Delivery Charge</strong>
                                     </td>
-                                    <td class="right">$1,699,40</td>
+                                    <td class="right">Nrs. {{dc}} </td>
                                 </tr>
-                                <tr>
-                                    <td class="left">
-                                        <strong>VAT (10%)</strong>
-                                    </td>
-                                    <td class="right">$679,76</td>
-                                </tr>
+
                                 <tr>
                                     <td class="left">
                                         <strong>Total</strong>
                                     </td>
                                     <td class="right">
-                                        <strong>$7.477,36</strong>
+                                        <strong>Nrs {{order.get_cart_grandtotal|floatformat:2}}</strong>
                                     </td>
                                 </tr>
                             </tbody>
