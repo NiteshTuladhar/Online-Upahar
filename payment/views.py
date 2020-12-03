@@ -19,10 +19,7 @@ def paymentform(request):
 
     if request.method == 'GET':
         
-        reciever_firstname = request.GET['first_name']
-        reciever_lastname = request.GET['last_name']
-        reciever_email = request.GET['email']
-        reciever_address = request.GET['address']
+
         payment_methods = request.GET['p']
 
 
@@ -37,7 +34,12 @@ def paymentform(request):
             order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
             cartItems = order['get_cart_items']
     unique_id = get_random_string(length=40)
-    context={'items' : items, 'order':order,'cartItems':cartItems, 'pid': unique_id}
+
+    delivery_charge = order.get_cart_grandtotal - order.get_cart_total
+    print('-----------vvv--------')
+    print(delivery_charge)
+
+    context={'items' : items, 'order':order,'cartItems':cartItems, 'pid': unique_id,'delivery_charge':delivery_charge}
 
     if (payment_methods == "ESEWA"):
 
@@ -78,10 +80,19 @@ def esewa(request):
         if status == 'Success':
             payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA')
             payment.save()
+<<<<<<< HEAD
     customer = Profile.objects.get(user=request.user)  
     delivery_charge = order.get_cart_total - order.get_cart_grandtotal
   
+=======
 
+            dtransaction_id = datetime.datetime.now().timestamp()
+            orderitem.transaction_id = dtransaction_id
+>>>>>>> e65433169f656f72bc5008c70d7b3b4b349635f0
+
+            orderitem.complete = True
+            orderitem.save()
+            
     customer = Profile.objects.get(user=request.user)       
     context = {
         'items' : items, 'customer': customer,'order' :order, 'dc': delivery_charge,
@@ -139,8 +150,16 @@ def khalti(request):
     print('-------------------------------------')
     
     if resp_dict.get("idx"):
+
+
         payment = Payment(order = myorder,amount=amount, referID = token, mode = 'KHALTI') 
         payment.save()
+
+        dtransaction_id = datetime.datetime.now().timestamp()
+        myorder.transaction_id = dtransaction_id
+
+        myorder.complete = True
+        myorder.save()
 
     else:
         success = False

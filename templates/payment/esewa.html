@@ -17,7 +17,9 @@
     <input value="{{order.get_cart_total|floatformat:2}}" name="amt" type="hidden">
     <input value="0" name="txAmt" type="hidden">
     <input value="0" name="psc" type="hidden">
-    <input value="50" name="pdc" type="hidden">
+   
+    <input value="{{delivery_charge}}" name="pdc" type="hidden">
+    
     <input value="EPAYTEST" name="scd" type="hidden">
     <input value="{{order.id}}-{{pid}}" name="pid" type="hidden">
     <input value="http://localhost:8000{% url 'payment:esewa_success' %}?q=su" type="hidden" name="su">

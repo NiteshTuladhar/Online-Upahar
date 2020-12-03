@@ -128,7 +128,7 @@
 													<label for="inputAddress"><h6 style="font-weight:300">&nbsp; &nbsp;Receiver Email ID</h6></label>
 													<input type="email" class="form-control form-control-sm" id="inputAddress" placeholder="Reciever's Email ID" name="email">
 												</div>
-												<div class="form-group">
+												<div class="form-group" id='address'>
 													<label for="inputAddress"><h6 style="font-weight:300">&nbsp; &nbsp;Reciever's Address</h6></label>
 													<input type="text" class="form-control form-control-sm" id="inputAddress" placeholder="Reciever's Shipping Address" name="address">
 												</div>
@@ -151,14 +151,7 @@
 								</div>
 							</div>
 							<!--/ End Payment Method Widget -->
-							<!-- Button Widget -->
-							<div class="single-widget get-button" id="checkout">
-								<div class="content">
-									<div class="button">
-										<input type="submit" id="form-buttons" href="#" class="btn">proceed to checkout</a>
-									</div>
-								</div>
-							</div>
+							
 
 					</div>
 			</div>
@@ -220,14 +213,14 @@
 			var total = '{{order.get_cart_grandtotal|floatformat:2}}'
 			console.log(shipping)
 			if(shipping == 'True'){
-				document.getElementById('checkout').innerHTML = ''
+
 				console.log("if")
 
 			}
 			else{
 				console.log('else')
 				document.getElementById('delivery-charge').innerHTML = ''
-				document.getElementById('user-info').innerHTML = ''
+				document.getElementById('address').innerHTML = ''
 				
 			}
 
@@ -238,7 +231,7 @@
 			
 			document.getElementById('form-button').addEventListener('click',function(e){
 				submitFormData();
-				
+				console.log('fucntion button clicked')
 			})
 
 			function submitFormData(){
@@ -263,6 +256,13 @@
 			
 			if (shipping != 'False'){
 				shippingInfo.address = form.address.value
+				shippingInfo.first_name = form.first_name.value
+				shippingInfo.last_name = form.last_name.value
+				shippingInfo.email = form.email.value
+			}
+
+			else {
+				
 				shippingInfo.first_name = form.first_name.value
 				shippingInfo.last_name = form.last_name.value
 				shippingInfo.email = form.email.value
