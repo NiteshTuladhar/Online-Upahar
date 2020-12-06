@@ -13,6 +13,8 @@ def home(request):
 	banner = SmallBanner.objects.all()
 	wishlist = Wishlist.objects.all()
 	category = Category.objects.all()
+
+	
 	id=request.user.id
 	if request.user.is_authenticated:
 		try:
@@ -82,12 +84,15 @@ def checkoutpage(request):
 	return render(request,'checkout.html',context)
 
 
-
 def categoriesItem(request):
 	product = Product.objects.all()
 	banner = SmallBanner.objects.all()
 	wishlist = Wishlist.objects.all()
 	category = Category.objects.all()
+
+	
+
+
 	id=request.user.id
 	if request.user.is_authenticated:
 		try:
@@ -111,10 +116,10 @@ def categoriesItem(request):
 		'cartItems' : cartItems,
 		'wishlist': wishlist,
 		'category' : category,
+
 	}
 
 	return render(request,'categories.html',context)
-
 
 
 def updateItem(request): 
@@ -182,3 +187,11 @@ def processOrder(request):
 		print('user is not logged in')
 
 	return JsonResponse('payment complete', safe=False)
+
+
+
+
+
+def aboutUs(request):
+
+	return render(request,'about_us.html')

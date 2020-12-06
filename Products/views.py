@@ -38,7 +38,6 @@ def productDetails(request,slug):
 
 def wishlist(request, id):
 
-	
 	wishlist = Wishlist.objects.filter(user_id=id)
 	id=request.user.id
 	print(wishlist)

@@ -29,14 +29,15 @@
 					<!-- Shopping Summery -->
 					<table class="table shopping-summery">
 						<thead>
-							<tr class="main-hading">
+							<!-- <tr class="main-hading">
 								<th>PRODUCT</th>
 								<th>NAME</th>
 								<th class="text-center">UNIT PRICE</th>
 								<th class="text-center">Product Of</th>
 								<th class="text-center">Add to Cart</th> 
 								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
-							</tr>
+								<th class="text-center"><i class="fa fa-shopping-cart"></i></th>
+							</tr> -->
 						</thead>
 						<tbody>
                             {% for wish in wishlist %}
@@ -45,6 +46,7 @@
 								<td class="product-des" data-title="Description">
 									<p class="product-name"><a href="#">{{wish.product.product_name}}</a></p>
 									<p class="product-des">This is some random text and must be changed later.</p>
+									<p class="product-des">Seller : {{wish.seller_account.account_name}}</p>
 								</td>
 								<td class="price" data-title="Price"><span>Nrs {{wish.product.product_price}} </span></td>
 								<td class="qty" data-title="Qty"><!-- Input Order -->
@@ -53,6 +55,7 @@
 								</td>
 								<td class="total-amount" data-title="Total"><span>Nrs {{wish.product.product_price}}</span></td>
 								<td class="action" data-title="Remove"><a href="{% url 'Products:delete_wishlist' wish.id %}"><i class="ti-trash remove-icon"></i></a></td>
+								<td class="total-amount" data-title="Total"><a href="#" class="cart-btn" style="height: 40px; width: 80px;"><i class="fa fa-cart-plus fa-lg pb-5" style="position:absolute;padding: -15px 0px 0px 50px;"></i></a></td>
                             </tr>
                             {% endfor %}
 						</tbody>

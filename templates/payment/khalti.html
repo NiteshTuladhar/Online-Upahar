@@ -158,6 +158,7 @@
                     // hit merchant api for initiating verfication
                     console.log(payload);
                     verifyPayment(payload)
+                    location.href="{% url 'Store:homepage' %}"
                 },
                 onError (error) {
                     console.log(error);

@@ -11,8 +11,8 @@
 				<div class="col-12">
 					<div class="bread-inner">
 						<ul class="bread-list">
-							<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-							<li class="active"><a href="blog-single.html">Cart</a></li>
+							<li><a href="{% url 'Store:homepage' %}">Home<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="{% url 'Store:cartpage' %}">Cart</a></li>
 						</ul>
 					</div>
 				</div>
@@ -51,15 +51,17 @@
 								<td class="qty" data-title="Qty">
 
 										<!-- Input Order -->
-									<p>{{item.quantity}}</p>
+									
 										
 								
-									<img src="{% static 'images/arrow-up.png' %}" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action="add" 
-										style="width: 5px;height:15px;cursor: pointer;display: block;">
-									<img src="{% static 'images/arrow-up.png' %}" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action="remove"
-										style="width: 5px;height:15px;cursor: pointer;display: block; -webkit-transform:rotate(180deg);">
-								
+									<i class="chg-quantity update-cart fa fa-chevron-up" data-product="{{item.product.id}}" data-action="add" 
+										style="cursor: pointer;display: block;float: right;"></i>
 
+										<p style="float:left;">{{item.quantity}}</p>
+										
+									<i class="chg-quantity update-cart fa fa-chevron-down" data-product="{{item.product.id}}" data-action="remove"
+										style="cursor: pointer;display: block;float: right;"></i>
+								
 
 								<!--<td class="qty" data-title="Qty">
 									<div class="input-group">

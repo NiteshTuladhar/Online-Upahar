@@ -154,7 +154,7 @@ width: 45px;
 					<div class="col-lg-2 col-md-2 col-12">
 						<!-- Logo -->
 						<div class="logo">
-							<a href="index.html"><img src="{% static 'images/Contentder.png' %}" alt="logo"></a>
+							<a href="{% url 'Store:homepage' %}"><img src="{% static 'images/Contentder.png' %}" class = "logo_img" alt="logo" style="max-width: 70%;"></a>
 						</div>
 						<!--/ End Logo -->
 						<!-- Search Form -->
@@ -272,8 +272,8 @@ width: 45px;
 							<div class="all-category">
 								<h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3>
 								<ul class="main-category">
-									<li><a href="{% url 'Store:categoriesItem' %}">New Arrivals <!--<i class="fa fa-angle-right" aria-hidden="true"></i>--></a>
-										<!--<ul class="sub-category">
+									<li><a href="{% url 'Store:categoriesItem' %}">New Arrivals <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="sub-category">
 											<li><a href="#">accessories</a></li>
 											<li><a href="#">best selling</a></li>
 											<li><a href="#">top 100 offer</a></li>
@@ -283,7 +283,7 @@ width: 45px;
 											<li><a href="#">ladies</a></li>
 											<li><a href="#">westrn dress</a></li>
 											<li><a href="#">denim </a></li>
-										</ul>-->
+										</ul>
 									</li>
 									<li class="main-mega"><a href="#">best gifts <!--<i class="fa fa-angle-right" aria-hidden="true"></i>--></a>
 								<!--		<ul class="mega-menu">
@@ -326,13 +326,12 @@ width: 45px;
 										</ul>-->
 									</li>
 									<li><a href="#">ocassions</a></li>
-									<li><a href="#">Best gifts</a></li>
 									<li><a href="#">Handicraft gifts</a></li>
-									<li><a href="#">Gift for kids</a></li>
-									<li><a href="#">Flowers & Cakes</a></li>
+								
 									<li><a href="#">Sweets & Chocolates</a></li>
-									<li><a href="#">Ornaments</a></li>
-									<li><a href="#">Gift ideas</a></li>
+									{% for c in category %}
+										<li><a href="{% url 'Store:categoriesItem' %}">{{c.product_category}}</a></li>
+									{% endfor %}
 								</ul>
 							</div>
 						</div>
@@ -389,7 +388,7 @@ width: 45px;
 										<h1><span>UP TO 10% OFF </span>Gifts For Your Loved Ones.</h1>
 										<p>Send gifts to the ones that you love <br> and make their day more special and joyfull <br> odiy maboriosm.</p>
 										<div class="button">
-											<a href="#" class="btn">Shop Now!</a>
+											<a href="{% url 'Store:categoriesItem' %}" class="btn">Shop Now!</a>
 										</div>
 									</div>
 								</div>
@@ -453,7 +452,7 @@ width: 45px;
 																	{% if user not in p.liked.all %}
 																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -471,7 +470,10 @@ width: 45px;
 														<div class="product-price">
 															<span>$ {{p.product_price}}</span>
 														</div>
+
 													</div>
+
+
 												</div>
 												</div>
 												{% endif %}
@@ -503,7 +505,7 @@ width: 45px;
 																	{% if user not in p.liked.all %}
 																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -553,7 +555,7 @@ width: 45px;
 																	{% if user not in p.liked.all %}
 																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -602,7 +604,7 @@ width: 45px;
 																	{% if user not in p.liked.all %}
 																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -651,7 +653,7 @@ width: 45px;
 																	{% if user not in p.liked.all %}
 																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -1031,7 +1033,7 @@ width: 45px;
 																	{% if user not in p.liked.all %}
 																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -1092,7 +1094,7 @@ width: 45px;
 						<div class="single-footer links">
 							<h4>Information</h4>
 							<ul>
-								<li><a href="#">About Us</a></li>
+								<li><a href="{% url 'Store:about_us' %}">About Us</a></li>
 								<!--<li><a href="#">Faq</a></li>-->
 								<li><a href="#">Terms & Conditions</a></li>
 								<li><a href="{% url 'ContactMail:contactpage' %}">Contact Us</a></li>
