@@ -1756,6 +1756,10 @@ Version:1.0
 .single-product{
 	margin-top:50px;
 }
+
+.single-product:hover{
+	box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
 .single-product .product-img {
   position: relative;
   overflow: hidden;
@@ -1858,7 +1862,7 @@ Version:1.0
 .single-product .product-img .product-action a span {
 	visibility: hidden;
 	position: absolute;
-	background: #F7941D !important;
+	background: #3D79B1 !important;
 	color: #fff !important;
 	text-align: center;
 	padding: 5px 12px;
@@ -1928,6 +1932,7 @@ Version:1.0
 	text-transform: uppercase;
 	line-height: 1;
 	display: inline-block;
+	margin: 0px 0px 0px 10px;
 }
 .single-product .product-img .product-action-2 a:hover {
   color:#2b647c;
@@ -2013,22 +2018,26 @@ Version:1.0
 .single-product .product-content h3 a {
 	font-size: 14px;
 	font-weight: 500;
-	margin: 0;
+	margin: 0px 0px 0px 10px;
 }
 .single-product .product-content h3 a:hover{
 	color:#2b647c;
 }
 .single-product .product-content .product-price {
-  margin: 6px 0 0 0;
+  margin: 6px 0px 0px 0px;
+  padding-bottom: 30px;
 }
 .single-product .product-content .product-price span {
-	font-size: 15px;
+	font-size: 17px;
 	font-weight: 500;
+	color: #3D79B1;
+	margin: 6px 10px 10px 10px;
 }
 .single-product .product-content .product-price span.old {
   text-decoration: line-through;
   opacity: .6;
   margin-right: 2px;
+
 }
 /*======================================
    End Single Product CSS

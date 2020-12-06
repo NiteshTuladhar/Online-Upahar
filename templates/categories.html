@@ -11,8 +11,8 @@
           <div class="col-12">
             <div class="bread-inner">
               <ul class="bread-list">
-                <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                <li class="active"><a href="blog-single.html">Checkout</a></li>
+                <li><a href="{% url 'Store:homepage' %}">Home<i class="ti-arrow-right"></i></a></li>
+                <li class="active"><a href="{% url 'Store:categoriesItem' %}">Categories</a></li>
               </ul>
             </div>
           </div>
@@ -23,7 +23,7 @@
         
     <div id="all">
       
-      <div id="heading-breadcrumbs">
+<!--       <div id="heading-breadcrumbs">
         <div class="container">
           <div class="row d-flex align-items-center flex-wrap">
             <div class="col-md-7">
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div id="content">
         <div class="container">
           <div class="row bar">
@@ -170,7 +170,7 @@
                                   {% if user not in p.liked.all %}
                                     <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                   {% else %}
-                                    <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart-broken "></i><span>Remove from Wishlist</span></a>
+                                    <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
                                   {% endif %}
 
                                 </form> 

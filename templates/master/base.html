@@ -169,7 +169,7 @@
 						<div class="col-lg-2 col-md-2 col-12">
 							<!-- Logo -->
 							<div class="logo">
-								<a href="index.html"><img src="{% static 'images/Contentder.png' %}" alt="logo"></a>
+								<a href="{% url 'Store:homepage' %}"><img src="{% static 'images/Contentder.png' %}" alt="logo" style="max-width: 70%;"></a>
 							</div>
 							<!--/ End Logo -->
 							<!-- Search Form -->
@@ -348,7 +348,7 @@
 						<div class="single-footer links">
 							<h4>Information</h4>
 							<ul>
-								<li><a href="#">About Us</a></li>
+								<li><a href="{% url 'Store:about_us' %}">About Us</a></li>
 								<!--<li><a href="#">Faq</a></li>-->
 								<li><a href="#">Terms & Conditions</a></li>
 								<li><a href="{% url 'ContactMail:contactpage' %}">Contact Us</a></li>
