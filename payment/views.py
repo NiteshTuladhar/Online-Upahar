@@ -5,7 +5,7 @@ from Products.models import Product,Order, OrderItem, ShippingAdress
 from .models import Payment
 from Profile.models import Profile 
 import requests
-
+from .mail import CustomMail
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
@@ -42,7 +42,7 @@ def paymentform(request):
 
 
     context={'items' : items, 'order':order,'cartItems':cartItems, 
-    'pid': unique_id,'dc':delivery_charge, 'customer': customer, 'shipping': Shipping, 'date': date,
+    'pid': unique_id,'delivery_charge':delivery_charge, 'customer': customer, 'shipping': Shipping, 'date': date,
     }
 
     if (payment_methods == "ESEWA"):
@@ -81,6 +81,10 @@ def esewa(request):
         resp = requests.post(url,d)
         root = ET.fromstring(resp.content)
         status = root[0].text.strip()
+        date = datetime.datetime.now()
+        customer = Profile.objects.get(user=request.user)  
+        shipping = ShippingAdress.objects.get(order_id = orderitem)
+        cartItems = order.get_cart_items 
         if status == 'Success':
             payment = Payment(order = order, amount=totalAmt, referID = refid, mode = 'ESEWA')
             payment.save()
@@ -91,11 +95,18 @@ def esewa(request):
             orderitem.transaction_id = dtransaction_id
             orderitem.complete = True
             orderitem.save()
-    date = datetime.datetime.now()
-    customer = Profile.objects.get(user=request.user)  
-    Shipping = ShippingAdress.objects.get(order_id = orderitem)      
+           
+            #-----------mail--------------------
+            receiveremail = shipping.email
+            receivermail = CustomMail('mail/receiver_email.html', 'Purchase Notification', [receiveremail,], nameofcustomer=shipping.first_name, date=date, order=order, items=items,
+            cartItems=cartItems, shipping=shipping, customer=customer)
+            receivermail.push()
+            print(receiveremail)
+            #-------------------------------------
+
+     
     context = {
-        'items' : items, 'customer': customer,'order' :order, 'dc': delivery_charge, 'date': date, 'shipping': Shipping
+        'items' : items, 'customer': customer,'order' :order, 'dc': delivery_charge, 'date': date, 'shipping': shipping
 
     }
     return render(request, 'payment/success.html', context)
