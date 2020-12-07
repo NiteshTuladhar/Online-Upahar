@@ -41,7 +41,7 @@
 						<tbody>
 							{% for item in items %}
 							<tr>
-								<td class="image" data-title="No"><img src="{{item.product.imageURL}}" alt="#"></td>
+								<td class="image" data-title="No" style=""><img src="{{item.product.imageURL}}" alt="#"></td>
 								<td class="product-des" data-title="Description">
 									<p class="product-name"><a href="{% url 'Products:productdetails' item.product.slug %}">{{item.product.product_name}}</a></p>
 									<p class="product-des">{{item.product.product_details}}</p>
