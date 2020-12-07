@@ -15,12 +15,12 @@ def userLogin(request):
 
 		if user is not None:
 			login(request, user)
-			account = Account.objects.get(id=request.user.id)
-			if account.profile_create is False:
-				profile = Profile(user=request.user)
-				account.profile_create = True
-				profile.save()
-				account.save()
+			#account = Account.objects.get(id=request.user.id)
+			# if account.profile_create is False:
+			# 	profile = Profile(user=request.user)
+			# 	account.profile_create = True
+			# 	profile.save()
+			# 	account.save()
 			return redirect('Store:homepage')
 
 		else:

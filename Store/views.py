@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist
+from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
 from Profile.models import Profile
 from Store.models import SmallBanner
 from django.http import JsonResponse
@@ -14,15 +14,24 @@ def home(request):
 	wishlist = Wishlist.objects.all()
 	category = Category.objects.all()
 
+	maincategories = MainCategory.objects.all()
+
+	subcategory = SubCategory.objects.all()
+
+
+	print(subcategory)
 	
 	id=request.user.id
 	if request.user.is_authenticated:
 		try:
-			customer = request.user.profile	
-			print(customer)
-			order, created = Order.objects.get_or_create(customer=customer,complete=False)
-			items = order.orderitem_set.all()
-			cartItems = order.get_cart_items
+			if request.user.is_verified == True:
+				customer = request.user.profile	
+				print(customer)
+				order, created = Order.objects.get_or_create(customer=customer,complete=False)
+				items = order.orderitem_set.all()
+				cartItems = order.get_cart_items
+			else:
+				return redirect('Account:verifypage')
 		except:
 			return redirect('Account:verifypage')
 	else:
@@ -42,6 +51,8 @@ def home(request):
 		'cartItems' : cartItems,
 		'wishlist': wishlist,
 		'category' : category,
+		'maincategories' : maincategories,
+		'subcategory' : subcategory,
 	}
 
 	return render(request,'index.html', context)
@@ -90,7 +101,7 @@ def categoriesItem(request):
 	wishlist = Wishlist.objects.all()
 	category = Category.objects.all()
 
-	
+	maincategories = MainCategory.objects.all()
 
 
 	id=request.user.id
@@ -116,10 +127,73 @@ def categoriesItem(request):
 		'cartItems' : cartItems,
 		'wishlist': wishlist,
 		'category' : category,
+		'maincategories' : maincategories,
 
 	}
 
 	return render(request,'categories.html',context)
+
+
+
+
+def maincategoriesItem(request,slug):
+	
+
+	maincategory = MainCategory.objects.get(slug=slug)
+	p = Product.objects.filter(subcategory__in=SubCategory.objects.filter(category=MainCategory.objects.get(slug=slug)))
+
+	product_count = p.count()
+
+
+	wishlist = Wishlist.objects.all()
+	
+
+
+	id=request.user.id
+	if request.user.is_authenticated:
+		try:
+			customer = request.user.profile	
+			print(customer)
+			order, created = Order.objects.get_or_create(customer=customer,complete=False)
+			items = order.orderitem_set.all()
+			cartItems = order.get_cart_items
+		except:
+			return redirect('ContactMail:contactpage')
+	else:
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+	
+	context = {
+		
+		'id': id,
+		'cartItems' : cartItems,
+		'wishlist': wishlist,
+		'products' : p,
+		'product_count' : product_count,
+		'maincategory' : maincategory,
+		
+
+	}
+
+	return render(request,'category_page/main_category.html',context)
+
+
+
+def subcategoriesItem(request,slug):
+
+	subcategory = SubCategory.objects.get(slug=slug)
+	products = Product.objects.filter(subcategory_id=subcategory.id)
+	product_count = products.count()
+
+	context = {
+		'subcategory' : subcategory,
+		'products' : products,
+		'product_count' : product_count,
+	}
+	return render(request,'category_page/sub_category.html',context)
+
 
 
 def updateItem(request): 

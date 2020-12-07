@@ -19,6 +19,7 @@ class Product(models.Model):
     product_price = models.PositiveIntegerField()
     product_image = models.ImageField(null=True, upload_to ='product_details_img/')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
+    subcategory = models.ForeignKey('SubCategory',on_delete=models.CASCADE, null=True)
     slug = AutoSlugField(populate_from='product_name',unique=True,null=True,blank=True)
     digital = models.BooleanField(default=False, null=True, blank=True)
     liked = models.ManyToManyField(Account, default=None, blank=True, related_name='liked')
@@ -66,6 +67,23 @@ class Category(models.Model):
 
     def __str__(self):
         return self.product_category
+
+class MainCategory(models.Model):
+    main_category = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='main_category',unique=True,null=True,blank=True)
+    
+    def __str__(self):
+        return self.main_category
+
+
+class SubCategory(models.Model):
+
+    sub_category = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='sub_category',unique=True,null=True,blank=True)
+    category = models.ForeignKey(MainCategory,on_delete=models.SET_NULL,blank=True,null=True)
+    
+    def __str__(self):
+        return self.sub_category
 
 
 

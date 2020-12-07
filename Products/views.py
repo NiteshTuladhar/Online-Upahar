@@ -105,7 +105,7 @@ def details_add_to_cart(request,slug):
 
     )
 	print(order.order_items)
-	print('===============================================')
+	print('==================yolo=============================')
 	if order.order_items.filter(product__slug=item.slug).exists():
 
 		itemorder.quantity +=1
