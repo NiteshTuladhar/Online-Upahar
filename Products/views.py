@@ -97,7 +97,7 @@ def wishlist_delete(request, id):
 
 def details_add_to_cart(request,slug):
  
-	item = get_object_or_404(Product, slug=slug)
+	item = Product.objects.get(slug=slug)
 	order, created = Order.objects.get_or_create(
 
 		customer=request.user.profile,
@@ -106,10 +106,11 @@ def details_add_to_cart(request,slug):
     )
 	print(order.order_items)
 	print('==================yolo=============================')
-	if order.order_items.filter(product__slug=item.slug).exists():
-
-		itemorder.quantity +=1
-		itemorder.save()
+	if OrderItem.objects.filter(product=item, order = order).exists():
+		x = OrderItem.objects.get(product=item, order = order)
+		print(x)
+		x.quantity +=1
+		x.save()
 
 	else:
 		itemorder, created = OrderItem.objects.get_or_create(
@@ -123,10 +124,7 @@ def details_add_to_cart(request,slug):
 
 def delete_add_to_cart(request, slug):
 	order = Order.objects.get(customer=request.user.profile, complete=False)
-	print('------------------------delete----------------------')
 	item = Product.objects.get(slug=slug)
-	print(item)
-	print('------------------------order----------------------')
 	items = OrderItem.objects.get(order= order, product=item)
 	items.delete()
 
