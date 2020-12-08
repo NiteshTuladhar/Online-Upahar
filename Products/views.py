@@ -111,9 +111,7 @@ def details_add_to_cart(request,slug):
 		itemorder.quantity +=1
 		itemorder.save()
 
-		print('iffffffffffffffff')
 	else:
-		print('elseeeeeeeeeeeee')
 		itemorder, created = OrderItem.objects.get_or_create(
 	        product=item,
 	        order = order,
@@ -121,3 +119,20 @@ def details_add_to_cart(request,slug):
 
 	    )
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_add_to_cart(request, slug):
+	order = Order.objects.get(customer=request.user.profile, complete=False)
+	print('------------------------delete----------------------')
+	item = Product.objects.get(slug=slug)
+	print(item)
+	print('------------------------order----------------------')
+	items = OrderItem.objects.get(order= order, product=item)
+	items.delete()
+
+
+
+
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+		

@@ -81,7 +81,7 @@
 
 								</td>
 								<td class="total-amount" data-title="Total"><span>Nrs {{item.get_total|floatformat:2}}</span></td>
-								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
+								<td class="action" data-title="Remove"><a href="{% url 'Products:delete_add_to_cart' item.product.slug %}"><i class="ti-trash remove-icon"></i></a></td>
 							</tr>
 							{% endfor %}
 						</tbody>
