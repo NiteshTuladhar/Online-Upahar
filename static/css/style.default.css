@@ -96,7 +96,7 @@ p.lead {
 }
 
 .bar {
-  padding: 60px 0;
+  padding: 30px 0;
 }
 
 .bar.padding-big {
@@ -1242,7 +1242,6 @@ header.nav-holder.sticky {
 #blog-post #comments, #blog-post #comment-form {
   padding: 20px 0;
   margin-top: 20px;
-  border-top: solid 1px #eee;
 }
 
 #blog-post #comments h4, #blog-post #comment-form h4 {
@@ -3112,14 +3111,7 @@ STYLE SWITCHER FOR DEMO
 /*
  * 3. TYPE  
  */
-body {
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-}
+
 
 a {
   color: #3D79B1;

@@ -4868,6 +4868,7 @@ Version:1.0
 ===============================*/
 .footer{
 	background:#222;
+	margin-top: 100px;
 }
 .footer .about {
 	padding-right: 50px;

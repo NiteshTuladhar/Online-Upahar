@@ -23,7 +23,13 @@
       <span>{{details.category}}</span>
       <h1>{{details.product_name}}</h1>
       <p>{{details.product_details}}</p>
-      <p><strong><i class="fa fa-eye"></i> {{details.visit|intcomma}} views</strong></p>
+      <h1><span style="font-size: 30px;color: #F57224; font-weight: 600;">Nrs. {{details.product_price}}</span></h1>
+      <span class="fa fa-star checked" style="color:#FFCF00;"></span>
+      <span class="fa fa-star checked" style="color:#FFCF00;"></span>
+      <span class="fa fa-star checked" style="color:#FFCF00;"></span>
+      <span class="fa fa-star" style="color:#FFCF00;"></span>
+      <span class="fa fa-star" style="color:#FFCF00;"></span>
+      <p>{{ review.count }} Reiview{{ review|pluralize }} | 4 Answered Question</p>
     </div>
  
     <!-- Product Configuration -->
@@ -51,7 +57,7 @@
       </div>
  
       <!-- Cable Configuration -->
-      <div class="cable-configs">
+      <!-- <div class="cable-configs">
         <span>Cable configuration</span>
  
         <div class="cable-chooses">
@@ -62,20 +68,74 @@
  
         <a href="#">How to configurate your headphones</a>
       </div>
-    </div>
+    </div> -->
  
     <!-- Product Pricing -->
     <div class="product-prices">
-      <span>Nrs. {{details.product_price}}</span>
       
-      <a href="{% url 'Products:add_to_cart' details.slug %}"  class="cart-btn">Add to cart</a>
+      <a href="{% url 'Products:add_to_cart' details.slug %}"  class="cart-btn" style="float: left;">Add to cart</a>
+      <a href="{% url 'Products:buynow' details.slug %}"  class="cart-btn" style="float: right; background-color: #f57224;">Buy Now</a>
     </div>
   </div>
 </main>
 
-<div class="container" style="height: 550px;width: auto;">
-  
-</div>
+<div class="container" style="height: 550px;width: auto;position: relative;margin-bottom: 220px;">
+  <div id="content">
+
+          <div class="row bar">
+            <!-- LEFT COLUMN _________________________________________________________-->
+            <div id="blog-post" class="col-md-9">
+
+              <div id="comments">
+                <h4 class="text-uppercase">Reiview{{ review|pluralize }}({{ review.count }})</h4>
+                <div class="row comment last">
+                  
+                  <div class="col-sm-12 col-md-10">
+                    {% for r in review %}
+                    <h5 class="text-uppercase">{{r.user.account_name}}</h5>
+                    <span class="fa fa-star checked" style="color:#FFCF00;"></span>
+                    <span class="fa fa-star checked" style="color:#FFCF00;"></span>
+                    <span class="fa fa-star checked" style="color:#FFCF00;"></span>
+                    <span class="fa fa-star" style="color:#FFCF00;"></span>
+                    <span class="fa fa-star" style="color:#FFCF00;"></span>
+                    
+                    <p class="posted"><i class="fa fa-clock-o"></i> {{r.get_date}}</p>
+                    <p>{{r.message}}</p>
+                    <!--<p class="reply"><a href="#"><i class="fa fa-reply"></i> Reply</a></p>-->
+                    <hr>
+                    {% endfor %}
+                  </div>
+                </div>
+                
+              </div>
+              {% if user.is_authenticated %}
+                <div id="comment-form">
+                  <h4 class="text-uppercase">Leave a review</h4>
+                  <form class="js-ajax-form"  method="POST">
+                    <div class="row">
+                      {% csrf_token %}
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="comment">Review <span class="required text-primary">*</span></label>
+                          <textarea name = "message" id="comment" rows="4" class="form-control"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 text-right">
+                        <button type= 'submit' class="btn btn-template-outlined"><i class="fa fa-comment-o"></i> Post a Review</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                {% endif %}
+            </div>
+            
+          </div>
+
+      </div>
+    </div>
+
 
 <script>
     $(document).ready(function() {
@@ -90,8 +150,6 @@
  
 });
 </script>
-</body>
-</html>
 
 
 {% endblock %}

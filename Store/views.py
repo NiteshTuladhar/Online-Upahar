@@ -72,7 +72,7 @@ def cartpage(request):
 		cartItems = order['get_cart_items']
 
 	
-	context={'items' : items, 'order':order,'cartItems':cartItems}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer}
 	return render(request,'cart.html',context)
 
 
@@ -91,8 +91,10 @@ def checkoutpage(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	context={'items' : items, 'order':order,'cartItems':cartItems}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer}
 	return render(request,'checkout.html',context)
+
+
 
 
 def categoriesItem(request):
@@ -121,6 +123,7 @@ def categoriesItem(request):
 
 	
 	context = {
+		'customer': customer,
 		'product': product,
 		'banner' : banner,
 		'id': id,
@@ -166,7 +169,7 @@ def maincategoriesItem(request,slug):
 
 	
 	context = {
-		
+		'customer' : customer,
 		'id': id,
 		'cartItems' : cartItems,
 		'wishlist': wishlist,
@@ -187,11 +190,38 @@ def subcategoriesItem(request,slug):
 	products = Product.objects.filter(subcategory_id=subcategory.id)
 	product_count = products.count()
 
+	wishlist = Wishlist.objects.all()
+	
+
+
+	id=request.user.id
+	if request.user.is_authenticated:
+		try:
+			customer = request.user.profile	
+			print(customer)
+			order, created = Order.objects.get_or_create(customer=customer,complete=False)
+			items = order.orderitem_set.all()
+			cartItems = order.get_cart_items
+		except:
+			return redirect('ContactMail:contactpage')
+	else:
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+	
 	context = {
-		'subcategory' : subcategory,
+		'customer' : customer,
+		'id': id,
+		'cartItems' : cartItems,
+		'wishlist': wishlist,
 		'products' : products,
 		'product_count' : product_count,
+		'subcategory' : subcategory,
+		
+
 	}
+
 	return render(request,'category_page/sub_category.html',context)
 
 

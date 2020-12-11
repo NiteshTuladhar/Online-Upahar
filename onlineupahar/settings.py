@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'Products',
     'Search',
     'payment',
+    'Reviews',
 
     #External App Instalation
     'social_django',

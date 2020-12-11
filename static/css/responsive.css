@@ -7,6 +7,9 @@ Version:1.0
 ========================================*/
 /* Tablet Screen */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+.middle-inner .row .logo  .logo_img{
+	max-width: 50%;
+}
 .section{
 	padding:50px 0px;
 }
@@ -86,7 +89,7 @@ Version:1.0
 	font-size: 14px;
 }
 .header.shop .search-bar {
-	width: 445px;
+	width: 275px;
 }
 .header.shop .search-bar input {
 	padding: 0 52px 0 20px;
@@ -884,13 +887,12 @@ Version:1.0
 	width: 50%;
 	height: 100%;
 	border-bottom: 1px solid #e6ebee;
-	background: #F7941D;
-	color: #fff;
+	color: #424646;
 	border: none;
 }
 .shopping-cart .table td {
 	vertical-align: middle;
-	padding: 10px;
+	padding: 17px;
 	border-bottom: 1px solid #eee;
 }
 .shopping-summery thead tr th {

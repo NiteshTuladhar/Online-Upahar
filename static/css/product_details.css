@@ -158,14 +158,16 @@
 }
  
 .cart-btn {
+  text-align: center;
   display: inline-block;
   background-color: #3d79b1;
-  border-radius: 6px;
   font-size: 16px;
   color: white !important;
   text-decoration: none;
   padding: 12px 30px;
   transition: all .5s;
+  margin-right: 10px;
+  width: 100%;
 }
 .cart-btn:hover {
   background-color: #3d79b1;
