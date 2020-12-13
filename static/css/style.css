@@ -2959,8 +2959,9 @@ Version:1.0
 }
 .shopping-summery tbody tr img {
 	border-radius: 0;
-	width: 80px;
-	height: 80px;
+	width: auto;
+	height: auto;
+	object-fit: cover;
 }
 .shopping-summery tbody tr:last-child{
 	border:none;
