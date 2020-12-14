@@ -202,7 +202,11 @@ width: 45px;
 							
 
 							<div class="sinlge-bar shopping">
-								<a href="{% url 'Store:cartpage' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>
+								{% if user.is_authenticated %}
+									<a href="{% url 'Store:cartpage' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>
+								{% else %}
+									<a href="{% url 'Account:login' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>
+								{% endif %}
 								<!-- Yo Chai Add To Cart ko Dropdown aile ko lai disabled xa, Search Bar ra user icon ko sangai By Sushek on 9/22/2020 -->
 								<!-- Shopping Item -->
 								<!--<div class="shopping-item">
@@ -318,11 +322,13 @@ width: 45px;
 													<li><a href="#">Product</a></li>												
 													<li><a href="#">Service</a></li>
 													<li><a href="#">Shop<i class="ti-angle-down"></i><!--<span class="new">New</span>--></a>
+														{% if user.is_authenticated %}
 														<ul class="dropdown">
 															<!--<li><a href="shop-grid.html">Shop Grid</a></li>-->
 															<li><a href="{% url 'Store:cartpage' %}">Cart</a></li>
 															<li><a href="{% url 'Store:checkoutpage' %}">Checkout</a></li>
 														</ul>
+														{% endif %}
 													</li>
 													<!--<li><a href="#">Pages</a></li>-->									
 													<!--<li><a href="#">Blog<i class="ti-angle-down"></i></a>
@@ -421,19 +427,29 @@ width: 45px;
 																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
 																	{% csrf_token %}
 																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
-																	{% if user not in p.liked.all %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% if user.is_authenticated %}
+																		{% if user not in p.liked.all %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																		{% else %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		{% endif %}
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Account:login' %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% endif %}
+																		
 
 																</form>	
+																	
 																
 
 																
 															</div>
 															<div class="product-action-2">
-																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% if user.is_authenticated %}
+																	<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% else %}
+																	<a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% endif %}
 															</div>
 														</div>
 													</div>
@@ -474,10 +490,14 @@ width: 45px;
 																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
 																	{% csrf_token %}
 																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
-																	{% if user not in p.liked.all %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% if user.is_authenticated %}
+																		{% if user not in p.liked.all %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																		{% else %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		{% endif %}
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Account:login' %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -486,7 +506,11 @@ width: 45px;
 																
 															</div>
 															<div class="product-action-2">
-																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% if user.is_authenticated %}
+																	<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% else %}
+																	<a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% endif %}
 															</div>
 														</div>
 													</div>
@@ -524,10 +548,14 @@ width: 45px;
 																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
 																	{% csrf_token %}
 																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
-																	{% if user not in p.liked.all %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% if user.is_authenticated %}
+																		{% if user not in p.liked.all %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																		{% else %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		{% endif %}
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Account:login' %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -536,7 +564,11 @@ width: 45px;
 																
 															</div>
 															<div class="product-action-2">
-																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% if user.is_authenticated %}
+																	<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% else %}
+																	<a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% endif %}
 															</div>
 														</div>
 													</div>
@@ -573,10 +605,14 @@ width: 45px;
 																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
 																	{% csrf_token %}
 																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
-																	{% if user not in p.liked.all %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% if user.is_authenticated %}
+																		{% if user not in p.liked.all %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																		{% else %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		{% endif %}
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Account:login' %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -585,7 +621,11 @@ width: 45px;
 																
 															</div>
 															<div class="product-action-2">
-																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% if user.is_authenticated %}
+																	<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% else %}
+																	<a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% endif %}
 															</div>
 														</div>
 													</div>
@@ -622,10 +662,14 @@ width: 45px;
 																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
 																	{% csrf_token %}
 																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
-																	{% if user not in p.liked.all %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% if user.is_authenticated %}
+																		{% if user not in p.liked.all %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																		{% else %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		{% endif %}
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Account:login' %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -634,7 +678,11 @@ width: 45px;
 																
 															</div>
 															<div class="product-action-2">
-																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% if user.is_authenticated %}
+																	<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% else %}
+																	<a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% endif %}
 															</div>
 														</div>
 													</div>
@@ -943,10 +991,14 @@ width: 45px;
 																<form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
 																	{% csrf_token %}
 																	<input type="hidden" name='wish_id' value="{{p.id}}"> 
-																	{% if user not in p.liked.all %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																	{% if user.is_authenticated %}
+																		{% if user not in p.liked.all %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																		{% else %}
+																			<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		{% endif %}
 																	{% else %}
-																		<a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+																		<a title="Wishlist" href="{% url 'Account:login' %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
 																	{% endif %}
 
 																</form>	
@@ -955,7 +1007,11 @@ width: 45px;
 																
 															</div>
 															<div class="product-action-2">
-																<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% if user.is_authenticated %}
+																	<a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% else %}
+																	<a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
+																{% endif %}
 															</div>
 														</div>
 							</div>

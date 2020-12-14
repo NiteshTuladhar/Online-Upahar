@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Profile
 from Account.models import Account
-from Products.models import Order
+from Products.models import Order, OrderItem
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .form import ProfileEdit 
@@ -20,11 +20,12 @@ def userProfile(request):
 			cartItems = order.get_cart_items
 			print(items)
 		else:
+			customer = 'Anonymous User'
 			items = []
 			order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 			cartItems = order['get_cart_items']
 
-		context={'items' : items, 'order':order,'cartItems':cartItems,'profile' : profile,'userinfo' : userinfo,}
+		context={'items' : items, 'order':order,'cartItems':cartItems,'profile' : profile,'userinfo' : userinfo,'customer':customer}
 
 		return render(request,'userprofile/profile.html',context)
 
@@ -72,11 +73,49 @@ def profile_edit(request):
 
 def completeuserprofile(request):
 
-    userinfo = Profile.objects.get(user_id=request.user.id)
-    print(userinfo.first_name)
-    user_info = Account.objects.get(id=request.user.id)
+	userinfo = Profile.objects.get(user_id=request.user.id)
+	print(userinfo.first_name)
+	user_info = Account.objects.get(id=request.user.id)
 
-    return render(request,'userprofile/display_profile.html',context={'userinfo':userinfo, 'user_info': user_info})
+	
+
+	if request.user.is_authenticated:
+		customer = request.user.profile
+		print(customer)
+		order, created = Order.objects.get_or_create(customer=customer,complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+		print(items)
+		myorders = Order.objects.filter(customer=request.user.profile, complete=True)
+
+		all_orders = []
+
+		for order in myorders:
+
+			myorder_items = OrderItem.objects.filter(order_id=order.id)
+			all_orders.append(myorder_items)
+			print(myorder_items)
+			print('--------------------------------')
+
+		print(all_orders)
+		print('+++++++++++++++++++++++++++++++++')
+		
+
+		for items in all_orders:
+			all_items = OrderItem.objects.all()
+
+		print(all_items)
+		print('==========================================')
+		
+	else:
+		customer = 'Anonymous User'
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+	context={'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer,'all_items':all_items}
+
+	return render(request,'userprofile/display_profile.html',context)
 
 
 

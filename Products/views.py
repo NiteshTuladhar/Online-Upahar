@@ -25,6 +25,7 @@ def productDetails(request,slug):
 			items = order.orderitem_set.all()
 			cartItems = order.get_cart_items
 		else:
+			customer = 'Anonymous User'
 			details = Product.objects.get(slug=slug)
 			items = []
 			order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
@@ -51,7 +52,7 @@ def wishlist(request, id):
 	id=request.user.id
 	print(wishlist)
 
-	if request.user.is_authenticated:
+	if request.user.is_authenticated: 
 		customer = request.user.profile
 		print(customer)
 		order, created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -59,11 +60,12 @@ def wishlist(request, id):
 		cartItems = order.get_cart_items
 		print(items)
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	context={'items' : items, 'order':order,'cartItems':cartItems,'wishlist' : wishlist,'id': id,}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'wishlist' : wishlist,'id': id,'customer':customer}
 
 
 
@@ -102,6 +104,38 @@ def wishlist_delete(request, id):
 
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
+
+def wishlist_add_to_cart(request, id):
+	user = request.user.id
+	wishlist = Wishlist.objects.get(id=id)
+	product = wishlist.product.id
+	item = Product.objects.get(id=product)
+
+	order, created = Order.objects.get_or_create(
+
+		customer=request.user.profile,
+		complete=False
+
+    )
+	print(order.order_items)
+
+	if OrderItem.objects.filter(product=item, order = order).exists():
+		x = OrderItem.objects.get(product=item, order = order)
+		print(x)
+		x.quantity +=1
+		x.save()
+
+	else:
+		itemorder, created = OrderItem.objects.get_or_create(
+	        product=item,
+	        order = order,
+	        quantity= 1,
+
+	    )
+
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def details_add_to_cart(request,slug):
@@ -175,6 +209,7 @@ def buyNow(request,slug):
 		cartItems = order.get_cart_items
 		print(items)
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
