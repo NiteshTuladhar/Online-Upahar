@@ -75,6 +75,26 @@ class SellerAccount(AbstractBaseUser):
         return self.is_admin
 
 
+class Contact_Seller_Account(models.Model):
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+    )
+    account_name = models.CharField(max_length=50, null=True)
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
+    address = models.CharField(max_length=50, null=True)
+    website = models.URLField(max_length=50, null=True)
+    date_of_establishment = models.DateField(null=True)
+    business_type = models.CharField(max_length=30,choices=business_type,null=True,blank=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    token = models.CharField(max_length=20, blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.email
 
 
 
