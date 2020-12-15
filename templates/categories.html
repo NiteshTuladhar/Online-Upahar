@@ -167,10 +167,14 @@
                                 <form action="{% url 'Products:edit_wishlist' p.id %}" method="GET">
                                   {% csrf_token %}
                                   <input type="hidden" name='wish_id' value="{{p.id}}"> 
-                                  {% if user not in p.liked.all %}
-                                    <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                  {% if user.is_authenticated %}
+                                    {% if user not in p.liked.all %}
+                                      <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                    {% else %}
+                                      <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+                                    {% endif %}
                                   {% else %}
-                                    <a title="Wishlist" href="{% url 'Products:edit_wishlist' p.id %}"><i class=" fa fa-heart " style="color: #3d79b1;"></i><span>Remove from Wishlist</span></a>
+                                    <a title="Wishlist" href="{% url 'Account:login' %}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                   {% endif %}
 
                                 </form> 
@@ -179,7 +183,11 @@
                                 
                               </div>
                               <div class="product-action-2">
-                                <a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+                                {% if user.is_authenticated %}
+                                  <a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+                                {% else %}
+                                  <a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
+                                {% endif %}
                               </div>
                             </div>
                           </div>

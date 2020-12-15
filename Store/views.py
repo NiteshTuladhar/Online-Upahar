@@ -67,6 +67,7 @@ def cartpage(request):
 		cartItems = order.get_cart_items
 		print(items)
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
@@ -87,6 +88,7 @@ def checkoutpage(request):
 		cartItems = order.get_cart_items
 		print(items)
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
@@ -117,6 +119,7 @@ def categoriesItem(request):
 		except:
 			return redirect('ContactMail:contactpage')
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
@@ -163,6 +166,7 @@ def maincategoriesItem(request,slug):
 		except:
 			return redirect('ContactMail:contactpage')
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
@@ -205,6 +209,7 @@ def subcategoriesItem(request,slug):
 		except:
 			return redirect('ContactMail:contactpage')
 	else:
+		customer = 'Anonymous User'
 		items = []
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']

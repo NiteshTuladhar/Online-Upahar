@@ -40,18 +40,18 @@
 
 
           <div class="panel panel-default">
-            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-            <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+            <div class="panel-heading"><i class="fa fa-link fa-1x"></i>Website of your shop or company </div>
+            <div class="panel-body"><a href="http://bootnipets.com">www.shopmandu.com</a></div>
           </div>
           
           
-          <ul class="list-group">
+          <!--<ul class="list-group">
             <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-          </ul> 
+          </ul> -->
                
           <div class="panel panel-default">
             <div class="panel-heading">Social Media</div>
@@ -63,9 +63,11 @@
         </div><!--/col-3-->
     	<div class="col-sm-9">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                <li><a data-toggle="tab" href="#messages">Menu 1</a></li>
-                <li><a data-toggle="tab" href="#settings">Menu 2</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">My Profile</a></li>
+                <li><a data-toggle="tab" href="#my_orders">My Orders</a></li>
+                <li><a data-toggle="tab" href="#reviews">Reviews</a></li>
+                <li><a data-toggle="tab" href="#wishlist">My Wishlist & Followed Stores</a></li>
+                <li><a data-toggle="tab" href="#settings">Returns & Cancelations</a></li>
               </ul>
 
               
@@ -105,17 +107,66 @@
                   </div>
                 </form>
              </div><!--/tab-pane-->
-             <div class="tab-pane" id="messages">
+             <div class="tab-pane" id="my_orders">
                
-               <h2></h2>
-               
-               <hr>
-                  <h3>First Name:{{userinfo.first_name}}</h3>
-                  <h3>Last Name:{{userinfo.last_name}}</h3>
-                  <h3>Phone:{{userinfo.phone}}</h3>
-                  <h3>Mobile:{{userinfo.mobile}}</h3>
-                  <h3>Gender:{{userinfo.gender}}</h3>
-                  <h3>Address:{{userinfo.location}}</h3>
+               <div class="row">
+              <div class="col-12">
+                <!-- Shopping Summery -->
+                <table class="table shopping-summery">
+                  <thead>
+                    <tr class="main-hading">
+                      <th>PRODUCT</th>
+                      <th>NAME</th>
+                      <th class="text-center">UNIT PRICE</th>
+                      <th class="text-center">QUANTITY</th>
+                      <th class="text-center">TOTAL</th> 
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in all_items %}
+                    <tr>
+                      <td class="image" data-title="No"><img src="{{item.product.imageURL}}" alt="#"></td>
+                      <td class="product-des" data-title="Description">
+                        <p class="product-name"><a href="#">{{item.product.product_name}}</a></p>
+                        <p class="product-des">{{item.product.product_details}}</p>
+                      </td>
+                      <td class="price" data-title="Price"><span>Nrs. {{item.product.product_price|floatformat:2}} </span></td>
+
+                      <td class="qty" data-title="Qty" >
+
+                          <!-- Input Order -->
+
+                        <span>{{item.quantity}}</span>
+      
+                    
+
+                      <!--<td class="qty" data-title="Qty">
+                        <div class="input-group">
+                          <div class="button minus">
+                            <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                              <i class="ti-minus"></i>
+                            </button>
+                          </div>
+                          <input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="{{item.quantity}}">
+                          <div class="button plus">
+                            <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                              <i class="ti-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                        / End Input Order -->
+
+                      </td>
+                      <td class="total-amount" data-title="Total"><span>Nrs {{item.get_total|floatformat:2}}</span></td>
+                      
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <!--/ End Shopping Summery -->
+              </div>
+            </div>
                
              </div><!--/tab-pane-->
              <a href="{% url 'Profile:userprofile' %}" class="btn btn-primary" style="color:white; margin-top: 20px;">Edit</a>
