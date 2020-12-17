@@ -166,6 +166,9 @@ class ShippingAdress(models.Model):
     )
     date_added = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.email
+
 
 class Wishlist(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
