@@ -309,3 +309,8 @@ def processOrder(request):
 def aboutUs(request):
 
 	return render(request,'about_us.html')
+
+
+def terms_condition(request):
+
+	return render(request,'terms_and_conditions.html')
