@@ -1,6 +1,6 @@
 {% extends 'master/base.html' %}
 {% load static %}
-{% block title %}Cart {% endblock %}
+{% block title %}Categories {% endblock %}
 
 {% block body %}
 
@@ -49,12 +49,16 @@
                 </div>
                 <div class="panel-body">
                   <ul class="nav nav-pills flex-column text-sm category-menu">
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Gifts </span><span class="badge badge-secondary">42</span></a>
+                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>{{maincategory.main_category}}</span><span class="badge badge-secondary">42</span></a>
                       <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Love</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Birthday</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Handicrafts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Kids</a></li>
+
+                        {% for x in subcategory %}
+                          {% if x.category.main_category ==  maincategory.main_category %}
+                            <li class="nav-item"><a href="{% url 'Store:subcategoriesitem' x.slug %}" class="nav-link">{{x.sub_category}}</a></li>
+                          {% endif %}
+                          
+                        {% endfor %}
+                        
                       </ul>
                     </li>
                     <li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Digital Products  </span><span class="badge badge-light">123</span></a>

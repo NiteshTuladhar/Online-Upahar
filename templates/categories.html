@@ -49,20 +49,19 @@
                 </div>
                 <div class="panel-body">
                   <ul class="nav nav-pills flex-column text-sm category-menu">
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Gifts </span><span class="badge badge-secondary">42</span></a>
+                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Gifts </span><span class="badge badge-secondary">{{maincategories.count}}</span></a>
                       <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Love</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Birthday</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Handicrafts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Kids</a></li>
+                        {% for cat in maincategories %}
+                        <li class="nav-item"><a href="{% url 'Store:maincategoriesitem' cat.slug %}" class="nav-link">{{cat.main_category}}</a></li>
+                        {% endfor %}
+                        
                       </ul>
                     </li>
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Digital Products  </span><span class="badge badge-light">123</span></a>
+                    <li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Digital Products  </span><span class="badge badge-light">{{digital_product.count}}</span></a>
                       <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Google Gift Card</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Qfx Movie Ticket</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Steam Wallet</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Resturant Coupons</a></li>
+                        {% for dp in digital_product %}
+                          <li class="nav-item"><a href="shop-category.html" class="nav-link">{{dp.sub_category}}</a></li>
+                        {% endfor %}
                       </ul>
                     </li>
                     <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Kids</span><span class="badge badge-secondary">11</span></a>

@@ -106,7 +106,7 @@ def categoriesItem(request):
 	category = Category.objects.all()
 
 	maincategories = MainCategory.objects.all()
-
+	digital_product = SubCategory.objects.filter(category__main_category='Digital Products')
 
 	id=request.user.id
 	if request.user.is_authenticated:
@@ -134,6 +134,7 @@ def categoriesItem(request):
 		'wishlist': wishlist,
 		'category' : category,
 		'maincategories' : maincategories,
+		'digital_product':digital_product,
 
 	}
 
@@ -144,8 +145,10 @@ def categoriesItem(request):
 
 def maincategoriesItem(request,slug):
 	
-
 	maincategory = MainCategory.objects.get(slug=slug)
+	subcategory = SubCategory.objects.all()
+
+
 	p = Product.objects.filter(subcategory__in=SubCategory.objects.filter(category=MainCategory.objects.get(slug=slug)))
 
 	product_count = p.count()
@@ -180,6 +183,7 @@ def maincategoriesItem(request,slug):
 		'products' : p,
 		'product_count' : product_count,
 		'maincategory' : maincategory,
+		'subcategory':subcategory
 		
 
 	}
@@ -191,6 +195,7 @@ def maincategoriesItem(request,slug):
 def subcategoriesItem(request,slug):
 
 	subcategory = SubCategory.objects.get(slug=slug)
+
 	products = Product.objects.filter(subcategory_id=subcategory.id)
 	product_count = products.count()
 
