@@ -73,6 +73,8 @@ def profile_edit(request):
 
 def completeuserprofile(request):
 
+	context = {}
+
 	userinfo = Profile.objects.get(user_id=request.user.id)
 	print(userinfo.first_name)
 	user_info = Account.objects.get(id=request.user.id)
@@ -86,26 +88,41 @@ def completeuserprofile(request):
 		items = order.orderitem_set.all()
 		cartItems = order.get_cart_items
 		print(items)
+		
+
+		
 		myorders = Order.objects.filter(customer=request.user.profile, complete=True)
+
+		print('------------------------myorders--------------')
+		print(myorders)
+		print('------------------------myorders--------------')
 
 		all_orders = []
 
 		for order in myorders:
 
 			myorder_items = OrderItem.objects.filter(order_id=order.id)
+			print('[[[[[[[[[[[[[[[[[[[[[[')
 			all_orders.append(myorder_items)
+			print('[[[[[[[[[[[[[[[[[[[[[[')
 			print(myorder_items)
 			print('--------------------------------')
 
+		print('++++++++++++++all orders+++++++++++++++++++')
 		print(all_orders)
-		print('+++++++++++++++++++++++++++++++++')
+		print('++++++++++++++all orders+++++++++++++++++++')
 		
+		total_items = []
 
-		for items in all_orders:
-			all_items = OrderItem.objects.all()
+		for item in all_orders:
+			for i in item:
+				total_items.append(i)		
 
-		print(all_items)
+		print(total_items)
 		print('==========================================')
+			
+		context.update({'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer,'total_items':total_items})
+
 		
 	else:
 		customer = 'Anonymous User'
@@ -113,7 +130,7 @@ def completeuserprofile(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	context={'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer,'all_items':all_items}
+		context={'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer}
 
 	return render(request,'userprofile/display_profile.html',context)
 
