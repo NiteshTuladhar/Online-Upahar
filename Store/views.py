@@ -314,3 +314,8 @@ def aboutUs(request):
 def terms_condition(request):
 
 	return render(request,'terms_and_conditions.html')
+
+
+def privacy_policy(request):
+
+	return render(request,'privacy_and_policy.html')

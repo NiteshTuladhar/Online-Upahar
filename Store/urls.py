@@ -34,4 +34,5 @@ urlpatterns = [
    path('process_order/',views.processOrder,name='process_order'),
    path('about_us/',views.aboutUs,name='about_us'),
    path('terms_and_conditions/',views.terms_condition,name='terms_condition'),
+   path('privacy_policy/',views.privacy_policy,name='privacy_policy'),
 ]
