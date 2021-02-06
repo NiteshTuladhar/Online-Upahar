@@ -96,7 +96,8 @@ p.lead {
 }
 
 .bar {
-  padding: 30px 0;
+  padding: 0px 0;
+  margin-top: 60px;
 }
 
 .bar.padding-big {
@@ -253,6 +254,7 @@ p.lead {
   line-height: 1.1;
   display: inline-block;
   margin-bottom: 0;
+  margin-top: 60px;
   padding-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
