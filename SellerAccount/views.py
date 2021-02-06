@@ -37,15 +37,13 @@ def sellerRegister(request):
 		last_name = request.POST['last_name']
 		email = request.POST['email']
 		account_name = request.POST['account_name']
-		#password = request.POST['password']
+		brand_name = request.POST['brand_name']
 		address = request.POST['address']
 		website = request.POST['website']
 		date_of_establishment = request.POST['date_of_establishment']
-		business_type = request.POST['business_type']
-
-		print(business_type)
+		
 		account = Contact_Seller_Account(email=email, account_name=account_name,first_name=first_name,last_name=last_name,address=address,
-								website=website,date_of_establishment=date_of_establishment, business_type=business_type)
+								website=website,date_of_establishment=date_of_establishment, brand_name=brand_name)
 		account.save()
 		hostemail = 'sushek69@gmail.com'
 		mail = CustomMail('mail/register.html', 'New Seller Account Added', [hostemail,], account_name=account_name)
