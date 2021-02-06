@@ -4868,8 +4868,8 @@ Version:1.0
 	20. Start Footer CSS
 ===============================*/
 .footer{
-	background:#222;
-	margin-top: 100px;
+	background:#F3F3F3;
+	margin-top: 60px;
 }
 .footer .about {
 	padding-right: 50px;
@@ -4877,7 +4877,7 @@ Version:1.0
 .footer .single-footer h4 {
 	font-size: 17px;
 	font-weight: 600;
-	color: #fff;
+	color: #606060;
 	text-transform: capitalize;
 	margin-bottom: 30px;
 }
@@ -4890,7 +4890,7 @@ Version:1.0
 	font-weight: 400;
 }
 .footer .about .call {
-	color: #fff;
+	color: #888888;
 	margin-top: 15px;
 	font-weight: 400;
 }
@@ -4912,7 +4912,7 @@ Version:1.0
 	margin-bottom:0;
 }
 .footer .links ul li a{
-	color:#fff;
+	color:#888888;
 	font-weight: 400;
 }
 .footer .links ul li a:hover{
@@ -4923,7 +4923,7 @@ Version:1.0
 .footer .social .contact{}
 .footer .social .contact ul{}
 .footer .social .contact ul li {
-	color: #fff;
+	color: #888888;
 	display: block;
 	margin-bottom: 4px;
 	font-weight: 400;
@@ -4942,7 +4942,7 @@ Version:1.0
 	margin-right:0;
 }
 .footer .social ul li a{
-	color:#fff;
+
 	display:block;
 	font-size:16px;
 }
@@ -4962,10 +4962,10 @@ Version:1.0
 	float:right;
 }
 .footer .copyright p{
-	color:#fff;
+	color:#888888;
 }
 .footer .copyright p a{
-	color:#fff;
+
 	text-decoration:underline;
 }
 /*=============================
