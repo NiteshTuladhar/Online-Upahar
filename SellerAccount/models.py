@@ -39,6 +39,7 @@ class SellerAccount(AbstractBaseUser):
     address = models.CharField(max_length=50, null=True)
     website = models.URLField(max_length=50, null=True)
     date_of_establishment = models.DateField(null=True)
+    brand_name = models.CharField(max_length=30, null=True, blank=True)
     business_type = models.CharField(max_length=30,choices=business_type,null=True,blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -92,6 +93,7 @@ class Contact_Seller_Account(models.Model):
     is_admin = models.BooleanField(default=False)
     token = models.CharField(max_length=20, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
+    brand_name = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         return self.email
