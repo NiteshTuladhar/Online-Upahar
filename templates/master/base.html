@@ -57,11 +57,12 @@
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/product_details.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/billing_form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/scroll_top_of_page' %}">
 
     <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 
     <script src="https://unpkg.com/khalti-checkout-web@latest/dist/khalti-checkout.iffe.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
     	var user = '{{request.user}}'
 
@@ -82,6 +83,29 @@
 			}
 			const csrftoken = getToken('csrftoken');
     </script>
+
+    
+	<script type="text/javascript">
+		
+$(window).scroll(function() {
+    var height = $(window).scrollTop();
+    if (height > 100) {
+        $('#back2Top').fadeIn();
+    } else {
+        $('#back2Top').fadeOut();
+    }
+});
+$(document).ready(function() {
+    $("#back2Top").click(function(event) {
+        event.preventDefault();
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+
+});
+
+
+	</script>
 
     <style>
 		
@@ -419,6 +443,8 @@
 								<img src="{% static 'images/esewa.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
 								<img src="{% static 'images/khalti.jpg' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
 								<img src="{% static 'images/fone.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+
+								<a id="back2Top" title="Back to top" href="#">&#10148;</a>
 							</div>
 						</div>
 					</div>
