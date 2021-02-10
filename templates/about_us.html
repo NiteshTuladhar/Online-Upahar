@@ -28,9 +28,13 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="heading">
-                  <h2>About Online Upahar.</h2>
+                  {% autoescape off %}
+                  <h2>{{aboutus_content.title}}</h2>
+                  {% endautoescape %}
                 </div>
-                <p class="lead" style="font-size: 14px;">OnlineUpahar is Nepal's first eCommerce marketplace that promotes authentic Nepali products and helps the grassroots level producer get better income. It aims to serve Nepalese customers with purely made in Nepal products and promote Nepal's overall production ecosystem. In short, it is the marketplace dedicated to helping Nepalese products get the value they deserve.</p>
+                {% autoescape off %}
+                <p class="lead" style="font-size: 14px;">{{aboutus_content.body}}</p>
+                {% endautoescape %}
               </div>
             </div>
             

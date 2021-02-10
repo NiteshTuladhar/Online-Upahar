@@ -49,9 +49,11 @@ INSTALLED_APPS = [
     'Search',
     'payment',
     'Reviews',
+    'Cms',
 
     #External App Instalation
     'social_django',
+    'djrichtextfield',
 
     #allauth
     'allauth',
@@ -206,3 +208,19 @@ EMAIL_HOST_USER = 'pandamotions.mailserver@gmail.com'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Media')
+
+
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {  # CKEditor
+    'toolbar': [
+        {'items': ['Format', '-', 'Bold', 'Italic', '-',
+                   'RemoveFormat']},
+        {'items': ['Link', 'Unlink', 'Image', 'Table']},
+        {'items': ['Source']}
+    ],
+    'format_tags': 'p;h1;h2;h3',
+    'width': 700
+}
+}

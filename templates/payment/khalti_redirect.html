@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khalti Payment</title>
+    <style>
+        #esewa{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <center><h2>You will be redirected to the Khalti Payment Form</h2></center>
+    <form action="{% url 'payment:khati_redirect' %}" method="POST" id="khalti">
+    <input value="Submit" type="submit">
+    </form>
+
+    <script>
+        setTimeout(function(){
+            document.getElementById('khalti').submit()
+        }, 500)
+    </script>
+</body>
+</html>
