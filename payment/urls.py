@@ -12,5 +12,6 @@ urlpatterns = [
    path('redirect/', views.paymentform, name='paymentform'),
    path('success/', views.esewa, name='esewa_success'),
    path('khalti/', views.khalti, name='khalti'),
+   path('khalti_redirect/', views.khalti_redirect,name='khati_redirect'),
    
 ]

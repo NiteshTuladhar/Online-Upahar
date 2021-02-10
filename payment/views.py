@@ -37,6 +37,44 @@ def paymentform(request):
 
     delivery_charge = order.get_cart_grandtotal - order.get_cart_total
     customer = Profile.objects.get(user=request.user)
+    date = datetime.datetime.now()
+
+
+    context={'items' : items, 'order':order,'cartItems':cartItems, 
+    'pid': unique_id,'delivery_charge':delivery_charge, 'customer': customer, 'date': date,
+    }
+
+    if (payment_methods == "ESEWA"):
+
+        return render(request,'payment/esewa.html', context)
+
+    if (payment_methods == "KHALTI"):
+        return render(request,'payment/khalti_redirect.html', context)
+
+
+
+def khalti_redirect(request):
+
+    if request.method == 'GET':
+        
+
+        payment_methods = request.GET['p']
+
+
+
+        if request.user.is_authenticated:
+            customer = request.user.profile
+            order, created = Order.objects.get_or_create(customer=customer,complete=False)
+            items = order.orderitem_set.all()
+            cartItems = order.get_cart_items
+        else:
+            items = []
+            order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+            cartItems = order['get_cart_items']
+    unique_id = get_random_string(length=40)
+
+    delivery_charge = order.get_cart_grandtotal - order.get_cart_total
+    customer = Profile.objects.get(user=request.user)
     Shipping = ShippingAdress.objects.get(order_id = order.id)
     date = datetime.datetime.now()
 
@@ -45,12 +83,7 @@ def paymentform(request):
     'pid': unique_id,'delivery_charge':delivery_charge, 'customer': customer, 'shipping': Shipping, 'date': date,
     }
 
-    if (payment_methods == "ESEWA"):
-
-        return render(request,'payment/esewa.html', context)
-
-    if (payment_methods == "KHALTI"):
-        return render(request,'payment/khalti.html', context)
+    return render(request, 'payment/khalti.html',context)
 
 
 

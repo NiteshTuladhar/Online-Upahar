@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
 from Profile.models import Profile
 from Store.models import SmallBanner
+from Cms.models import AboutUs
 from django.http import JsonResponse
 import json
 import datetime
@@ -308,12 +309,33 @@ def processOrder(request):
 
 def aboutUs(request):
 
-	return render(request,'about_us.html')
+	aboutus_content = AboutUs.objects.get()
+
+	if request.user.is_authenticated: 
+		customer = request.user.profile
+		print(customer)
+		order, created = Order.objects.get_or_create(customer=customer,complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+		print(items)
+	else:
+		customer = 'Anonymous User'
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+
+	context = {'aboutus_content':aboutus_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer}
+
+
+	return render(request,'about_us.html', context)
+
 
 
 def terms_condition(request):
 
 	return render(request,'terms_and_conditions.html')
+
 
 
 def privacy_policy(request):
