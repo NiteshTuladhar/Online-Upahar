@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
 from Profile.models import Profile
 from Store.models import SmallBanner
-from Cms.models import AboutUs
+from Cms.models import AboutUs, TermsAndConditions
 from django.http import JsonResponse
 import json
 import datetime
@@ -334,7 +334,25 @@ def aboutUs(request):
 
 def terms_condition(request):
 
-	return render(request,'terms_and_conditions.html')
+	tnc_content = TermsAndConditions.objects.get()
+
+	if request.user.is_authenticated: 
+		customer = request.user.profile
+		print(customer)
+		order, created = Order.objects.get_or_create(customer=customer,complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+		print(items)
+	else:
+		customer = 'Anonymous User'
+		items = []
+		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+		cartItems = order['get_cart_items']
+
+
+	context = {'tnc_content':tnc_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer}
+
+	return render(request,'terms_and_conditions.html',context)
 
 
 
