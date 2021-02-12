@@ -20,3 +20,14 @@ class PrivacyAndPolicy(models.Model):
 	def __str__(self):
 
 		return self.title
+
+class Banner(models.Model):
+	
+	offer = models.CharField(max_length=100)
+	title = models.CharField(max_length=200)
+	body = RichTextField()
+	profile_image = models.ImageField(upload_to='banner_front',blank=True,null=True)
+
+	def __str__(self):
+
+		return self.title
