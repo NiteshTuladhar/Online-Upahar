@@ -58,12 +58,12 @@ def khalti_redirect(request):
     if request.method == 'GET':
         
 
-        payment_methods = request.GET['p']
 
-
+        print('++++++++++++++++++++++++upupupupupup+++++++++++++++++++++++++++++++++++++++')
 
         if request.user.is_authenticated:
             customer = request.user.profile
+            print('++++++++++++++++++++++++XXX+XXXXXXXX+++++++++++++++++++++++++++++++++++++++')
             order, created = Order.objects.get_or_create(customer=customer,complete=False)
             items = order.orderitem_set.all()
             cartItems = order.get_cart_items
@@ -99,7 +99,6 @@ def esewa(request):
 
         items = order.orderitem_set.all()
         print(items)
-        print('ppppppppppppppppppppp')
 
         import xml.etree.ElementTree as ET
 

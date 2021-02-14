@@ -12,7 +12,9 @@
 </head>
 <body>
     <center><h2>You will be redirected to the Khalti Payment Form</h2></center>
-    <form action="{% url 'payment:khati_redirect' %}" method="POST" id="khalti">
+
+    <form action="{% url 'payment:khati_redirect' %}" method="GET" id="khalti">
+        {% csrf_token %}
     <input value="Submit" type="submit">
     </form>
 
