@@ -2,21 +2,13 @@ from django.shortcuts import render, redirect
 from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
 from Profile.models import Profile
 from Store.models import SmallBanner
-<<<<<<< HEAD
 
-from Cms.models import AboutUs, TermsAndConditions, PrivacyAndPolicy
 
-=======
-<<<<<<< HEAD
-from Cms.models import AboutUs, PrivacyAndPolicy, Banner
-=======
-<<<<<<< HEAD
-from Cms.models import AboutUs, TermsAndConditions
-=======
-from Cms.models import AboutUs, PrivacyAndPolicy
->>>>>>> aa7ea4b518d2af8acbb78198a9dadceccfc91c92
->>>>>>> 876dddf79c8934409473126b77dcca306e41366e
->>>>>>> f0feb739b040b23b62eeae1fa78567581e8242fb
+from Cms.models import AboutUs, TermsAndConditions, PrivacyAndPolicy, Banner
+
+
+
+
 from django.http import JsonResponse
 import json
 import datetime
