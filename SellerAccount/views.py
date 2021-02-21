@@ -48,7 +48,7 @@ def sellerRegister(request):
 		hostemail = 'sushek69@gmail.com'
 		mail = CustomMail('mail/register.html', 'New Seller Account Added', [hostemail,], account_name=account_name)
 		mail.push()
-		messages.success(request, message="Information Sent. Please wait while verify and sent you mail")
+		messages.success(request, message="Information Has Been Sent. Please wait while we verify and sent you mail")
 		return redirect('Store:homepage')
 
 

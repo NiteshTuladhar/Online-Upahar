@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .token import generatetoken
 from Profile.models import Profile
+from Products.models import Product,Order, OrderItem, ShippingAdress
 from .decorators import unauthenticated_user
 # Create your views here.
 @unauthenticated_user
@@ -26,9 +27,16 @@ def userLogin(request):
 		else:
 			messages.error(request, 'Email or password does not match')
 			return redirect("Account:login")
+	
 
+	customer = 'Anonymous User'
+	items = []
+	order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+	cartItems = order['get_cart_items']
+		
+	context={'items' : items, 'order':order,'cartItems':cartItems, 'customer':customer}
 
-	return render (request,'login.html')
+	return render (request,'login.html',context)
 
 	
 

@@ -46,6 +46,7 @@ def productDetails(request,slug):
 		review = Review.objects.create(message=message, product=product_visit,user=request.user,reply=review_qs,profile=profile, comment_time=time)
 		return HttpResponseRedirect(request.path_info)
 
+
 def wishlist(request, id):
 
 	wishlist = Wishlist.objects.filter(user_id=id)

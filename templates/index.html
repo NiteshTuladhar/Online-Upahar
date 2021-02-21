@@ -402,7 +402,7 @@ width: 45px;
 							<div class="nav-main">
 								<!-- Tab Nav -->
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Love" role="tab">Love</a></li>
+									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Love" role="tab">Health</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Birthday" role="tab">Birthday</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Kids" role="tab">Kids</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Occassion" role="tab">Occassion</a></li>
@@ -419,7 +419,7 @@ width: 45px;
 										<div class="row">
 											{% for p in product %}
 
-												{% if p.category.product_category == 'Love' %}
+												{% if p.category.product_category == 'Health' %}
 												<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
@@ -462,7 +462,7 @@ width: 45px;
 													<div class="product-content">
 														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
-															<span>$ {{p.product_price}}</span>
+															<span>Rs. {{p.product_price}}</span>
 														</div>
 
 													</div>
@@ -523,7 +523,7 @@ width: 45px;
 													<div class="product-content">
 														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
-															<span>Nrs {{p.product_price}}</span>
+															<span>Rs. {{p.product_price}}</span>
 														</div>
 													</div>
 												</div>
@@ -581,7 +581,7 @@ width: 45px;
 													<div class="product-content">
 														<h3><a href="{% url 'Products:productdetails' p.slug %}">Toys</a></h3>
 														<div class="product-price">
-															<span>Nrs {{p.product_price}}</span>
+															<span>Rs. {{p.product_price}}</span>
 														</div>
 													</div>
 												</div>
@@ -638,7 +638,7 @@ width: 45px;
 													<div class="product-content">
 														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
-															<span>Nrs {{p.product_price}}</span>
+															<span>Rs. {{p.product_price}}</span>
 														</div>
 													</div>
 												</div>
@@ -695,7 +695,7 @@ width: 45px;
 													<div class="product-content">
 														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
-															<span>Nrs {{p.product_price}}</span>
+															<span>Rs. {{p.product_price}}</span>
 														</div>
 													</div>
 												</div>
@@ -1024,7 +1024,7 @@ width: 45px;
 							<div class="product-content">
 														<h3><a href="{% url 'Products:productdetails' p.slug %}">{{p.product_name}}</a></h3>
 														<div class="product-price">
-															<span>$ {{p.product_price}}</span>
+															<span>Rs. {{p.product_price}}</span>
 														</div>
 													</div>
 						</div>

@@ -2,8 +2,18 @@ from django.shortcuts import render, redirect
 from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
 from Profile.models import Profile
 from Store.models import SmallBanner
+<<<<<<< HEAD
 from Cms.models import AboutUs, PrivacyAndPolicy, Banner
 from Cms.models import AboutUs, TermsAndConditions
+=======
+
+
+from Cms.models import AboutUs, TermsAndConditions, PrivacyAndPolicy, Banner
+
+
+
+
+>>>>>>> 16b9d16ff5113de2d04fa151e02cb0d18fad2166
 from django.http import JsonResponse
 import json
 import datetime
@@ -339,6 +349,10 @@ def aboutUs(request):
 
 def terms_condition(request):
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 16b9d16ff5113de2d04fa151e02cb0d18fad2166
 	tnc_content = TermsAndConditions.objects.get()
 
 	if request.user.is_authenticated: 
@@ -358,6 +372,13 @@ def terms_condition(request):
 	context = {'tnc_content':tnc_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer}
 
 	return render(request,'terms_and_conditions.html',context)
+<<<<<<< HEAD
+=======
+
+
+	return render(request,'terms_and_conditions.html')
+
+>>>>>>> 16b9d16ff5113de2d04fa151e02cb0d18fad2166
 
 
 
