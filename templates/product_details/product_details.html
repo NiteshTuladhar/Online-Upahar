@@ -7,11 +7,29 @@
 
 <main class="containers" style="background-color: white;border: 1px solid white;">
  
-  <!-- Left Column / Headphones Image -->
-  <div class="left-columns" style="margin: 55px 45px auto auto;">
-    <img data-image="black" src="{{details.product_image.url}}" alt="">
-    <img data-image="blue" src="{{details.product_image.url}}" alt="">
-    <img data-image="red" class="active" src="{{details.product_image.url}}" alt="">
+  <!-- Left Column / Image -->
+<div class="left-columns" style="margin: 55px 45px auto auto;">
+  <div class="exzoom" id="exzoom">
+    <!-- Images -->
+      <div class="exzoom_img_box">
+        <ul class='exzoom_img_ul'>
+            <li><img src="{{details.product_image.url}}" alt=""></li>
+            <li><img data-image="blue" src="{{details.product_image.url}}" alt=""></li>
+            <li><img data-image="red" src="{{details.product_image.url}}" alt=""></li>
+
+            ...
+        </ul>
+      </div>
+      <!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> Nav-->
+      <div class="exzoom_nav"></div>
+      <!-- Nav Buttons -->
+        <p class="exzoom_btn">
+            <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
+            <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+        </p>
+  </div>
+  
+    
   </div>
  
  
@@ -22,14 +40,17 @@
     <div class="product-descriptions">
       <span>{{details.category}}</span>
       <h1>{{details.product_name}}</h1>
+      {% autoescape off %}
       <p>{{details.product_details}}</p>
+      {% endautoescape %}
       <h1><span style="font-size: 30px;color: #F57224; font-weight: 600;">Rs. {{details.product_price}}</span></h1>
       <span class="fa fa-star checked" style="color:#FFCF00;"></span>
       <span class="fa fa-star checked" style="color:#FFCF00;"></span>
       <span class="fa fa-star checked" style="color:#FFCF00;"></span>
       <span class="fa fa-star" style="color:#FFCF00;"></span>
       <span class="fa fa-star" style="color:#FFCF00;"></span>
-      <p>{{ review.count }} Reiview{{ review|pluralize }} | 4 Answered Question</p>
+      <p>{{ review.count }} Reiview{{ review|pluralize }} | 0 Answered Question</p>
+      <h5>Seller : {{details.seller_account.account_name}}</h5><br>
     </div>
  
     <!-- Product Configuration -->
@@ -78,7 +99,7 @@
           <a href="{% url 'Products:buynow' details.slug %}"  class="cart-btn" style="float: right; background-color: #f57224;">Buy Now</a>
       {% else %}
            <a href="{% url 'Account:login' %}"  class="cart-btn" style="float: left;">Add to cart</a>
-          <a href="{% url 'Account:login' %}"  class="cart-btn" style="float: right; background-color: #f57224;">Buy Now</a>
+          <a href="{% url 'Account:login' %}"  class="cart-btn" style="float: right; background-color: #f57224;">Gift Now</a>
       {% endif %}
     </div>
   </div>
@@ -154,6 +175,16 @@
   });
  
 });
+
+
+$(function(){
+
+        $("#exzoom").exzoom({
+          "autoPlay" : false
+        });
+
+    });
+
 </script>
 
 

@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from SellerAccount.models import SellerAccount
 from Account.models import Account
 from Profile.models import Profile
-
+from djrichtextfield.models import RichTextField
 
 from django import template
 
@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 class Product(models.Model):
     seller_account = models.ForeignKey(SellerAccount, on_delete=models.CASCADE, null=True, related_name='seller_account')
     product_name = models.CharField(max_length=50)
-    product_details = models.TextField()
+    product_details = RichTextField()
     product_price = models.PositiveIntegerField()
     product_image = models.ImageField(null=True, upload_to ='product_details_img/')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)

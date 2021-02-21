@@ -7,34 +7,17 @@
 }
 
 .left-columns {
-  width: 65%;
+  width: 55%;
   position: relative;
   display: block;
-
-
-
 }
  
 .right-columns {
-  width: 35%;
+  width: 45%;
   margin-top: 60px;
 }
 
-.left-columns img {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
 
-}
- 
-.left-columns img.active {
-  opacity: 1;
-  height: 480px;
-  width: auto;
-}
 
 .product-descriptions {
   border-bottom: 1px solid #E1E8EE;
