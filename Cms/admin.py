@@ -1,10 +1,6 @@
 from django.contrib import admin
 
-
-from .models import AboutUs, TermsAndConditions, PrivacyAndPolicy, Banner
-
-
-
+from .models import AboutUs, PrivacyAndPolicy, Banner,TermsAndConditions
 # Register your models here.
 
 admin.site.register(AboutUs)

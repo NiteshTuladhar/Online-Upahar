@@ -9,33 +9,27 @@ class AboutUs(models.Model):
 
 	def __str__(self):
 
-
 		return self.title 
+
 
 
 class TermsAndConditions(models.Model):
-
 	title = models.CharField(max_length=100)
 	body = RichTextField()
+
 
 	def __str__(self):
 
 		return self.title 
-
-
+		
 class PrivacyAndPolicy(models.Model):
-
 
 	title = models.CharField(max_length=100)
 	body = RichTextField()
 
 
 	def __str__(self):
-
-		return self.title
-
-
-
+		return self.title 
 
 
 

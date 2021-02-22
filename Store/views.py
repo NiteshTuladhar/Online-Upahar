@@ -2,17 +2,12 @@ from django.shortcuts import render, redirect
 from Products.models import Product,ProductImage,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
 from Profile.models import Profile
 from Store.models import SmallBanner
-
-
-from Cms.models import AboutUs, TermsAndConditions, PrivacyAndPolicy, Banner
-
-
-
-
+from Cms.models import AboutUs, PrivacyAndPolicy, Banner, TermsAndConditions
 from django.http import JsonResponse
 import json
 import datetime
 # Create your views here.
+
 def home(request):
 	
 	banner_content = Banner.objects.get(id=1)
@@ -345,7 +340,6 @@ def aboutUs(request):
 
 def terms_condition(request):
 
-
 	tnc_content = TermsAndConditions.objects.get()
 
 	if request.user.is_authenticated: 
@@ -365,10 +359,6 @@ def terms_condition(request):
 	context = {'tnc_content':tnc_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer}
 
 	return render(request,'terms_and_conditions.html',context)
-
-
-	return render(request,'terms_and_conditions.html')
-
 
 
 
