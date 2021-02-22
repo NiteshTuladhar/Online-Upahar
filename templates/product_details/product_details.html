@@ -13,9 +13,9 @@
     <!-- Images -->
       <div class="exzoom_img_box">
         <ul class='exzoom_img_ul'>
-            <li><img src="{{details.product_image.url}}" alt=""></li>
-            <li><img data-image="blue" src="{{details.product_image.url}}" alt=""></li>
-            <li><img data-image="red" src="{{details.product_image.url}}" alt=""></li>
+          {% for p in product_image %}
+            <li><img src="{{p.product_image.url}}" alt=""></li>
+          {% endfor %}  
 
             ...
         </ul>

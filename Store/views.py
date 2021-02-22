@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from Products.models import Product,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
+from Products.models import Product,ProductImage,Order, OrderItem, ShippingAdress, Category, Wishlist, MainCategory,SubCategory
 from Profile.models import Profile
 from Store.models import SmallBanner
 
@@ -17,6 +17,7 @@ def home(request):
 	
 	banner_content = Banner.objects.get(id=1)
 	product = Product.objects.all()
+	product_img = ProductImage.objects.all()
 	popular_product = Product.objects.order_by('-visit')
 	banner = SmallBanner.objects.all()
 	wishlist = Wishlist.objects.all()
@@ -54,6 +55,7 @@ def home(request):
 	context = {
 		'customer' : customer,
 		'product': product,
+		'product_img' : product_img,
 		'popular_product' : popular_product,
 		'banner' : banner,
 		'id': id,

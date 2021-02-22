@@ -3,6 +3,20 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
+class ProductImageAdmin(admin.StackedInline):
+    model = ProductImage
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductImageAdmin]
+
+    class Meta:
+        model = Product
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    pass
+
 
 class OrderAdmin(admin.ModelAdmin):
     model = Order
@@ -33,7 +47,6 @@ class ShippingAdressAdmin(admin.ModelAdmin):
     field_sets = ()
 
 
-admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(MainCategory)
 admin.site.register(SubCategory)
