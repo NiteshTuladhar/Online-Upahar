@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from Profile.models import Profile
 from Reviews.models import Review
 from .models import Product,Wishlist
-from Products.models import Product,Order, OrderItem, ShippingAdress
+from Products.models import Product,ProductImage,Order, OrderItem, ShippingAdress
 import time
 from django.utils import timezone
 # Create your views here.
@@ -20,19 +20,24 @@ def productDetails(request,slug):
 
 		if request.user.is_authenticated:
 			details = Product.objects.get(slug=slug)
+			product_image = ProductImage.objects.filter(product_slug=details.slug)
+
 			customer = request.user.profile
 			order, created = Order.objects.get_or_create(customer=customer,complete=False)
 			items = order.orderitem_set.all()
 			cartItems = order.get_cart_items
 		else:
 			customer = 'Anonymous User'
+
 			details = Product.objects.get(slug=slug)
+			product_image = ProductImage.objects.filter(product__slug=details.slug)
+
 			items = []
 			order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 			cartItems = order['get_cart_items']
 
 
-		context={'details' : details,'items' : items, 'order':order,'cartItems':cartItems, 'review':review,'customer':customer}
+		context={'details' : details,'product_image':product_image,'items' : items, 'order':order,'cartItems':cartItems, 'review':review,'customer':customer}
 		
 		
 		return render(request,'product_details/product_details.html',context)

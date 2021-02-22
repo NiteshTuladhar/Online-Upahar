@@ -16,8 +16,8 @@ class Product(models.Model):
     seller_account = models.ForeignKey(SellerAccount, on_delete=models.CASCADE, null=True, related_name='seller_account')
     product_name = models.CharField(max_length=50)
     product_details = RichTextField()
-    product_price = models.PositiveIntegerField()
     product_image = models.ImageField(null=True, upload_to ='product_details_img/')
+    product_price = models.PositiveIntegerField()
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
     subcategory = models.ForeignKey('SubCategory',on_delete=models.CASCADE, null=True)
     slug = AutoSlugField(populate_from='product_name',unique=True,null=True,blank=True)
@@ -60,7 +60,28 @@ class Product(models.Model):
     def get_add_to_cart_url(self):
         return reverse ("Product:add_to_cart", kwargs={
             'slug' : self.slug
+
             })
+
+class ProductImage (models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_image = models.ImageField(null=True, upload_to ='product_details_img/')
+
+    
+
+    def __str__(self):
+        
+        return f'{self.product.product_name} | {self.product_image} | {self.product.seller_account}'
+
+    @property
+    def imageURLS(self):
+        try:
+            url = self.product_image.url
+        except:
+            url = ''
+        return url
+
 
 class Category(models.Model):
     product_category = models.CharField(max_length=50)
