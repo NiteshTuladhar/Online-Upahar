@@ -327,15 +327,17 @@ width: 45px;
 													<li class="active"><a href="{% url 'Store:homepage' %}">Home</a></li>
 													<li><a href="{% url 'Store:categoriesItem' %}">All Product</a></li>												
 													<li><a href="#">Service</a></li>
+													{% if user.is_authenticated %}
 													<li><a href="#">Shop<i class="ti-angle-down"></i><!--<span class="new">New</span>--></a>
-														{% if user.is_authenticated %}
+														
 														<ul class="dropdown">
 															<!--<li><a href="shop-grid.html">Shop Grid</a></li>-->
 															<li><a href="{% url 'Store:cartpage' %}">Cart</a></li>
 															<li><a href="{% url 'Store:checkoutpage' %}">Checkout</a></li>
 														</ul>
-														{% endif %}
+														
 													</li>
+													{% endif %}
 													<!--<li><a href="#">Pages</a></li>-->									
 													<!--<li><a href="#">Blog<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">

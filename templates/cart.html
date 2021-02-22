@@ -122,7 +122,11 @@
 										<li class="last">Total Amount<span>Nrs {{order.get_cart_total|floatformat:2}}</span></li>
 									</ul>
 									<div class="button5">
+										{% if request.user.is_verified == True %}
 										<a href="{% url 'Store:checkoutpage' %}" class="btn">Checkout</a>
+										{% else %}
+										<a href="" class="btn">Please Verify First</a>
+										{% endif %}
 										<a href="{% url 'Store:homepage' %}" class="btn">Continue shopping</a>
 									</div>
 								</div>
