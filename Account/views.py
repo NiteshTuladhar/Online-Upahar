@@ -4,11 +4,14 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .token import generatetoken
 from Profile.models import Profile
-from Products.models import Product,Order, OrderItem, ShippingAdress
+from Products.models import Product,Order, OrderItem, ShippingAdress,Category
 from .decorators import unauthenticated_user
 # Create your views here.
 @unauthenticated_user
 def userLogin(request):
+		
+	category = Category.objects.all()
+
 	if request.method == 'POST':
 		email = request.POST.get('email')
 		password = request.POST.get('password')
@@ -34,7 +37,7 @@ def userLogin(request):
 	order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 	cartItems = order['get_cart_items']
 		
-	context={'items' : items, 'order':order,'cartItems':cartItems, 'customer':customer}
+	context={'items' : items, 'order':order,'cartItems':cartItems, 'customer':customer,'category':category}
 
 	return render (request,'login.html',context)
 
@@ -42,6 +45,8 @@ def userLogin(request):
 
 @unauthenticated_user
 def userRegister(request):
+	category = Category.objects.all()
+
 	if request.method == 'POST':
 		email = request.POST['email']
 		account_name = request.POST['account_name']
@@ -60,7 +65,7 @@ def userRegister(request):
 		else:
 			messages.error(request, message="Password must be greater than 6")
 			return redirect('Account:register')
-	return render(request,'register.html')
+	return render(request,'register.html', context={'category':category})
 
 
 

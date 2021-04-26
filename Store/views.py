@@ -60,12 +60,15 @@ def home(request):
 		'maincategories' : maincategories,
 		'subcategory' : subcategory,
 		'banner_content': banner_content,
+		
 	}
 
 	return render(request,'index.html', context)
 
 
 def cartpage(request):
+	category = Category.objects.all()
+
 	if request.user.is_authenticated:
 		customer = request.user.profile
 		print(customer)
@@ -80,13 +83,15 @@ def cartpage(request):
 		cartItems = order['get_cart_items']
 
 	
-	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer,'category':category}
 	return render(request,'cart.html',context)
 
 
 
 
 def checkoutpage(request):
+	category = Category.objects.all()
+
 	if request.user.is_authenticated:
 		customer = request.user.profile
 		print(customer)
@@ -100,13 +105,14 @@ def checkoutpage(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer,'category':category}
 	return render(request,'checkout.html',context)
 
 
 
 
 def categoriesItem(request):
+	category = Category.objects.all()
 	product = Product.objects.all()
 	banner = SmallBanner.objects.all()
 	wishlist = Wishlist.objects.all()
@@ -142,6 +148,7 @@ def categoriesItem(request):
 		'category' : category,
 		'maincategories' : maincategories,
 		'digital_product':digital_product,
+		'category':category,
 
 	}
 
@@ -151,7 +158,7 @@ def categoriesItem(request):
 
 
 def maincategoriesItem(request,slug):
-	
+	category = Category.objects.all()
 	maincategory = MainCategory.objects.get(slug=slug)
 	subcategory = SubCategory.objects.all()
 
@@ -190,7 +197,8 @@ def maincategoriesItem(request,slug):
 		'products' : p,
 		'product_count' : product_count,
 		'maincategory' : maincategory,
-		'subcategory':subcategory
+		'subcategory':subcategory,
+		'category':category,
 		
 
 	}
@@ -200,7 +208,7 @@ def maincategoriesItem(request,slug):
 
 
 def subcategoriesItem(request,slug):
-
+	category = Category.objects.all()
 	subcategory = SubCategory.objects.get(slug=slug)
 
 	products = Product.objects.filter(subcategory_id=subcategory.id)
@@ -277,8 +285,7 @@ def processOrder(request):
 	dtransaction_id = datetime.datetime.now().timestamp()
 
 	data = json.loads(request.body)
-	print(data)
-	print('datadatadatadatadatadatadatadatadatadatadata')
+
 	
 	if request.user.is_authenticated:
 		customer = request.user.profile
@@ -291,7 +298,7 @@ def processOrder(request):
 		# 	order.complete  = True
 			
 		# 	order.save()
-		print('HElloooooooooooooooooooooooooooooooooooooooooo')
+	
 		
 		ShippingAdress.objects.create(
 			customer = customer,
@@ -314,7 +321,7 @@ def processOrder(request):
 
 
 def aboutUs(request):
-
+	category = Category.objects.all()
 	aboutus_content = AboutUs.objects.get()
 
 	if request.user.is_authenticated: 
@@ -331,7 +338,7 @@ def aboutUs(request):
 		cartItems = order['get_cart_items']
 
 
-	context = {'aboutus_content':aboutus_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer}
+	context = {'aboutus_content':aboutus_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer,'category':category}
 
 
 	return render(request,'about_us.html', context)
@@ -339,7 +346,7 @@ def aboutUs(request):
 
 
 def terms_condition(request):
-
+	category = Category.objects.all()
 	tnc_content = TermsAndConditions.objects.get()
 
 	if request.user.is_authenticated: 
@@ -356,7 +363,7 @@ def terms_condition(request):
 		cartItems = order['get_cart_items']
 
 
-	context = {'tnc_content':tnc_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer}
+	context = {'tnc_content':tnc_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer,'category':category}
 
 	return render(request,'terms_and_conditions.html',context)
 
@@ -364,6 +371,7 @@ def terms_condition(request):
 
 def privacy_policy(request):
 
+	category = Category.objects.all()
 	content = PrivacyAndPolicy.objects.get(id=1)
 	if request.user.is_authenticated: 
 		customer = request.user.profile
@@ -378,6 +386,6 @@ def privacy_policy(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	context = {'content':content, 'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer}
+	context = {'content':content, 'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer,'category':category}
 
 	return render(request,'privacy_and_policy.html', context)
