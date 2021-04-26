@@ -180,8 +180,8 @@ $(document).ready(function() {
 							<div class="right-content">
 								<ul class="list-main">
 									<li><i class="fa fa-user"></i> <a href="{% url 'SellerAccount:sellerlogin' %}">Become a Seller</a></li>
-									<li><i class="ti-location-pin"></i> Store location</li>
-									<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
+									<!--<li><i class="ti-location-pin"></i> Store location</li>-->
+									<!--<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>-->
 									{% if user.is_authenticated %}
 									<li><i class="ti-user"></i> <a href="{% url 'Profile:completeuserprofile' %}">My account</a></li>
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:logout' %}">Logout</a></li>

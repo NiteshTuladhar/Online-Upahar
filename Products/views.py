@@ -4,13 +4,16 @@ from django.contrib.auth import authenticate, login, logout
 from Profile.models import Profile
 from Reviews.models import Review
 from .models import Product,Wishlist
-from Products.models import Product,ProductImage,Order, OrderItem, ShippingAdress
+from Products.models import Product,ProductImage,Order, OrderItem, ShippingAdress, Category
 import time
 from django.utils import timezone
 # Create your views here.
 
 
 def productDetails(request,slug):
+	
+	category = Category.objects.all()
+
 	if request.method == 'GET':
 		product_visit = Product.objects.get(slug=slug)
 
@@ -20,7 +23,7 @@ def productDetails(request,slug):
 
 		if request.user.is_authenticated:
 			details = Product.objects.get(slug=slug)
-			product_image = ProductImage.objects.filter(product_slug=details.slug)
+			product_image = ProductImage.objects.filter(product__slug=details.slug)
 
 			customer = request.user.profile
 			order, created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -37,7 +40,7 @@ def productDetails(request,slug):
 			cartItems = order['get_cart_items']
 
 
-		context={'details' : details,'product_image':product_image,'items' : items, 'order':order,'cartItems':cartItems, 'review':review,'customer':customer}
+		context={'details' : details,'product_image':product_image,'items' : items, 'order':order,'cartItems':cartItems, 'review':review,'customer':customer,'category':category}
 		
 		
 		return render(request,'product_details/product_details.html',context)
@@ -53,7 +56,7 @@ def productDetails(request,slug):
 
 
 def wishlist(request, id):
-
+	category = Category.objects.all()
 	wishlist = Wishlist.objects.filter(user_id=id)
 	id=request.user.id
 	print(wishlist)
@@ -71,7 +74,7 @@ def wishlist(request, id):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	context={'items' : items, 'order':order,'cartItems':cartItems,'wishlist' : wishlist,'id': id,'customer':customer}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'wishlist' : wishlist,'id': id,'customer':customer,'category':category}
 
 
 
@@ -79,6 +82,7 @@ def wishlist(request, id):
 
 
 def wishlist_edit(request, id):
+
 	user = request.user
 	product = Product.objects.get(id=id)
 	seller_account=product.seller_account
@@ -100,6 +104,7 @@ def wishlist_edit(request, id):
 
 
 def wishlist_delete(request, id):
+	
 	user = request.user.id
 	wishlist = Wishlist.objects.get(id=id)
 	product = wishlist.product.id
@@ -113,6 +118,7 @@ def wishlist_delete(request, id):
 
 
 def wishlist_add_to_cart(request, id):
+	
 	user = request.user.id
 	wishlist = Wishlist.objects.get(id=id)
 	product = wishlist.product.id
@@ -186,6 +192,7 @@ def delete_add_to_cart(request, slug):
 
 
 def buyNow(request,slug):
+	category = Category.objects.all()
 	item = Product.objects.get(slug=slug)
 	order, created = Order.objects.get_or_create(
 
@@ -220,5 +227,5 @@ def buyNow(request,slug):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer}
+	context={'items' : items, 'order':order,'cartItems':cartItems,'customer':customer,'category':category}
 	return render(request,'checkout.html',context)

@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Profile
 from Account.models import Account
-from Products.models import Order, OrderItem
+from Products.models import Order, OrderItem, Category
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .form import ProfileEdit 
 # Create your views here.
 def userProfile(request):
+
+	category = Category.objects.all()
+
 	if request.method == 'GET':
 		userinfo = Account.objects.get(id=request.user.id)
 		profile = Profile.objects.get(user_id=request.user.id)
@@ -25,7 +28,7 @@ def userProfile(request):
 			order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 			cartItems = order['get_cart_items']
 
-		context={'items' : items, 'order':order,'cartItems':cartItems,'profile' : profile,'userinfo' : userinfo,'customer':customer}
+		context={'items' : items, 'order':order,'cartItems':cartItems,'profile' : profile,'userinfo' : userinfo,'customer':customer,'category':category}
 
 		return render(request,'userprofile/profile.html',context)
 
@@ -82,6 +85,9 @@ def completeuserprofile(request):
 	
 
 	if request.user.is_authenticated:
+		
+		category = Category.objects.all()
+
 		customer = request.user.profile
 		print(customer)
 		order, created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -121,7 +127,7 @@ def completeuserprofile(request):
 		print(total_items)
 		print('==========================================')
 			
-		context.update({'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer,'total_items':total_items})
+		context.update({'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer,'total_items':total_items,'category':category})
 
 		
 	else:
@@ -130,7 +136,7 @@ def completeuserprofile(request):
 		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 		cartItems = order['get_cart_items']
 
-		context={'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer}
+		context={'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer,'category':category}
 
 	return render(request,'userprofile/display_profile.html',context)
 

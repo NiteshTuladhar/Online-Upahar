@@ -52,44 +52,46 @@
       <p>{{ review.count }} Reiview{{ review|pluralize }} | 0 Answered Question</p>
       <h5>Seller : {{details.seller_account.account_name}}</h5><br>
     </div>
+<!--
+
+<div class="product-configurations">
  
-    <!-- Product Configuration -->
-    <div class="product-configurations">
- 
-      <!-- Product Color -->
-      <div class="product-colors">
-        <span>Color</span>
- 
-        <div class="color-chooses">
-          <div>
-            <input data-image="red" type="radio" id="red" name="color" value="red" checked>
-            <label for="red"><span></span></label>
-          </div>
-          <div>
-            <input data-image="blue" type="radio" id="blue" name="color" value="blue">
-            <label for="blue"><span></span></label>
-          </div>
-          <div>
-            <input data-image="black" type="radio" id="black" name="color" value="black">
-            <label for="black"><span></span></label>
-          </div>
-        </div>
- 
+
+  <div class="product-colors">
+    <span>Color</span>
+
+    <div class="color-chooses">
+      <div>
+        <input data-image="red" type="radio" id="red" name="color" value="red" checked>
+        <label for="red"><span></span></label>
       </div>
- 
-      <!-- Cable Configuration -->
-      <!-- <div class="cable-configs">
-        <span>Cable configuration</span>
- 
-        <div class="cable-chooses">
-          <button>Straight</button>
-          <button>Coiled</button>
-          <button>Long-coiled</button>
-        </div>
- 
-        <a href="#">How to configurate your headphones</a>
+      <div>
+        <input data-image="blue" type="radio" id="blue" name="color" value="blue">
+        <label for="blue"><span></span></label>
       </div>
-    </div> -->
+      <div>
+        <input data-image="black" type="radio" id="black" name="color" value="black">
+        <label for="black"><span></span></label>
+      </div>
+    </div>
+
+  </div>
+
+
+ <div class="cable-configs">
+    <span>Cable configuration</span>
+
+    <div class="cable-chooses">
+      <button>Straight</button>
+      <button>Coiled</button>
+      <button>Long-coiled</button>
+    </div>
+
+    <a href="#">How to configurate your headphones</a>
+  </div>
+</div> -->
+
+    
  
     <!-- Product Pricing -->
     <div class="product-prices">
@@ -113,7 +115,7 @@
             <div id="blog-post" class="col-md-9">
 
               <div id="comments">
-                <h4 class="text-uppercase">Reiview{{ review|pluralize }}({{ review.count }})</h4>
+                <h4 class="text-uppercase">Review{{ review|pluralize }}({{ review.count }})</h4>
                 <div class="row comment last">
                   
                   <div class="col-sm-12 col-md-10">
