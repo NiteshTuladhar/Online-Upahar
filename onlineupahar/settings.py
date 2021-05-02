@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'payment',
     'Reviews',
     'Cms',
+    'api',
 
     #External App Instalation
     'social_django',
@@ -65,7 +66,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     #to use commas in large numbers
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+
+    #DRF
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
