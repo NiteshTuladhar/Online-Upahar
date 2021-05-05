@@ -52,8 +52,9 @@ urlpatterns = [
     path('social/', include('social_django.urls', namespace='social')),
     path('social_auth/', include('allauth.urls')),
 
-
     path('api/',include('api.urls',namespace='api')),
+
+    path('api-auth/', include('rest_framework.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

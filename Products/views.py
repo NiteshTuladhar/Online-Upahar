@@ -104,7 +104,7 @@ def wishlist_edit(request, id):
 
 
 def wishlist_delete(request, id):
-	
+
 	user = request.user.id
 	wishlist = Wishlist.objects.get(id=id)
 	product = wishlist.product.id
