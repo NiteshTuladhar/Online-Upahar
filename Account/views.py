@@ -6,6 +6,8 @@ from .token import generatetoken
 from Profile.models import Profile
 from Products.models import Product,Order, OrderItem, ShippingAdress,Category
 from .decorators import unauthenticated_user
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 @unauthenticated_user
 def userLogin(request):
@@ -16,9 +18,17 @@ def userLogin(request):
 		email = request.POST.get('email')
 		password = request.POST.get('password')
 		user = authenticate(request, email=email, password=password)
+		check = request.POST.get('check')
 
 		if user is not None:
 			login(request, user)
+			if check is not None:
+				response = HttpResponseRedirect(reverse('Store:homepage'))
+				response.set_cookie('email',email)
+				response.set_cookie('password',password)
+				return response
+	
+				
 			#account = Account.objects.get(id=request.user.id)
 			# if account.profile_create is False:
 			# 	profile = Profile(user=request.user)
@@ -36,10 +46,15 @@ def userLogin(request):
 	items = []
 	order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
 	cartItems = order['get_cart_items']
-		
-	context={'items' : items, 'order':order,'cartItems':cartItems, 'customer':customer,'category':category}
+	if request.COOKIES.get('email'):	
+		context={'items' : items, 'order':order,'cartItems':cartItems, 'customer':customer,'category':category,'email': request.COOKIES.get('email'),'password': request.COOKIES.get('password'),}
 
-	return render (request,'login.html',context)
+		return render (request,'login.html',context)
+	else:
+		context={'items' : items, 'order':order,'cartItems':cartItems, 'customer':customer,'category':category,}
+
+		return render (request,'login.html',context)
+		
 
 	
 

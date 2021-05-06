@@ -52,19 +52,16 @@
                             <div class="group-input">
                                 {% csrf_token %}
                                 <label for="username">Username or email address *</label>
-                                <input type="text" name="email" id="username">
+                                <input type="text" name="email" id="username" {% if email %}value="{{email}}" {% endif %}>
                             </div>
                             <div class="group-input">
                                 <label for="pass">Password *</label>
-                                <input type="password" name="password" id="pass">
+                                <input type="password" name="password" id="pass" {% if password %}value="{{password}}" {% endif %}>
                             </div>
                             <div class="group-input gi-check">
                                 <div class="gi-more">
-                                    <label for="save-pass">
-                                        Save Password
-                                        <input type="checkbox" id="save-pass">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                    <input type="checkbox" id="check" name= 'check' style="width:15px; position:relative; bottom:12px;right:10px;">
+                                    <label style="right: 25px;;">Save Password</label>
                                     <a href="{% url 'reset_password' %}" class="forget-pass">Forget your Password</a>
                                 </div>
                             </div>
