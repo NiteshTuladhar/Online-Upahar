@@ -3,6 +3,9 @@ from rest_framework import generics
 from .serializers import *
 from Products.models import *
 from Profile.models import Profile
+from Store.models import *
+from Cms.models import *
+from Profile.models import *
 from django.views.decorators.csrf import csrf_exempt
 from ContactMail.mail import CustomMail
 from rest_framework.parsers import JSONParser
@@ -15,7 +18,9 @@ from django.contrib.auth import authenticate, login
 from Account.token import generatetoken
 from Account.models import Account
 from django.urls import reverse
-
+import json
+import datetime
+import requests
 #-----------------------Account Models API-----------------------------------#
 
 @api_view(['POST'])
@@ -351,7 +356,75 @@ def mailsendContact(request):
     except:
         return Response({'error': 'Some Error Occured.'})
 
+#-----------------------------End of Contact Mail Sending API------------------#
 
 
-#-----------------------------End of Contact Mail Sending API----------------------------------#
+#----------------------------Store API-----------------------------------------#
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def usersOrder(request):
+
+    customer_profile = Profile.objects.get(user=request.user)
+    profile_serializer = ProfileSerializer(customer_profile,many=False)
+
+    profile_datas = profile_serializer.data
+
+    query_set = Order.objects.get(customer=customer_profile,complete=False)
+
+    serializers = OrderSerializer(query_set,many=False)
     
+    datas = serializers.data
+
+
+    o_id = datas['order_id']
+    f_name = profile_datas['first_name']
+    l_name = profile_datas['last_name']
+  
+    date_ord  = datas['date_ordered']
+    complete = datas['complete']
+    transaction_id = datas['transaction_id']
+    order_items = datas['order_items']
+
+    return Response(
+        {
+            'order_id' : o_id,
+            'customer_name' : f_name,
+            'last_name' : l_name,
+            'date_ordered' :date_ord,
+            'complete': complete,
+            'transaction_id': transaction_id,
+            'order_items': order_items,
+        
+        }
+    )
+
+
+#----------------------------End of Store API----------------------------------#
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def cartPage(request):
+
+    customer_profile = Profile.objects.get(user=request.user)
+
+    order = Order.objects.get(customer=customer_profile,complete=False)
+    
+    query_set = OrderItem.objects.filter(order=order)
+
+    serializers = OrderItemsSerializer(query_set,many=True)
+    
+
+    return Response(
+          
+            serializers.data
+    )
+
+
+#----------------------------End of Store API----------------------------------#
+
+
+

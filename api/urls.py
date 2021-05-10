@@ -36,4 +36,7 @@ urlpatterns = [
    #Contact Mail Send  API Urls
    path('mailsendContact', views.mailsendContact),
 
+   #User's CartPage API Urls
+   path('cart_page', views.cartPage),
+   path('order', views.usersOrder),
 ]

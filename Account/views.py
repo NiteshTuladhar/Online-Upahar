@@ -7,14 +7,11 @@ from Profile.models import Profile
 from Products.models import Product,Order, OrderItem, ShippingAdress,Category
 from .decorators import unauthenticated_user
 from django.http import HttpResponse, HttpResponseRedirect
-<<<<<<< HEAD
-from django.urls import reverse
-=======
 from geopy.geocoders import Nominatim
 from .utils import get_geo
 from django.urls import reverse
 from datetime import datetime
->>>>>>> 9f1cfc768b1c9933c8652dc517067cce6bf229d4
+
 
 # Create your views here.
 @unauthenticated_user
