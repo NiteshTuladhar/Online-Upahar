@@ -13,7 +13,6 @@ class Profile(models.Model):
     profile_image = models.ImageField(default="images/img1.jpg",upload_to='user_profile_img',blank=True,null=True)
     gender = models.CharField(max_length=30,choices=gender_list, null=True, blank=True)
     location = models.CharField(max_length=50, null=True, blank=True)
-    last_logged_in = models.CharField(max_length=100, null=True)
 
 
 
@@ -51,3 +50,14 @@ class SellerProfile(models.Model):
         except:
             url = ''
         return url
+
+class LastLogged_in(models.Model):
+
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    longitude = models.CharField(max_length=100)
+    lattitude = models.CharField(max_length=100)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    country_code = models.CharField(max_length=5)
+    date = models.DateTimeField(auto_now=True, editable=True, null=True)
+

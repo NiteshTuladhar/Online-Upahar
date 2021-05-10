@@ -3,7 +3,7 @@ from .models import Account
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .token import generatetoken
-from Profile.models import Profile
+from Profile.models import Profile, LastLogged_in
 from Products.models import Product,Order, OrderItem, ShippingAdress,Category
 from .decorators import unauthenticated_user
 from django.http import HttpResponse, HttpResponseRedirect
@@ -33,9 +33,20 @@ def userLogin(request):
 			print('city', city)
 			print('lat', lat)
 			print('long', long)
-			location = Profile.objects.get(user_id=request.user.id)
-			location.last_logged_in = 'From'+str(country)+str(city)
-			location.save()
+			try:
+				profile = Profile.objects.get(user_id = request.user.id).id
+				location = LastLogged_in.objects.get(user_id=profile)
+				location.longitude = long
+				location.lattitude = lat
+				location.country = country.get("country_name")
+				location.country_code = country.get("country_code")
+				location.city = city.get("city")
+				location.date = datetime.now()
+				location.save()
+			except:
+				profile = Profile.objects.get(user_id = request.user.id).id
+				location = LastLogged_in.objects.create(user_id=profile, longitude= long, lattitude= lat, 
+				country= country.get("country_name"), country_code=country.get("country_code"), city=city.get("city"))
 			if check is not None:
 				response = HttpResponseRedirect(reverse('Store:homepage'))
 				response.set_cookie('email',email)
