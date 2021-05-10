@@ -13,6 +13,7 @@ class Profile(models.Model):
     profile_image = models.ImageField(default="images/img1.jpg",upload_to='user_profile_img',blank=True,null=True)
     gender = models.CharField(max_length=30,choices=gender_list, null=True, blank=True)
     location = models.CharField(max_length=50, null=True, blank=True)
+    last_logged_in = models.CharField(max_length=100, null=True)
 
 
 

@@ -7,6 +7,10 @@ from Profile.models import Profile
 from Products.models import Product,Order, OrderItem, ShippingAdress,Category
 from .decorators import unauthenticated_user
 from django.http import HttpResponse, HttpResponseRedirect
+from geopy.geocoders import Nominatim
+from .utils import get_geo
+from django.urls import reverse
+from datetime import datetime
 
 # Create your views here.
 @unauthenticated_user
@@ -22,6 +26,16 @@ def userLogin(request):
 
 		if user is not None:
 			login(request, user)
+			geolocator = Nominatim(user_agent='Profile')
+			ip = '110.44.124.133'
+			country, city, lat, long = get_geo(ip)
+			print('country', country)
+			print('city', city)
+			print('lat', lat)
+			print('long', long)
+			location = Profile.objects.get(user_id=request.user.id)
+			location.last_logged_in = 'From'+str(country)+str(city)
+			location.save()
 			if check is not None:
 				response = HttpResponseRedirect(reverse('Store:homepage'))
 				response.set_cookie('email',email)
