@@ -3,7 +3,11 @@ from rest_framework import generics
 from .serializers import *
 from Products.models import *
 from Profile.models import Profile
+from Store.models import *
+from Cms.models import *
+from Profile.models import *
 from django.views.decorators.csrf import csrf_exempt
+from ContactMail.mail import CustomMail
 from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 from rest_framework.response import Response
@@ -14,7 +18,9 @@ from django.contrib.auth import authenticate, login
 from Account.token import generatetoken
 from Account.models import Account
 from django.urls import reverse
-
+import json
+import datetime
+import requests
 #-----------------------Account Models API-----------------------------------#
 
 @api_view(['POST'])
@@ -150,7 +156,7 @@ class SubCategoriesList(generics.ListAPIView):
 #-----------------------End of Products Models API-----------------------------------#
 
 
-#--------Products Action API---------------------------------------------------------#
+#--------Products Wishlist API---------------------------------------------------------#
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -203,6 +209,227 @@ def deleteWishlistItem(request,id):
 
 
 
+<<<<<<< HEAD
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addWishlistToCart(request,id):
+
+    user = request.user.id
+    wishlist = Wishlist.objects.get(id=id)
+    product = wishlist.product.id
+    item = Product.objects.get(id=product)
+
+    order, created = Order.objects.get_or_create(
+
+        customer=request.user.profile,
+        complete=False
+
+    )
+
+    if OrderItem.objects.filter(product=item, order = order).exists():
+        x = OrderItem.objects.get(product=item, order = order)
+        print(x)
+        x.quantity +=1
+        x.save()
+        wishlist.delete()
+        return Response({'success':'The product quantity has been increased.'})
+
+    else:
+        itemorder, created = OrderItem.objects.get_or_create(
+            product=item,
+            order = order,
+            quantity= 1,
+            
+        )
+
+        wishlist.delete()
+
+        return Response({'success':'Your wishlist item has been added to cart'})
+
+
+#-----------------------------End of Wishlist API----------------------------------#
+
+
+
+#-----------------------------Details Add to Cart API----------------------------------#
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addToCartDetailsPage(request,slug):
+
+    item = Product.objects.get(slug=slug)
+    order, created = Order.objects.get_or_create(
+
+        customer=request.user.profile,
+        complete=False
+
+    )
+    if OrderItem.objects.filter(product=item, order = order).exists():
+        x = OrderItem.objects.get(product=item, order = order)
+        print(x)
+        x.quantity +=1
+        x.save()
+        return Response({'success':'The product quantity has been increased.'})
+    else:
+        itemorder, created = OrderItem.objects.get_or_create(
+            product=item,
+            order = order,
+            quantity= 1,
+        )
+        return Response({'success':'The product has been added to the cart.'})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def deleteAddToCart(request,slug):
+
+    order = Order.objects.get(customer=request.user.profile, complete=False)
+    item = Product.objects.get(slug=slug)
+    items = OrderItem.objects.get(order= order, product=item)
+    items.delete()
+
+    return Response({'success':'Your cart items has been deleted.'})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def buyNow(request,slug):
+
+    category = Category.objects.all()
+    item = Product.objects.get(slug=slug)
+    order, created = Order.objects.get_or_create(
+
+        customer=request.user.profile,
+        complete=False
+
+    )
+    
+    if OrderItem.objects.filter(product=item, order = order).exists():
+        x = OrderItem.objects.get(product=item, order = order)
+        print(x)
+        
+    else:
+        itemorder, created = OrderItem.objects.get_or_create(
+            product=item,
+            order = order,
+            quantity= 1,
+
+        )
+
+    if request.user.is_authenticated:
+        customer = request.user.profile
+        print(customer)
+        order, created = Order.objects.get_or_create(customer=customer,complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        print(items)
+    else:
+        customer = 'Anonymous User'
+        items = []
+        order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
+        cartItems = order['get_cart_items']
+
+    return Response({'success':'your product is ready for checkout'})
+
+
+#-----------------------------End of Details Add To Cart API----------------------------------#
+
+
+
+#-----------------------------Contact Mail Sending API----------------------------------#
+
+@api_view(['POST'])
+def mailsendContact(request):
+
+    try:
+        data = request.data
+        hostemail = 'sushek69@gmail.com'
+        name = data['name']
+        email = data['email']
+        subjects = data['subject']
+        number = data['phone']
+        textmessage = data['message']
+        mail = CustomMail('mail/email_template.html', 'From Website Mail Notification', [hostemail,], nameofcustomer=name, numberofcustomer=number, messageofcustomer=textmessage, emailofcustomer=email, subjects=subjects)
+        mail.push()
+        
+        return Response({'success': 'Your Message Has Been Received'})
+
+    except:
+        return Response({'error': 'Some Error Occured.'})
+
+#-----------------------------End of Contact Mail Sending API------------------#
+
+
+#----------------------------Store API-----------------------------------------#
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def usersOrder(request):
+
+    customer_profile = Profile.objects.get(user=request.user)
+    profile_serializer = ProfileSerializer(customer_profile,many=False)
+
+    profile_datas = profile_serializer.data
+
+    query_set = Order.objects.get(customer=customer_profile,complete=False)
+
+    serializers = OrderSerializer(query_set,many=False)
+    
+    datas = serializers.data
+
+
+    o_id = datas['order_id']
+    f_name = profile_datas['first_name']
+    l_name = profile_datas['last_name']
+  
+    date_ord  = datas['date_ordered']
+    complete = datas['complete']
+    transaction_id = datas['transaction_id']
+    order_items = datas['order_items']
+
+    return Response(
+        {
+            'order_id' : o_id,
+            'customer_name' : f_name,
+            'last_name' : l_name,
+            'date_ordered' :date_ord,
+            'complete': complete,
+            'transaction_id': transaction_id,
+            'order_items': order_items,
+        
+        }
+    )
+
+
+#----------------------------End of Store API----------------------------------#
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def cartPage(request):
+
+    customer_profile = Profile.objects.get(user=request.user)
+
+    order = Order.objects.get(customer=customer_profile,complete=False)
+    
+    query_set = OrderItem.objects.filter(order=order)
+
+    serializers = OrderItemsSerializer(query_set,many=True)
+    
+
+    return Response(
+          
+            serializers.data
+    )
+
+
+#----------------------------End of Store API----------------------------------#
+
+
+
+=======
 
 
 
@@ -448,3 +675,4 @@ def deleteWishlistItem(request,id):
 
 
 #==================== Profile API =========================================================
+>>>>>>> 953f4cfb3a738e5ebece3e723d930c9d82d81bf7

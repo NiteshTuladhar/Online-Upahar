@@ -21,9 +21,22 @@ urlpatterns = [
    path('main_categories/',views.MainCategoriesList.as_view()),
    path('sub_categories/',views.SubCategoriesList.as_view()),
 
-   #Products Action API Urls
+
+   #Products AddToCart API Urls
+   path('addtocart_productdetails/<str:slug>', views.addToCartDetailsPage),
+   path('delete_addtocart/<str:slug>', views.deleteAddToCart),
+   path('buynow/<str:slug>', views.buyNow),
+
+   #Products Wishlist API Urls
    path('wishlist/', views.getWishlist),
    path('add_remove_wishlist/<int:id>', views.addRemoveWishlist),
    path('delete_wishlist_item/<int:id>', views.deleteWishlistItem),
+   path('addtocart_wishlist_item/<int:id>', views.addWishlistToCart),
 
+   #Contact Mail Send  API Urls
+   path('mailsendContact', views.mailsendContact),
+
+   #User's CartPage API Urls
+   path('cart_page', views.cartPage),
+   path('order', views.usersOrder),
 ]

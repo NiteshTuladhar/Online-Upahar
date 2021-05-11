@@ -12,6 +12,7 @@ from .utils import get_geo
 from django.urls import reverse
 from datetime import datetime
 
+
 # Create your views here.
 @unauthenticated_user
 def userLogin(request):

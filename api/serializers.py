@@ -75,3 +75,50 @@ class WishlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wishlist
         fields = ['wishlist_id','user','product']
+
+#--------------END OF PRODUCTS ACTION SERIALIZERS----------------------#
+
+
+#--------------ORDER SERIALIZERS----------------------#
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    customer_name = serializers.ReadOnlyField(source='customer')
+    order_id = serializers.ReadOnlyField(source='id')
+
+    class Meta:
+        model = Order
+        fields = ['order_id','customer_name','date_ordered','complete','transaction_id','order_items']
+
+
+class OrderItemsSerializer(serializers.ModelSerializer):
+
+    product_id = serializers.IntegerField(source="product.id", read_only=True)
+    product_name = serializers.CharField(source="product.product_name", read_only=True)
+    product_description = serializers.CharField(source="product.product_details", read_only=True)
+    product_price = serializers.IntegerField(source="product.product_price", read_only=True)
+
+    class Meta:
+        model = OrderItem
+        fields = ['product_id','product_name','product_description','product_price','order','quantity','date_added']
+
+
+#--------------END OF ORDER  SERIALIZERS----------------------#
+
+
+
+
+#--------------USER PROFILE SERIALIZERS----------------------#
+class ProfileSerializer(serializers.ModelSerializer):
+
+
+    
+    profile_id = serializers.ReadOnlyField(source='id')
+    profile_user = serializers.ReadOnlyField(source='user')
+
+    class Meta:
+        model = Profile
+        fields = ['profile_id','profile_user','first_name','last_name','phone','mobile','profile_image','gender','location','last_logged_in']
+    
+
+

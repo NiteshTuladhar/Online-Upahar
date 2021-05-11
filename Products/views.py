@@ -146,8 +146,11 @@ def wishlist_add_to_cart(request, id):
 
 	    )
 
-
+	wishlist.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
 
 
 def details_add_to_cart(request,slug):
@@ -175,6 +178,7 @@ def details_add_to_cart(request,slug):
 
 	    )
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 
 def delete_add_to_cart(request, slug):
