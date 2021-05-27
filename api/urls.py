@@ -39,4 +39,16 @@ urlpatterns = [
    #User's CartPage API Urls
    path('cart_page', views.cartPage),
    path('order', views.usersOrder),
+
+
+   #User's Profile API
+   path('all_profile/', views.ProfilePage.as_view()),
+   path('profile_page/', views.ownProfilePage),
+   path('editownprofile_page', views.editOwnProfilePage),
+   path('editownprofile_picture', views.ownProfileEdit),
+
+   #CMS API
+   path('aboutus/', views.AboutUsPage.as_view()),
+   path('termsandcondition/', views.TermsAndConditionPage.as_view()),
+   path('privacyandpolicy/', views.PrivacyAndPolicyPage.as_view()),
 ]
