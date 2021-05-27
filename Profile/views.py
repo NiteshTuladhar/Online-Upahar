@@ -70,7 +70,6 @@ def profile_edit(request):
 	profile = Profile.objects.get(user__id=request.user.id)
 	profile.profile_image = images
 	profile.save()
-	print('Done')
 	return redirect('Profile:userprofile')
 
 

@@ -2,10 +2,11 @@ from django.shortcuts import render
 from rest_framework import generics
 from .serializers import *
 from Products.models import *
-from Profile.models import Profile
+from Profile.models import *
 from Store.models import *
 from Cms.models import *
 from Profile.models import *
+from Cms.models import *
 from django.views.decorators.csrf import csrf_exempt
 from ContactMail.mail import CustomMail
 from rest_framework.parsers import JSONParser
@@ -209,7 +210,6 @@ def deleteWishlistItem(request,id):
 
 
 
-<<<<<<< HEAD
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def addWishlistToCart(request,id):
@@ -427,252 +427,98 @@ def cartPage(request):
 
 #----------------------------End of Store API----------------------------------#
 
+#---------------------------START of Profile API ---------------------------------
 
 
-=======
+@permission_classes([IsAuthenticated])
+class ProfilePage(generics.ListAPIView):
+    
+    serializer_class = ProfileSerializer
 
+    def get_queryset(self):
+        return Profile.objects.all()
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def ownProfilePage(request):
 
+    query_set = Profile.objects.get(user_id=request.user.id)
+    
+    
+    serializers = ProfileSerializer(query_set,many=False)
 
+    return Response(serializers.data)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def editOwnProfilePage(request):
 
+    data = request.data
+    first_name =  data.get('first_name')
+    last_name =  data.get('last_name')
+    phone =  data.get('phone')
+    mobile =  data.get('mobile')
+    gender =  data.get('gender')
+    location =  data.get('location')
 
 
+    p = Profile.objects.get(user_id=request.user.id)
+    if request.method == 'POST':
+	    p.first_name = first_name
+	    p.last_name = last_name
+	    p.phone = phone
+	    p.mobile = mobile
+	    p. gender = gender
+	    p.location = location
 
+	    try:
+	        p.save()
+	        return Response({'success':'your profile has been updated'})
+	    except:
+		    return Response({'error':'Erro occured'})
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def ownProfileEdit(request):
+    data = request.data
+    images = data.get('profile_image')
+    print(images)
+    profile = Profile.objects.get(user__id=request.user.id)
+    profile.profile_image = images
+    
+    try:
+	    profile.save()
+	    return Response({'success':'your profile has been updated'})
+    except:
+        return Response({'success':'your profile has been updated'})
+#---------------------------END OF PROFILE API -----------------------------------------
 
+#--------------------------Start of CMS API ---------------------------------------------
 
+class AboutUsPage(generics.ListAPIView):
+    
+    serializer_class = AboutUsSerializer
 
+    def get_queryset(self):
+        return AboutUs.objects.all()
 
+class TermsAndConditionPage(generics.ListAPIView):
+    
+    serializer_class = TermsAndConditionSerializer
 
+    def get_queryset(self):
+        return TermsAndConditions.objects.all()
 
+class PrivacyAndPolicyPage(generics.ListAPIView):
+    
+    serializer_class = TermsAndConditionSerializer
 
+    def get_queryset(self):
+        return PrivacyAndPolicy.objects.all()
 
 
+#---------------------------END OF CMS API -----------------------------------------
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#==================== Profile API =========================================================
->>>>>>> 953f4cfb3a738e5ebece3e723d930c9d82d81bf7

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from Products.models import *
+from Cms.models import *
 
 
 #--------------PRODUCTS SERIALIZERS----------------------#
@@ -114,11 +115,41 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     
     profile_id = serializers.ReadOnlyField(source='id')
-    profile_user = serializers.ReadOnlyField(source='user')
+    profile_user = serializers.ReadOnlyField(source='user.email')
 
     class Meta:
         model = Profile
-        fields = ['profile_id','profile_user','first_name','last_name','phone','mobile','profile_image','gender','location','last_logged_in']
+        fields = ['profile_id','profile_user','first_name','last_name','phone','mobile','profile_image','gender','location']
     
 
 
+#--------------ABOUT US SERIALIZERS----------------------#
+
+class AboutUsSerializer(serializers.ModelSerializer):
+
+
+    
+    aboutus_id = serializers.ReadOnlyField(source='id')
+
+    class Meta:
+        model = AboutUs
+        fields = ['aboutus_id','title','body']
+
+class TermsAndConditionSerializer(serializers.ModelSerializer):
+
+
+    
+    termandcondition_id = serializers.ReadOnlyField(source='id')
+
+    class Meta:
+        model = TermsAndConditions
+        fields = ['termandcondition_id','title','body']
+
+
+class PrivacyAndPolicySerializer(serializers.ModelSerializer):
+
+    privacyAndPolicy_id = serializers.ReadOnlyField(source='id')
+
+    class Meta:
+        model = PrivacyAndPolicy
+        fields = ['privacyAndPolicy_id','title','body']

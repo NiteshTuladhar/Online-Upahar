@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     #External App Instalation
     'social_django',
     'djrichtextfield',
+    'corsheaders',
 
     #allauth
     'allauth',
@@ -73,6 +74,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -239,3 +241,4 @@ REST_FRAMEWORK = {
     )
 }
 
+CORS_ALLOW_ALL_ORIGINS = True
