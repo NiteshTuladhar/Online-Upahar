@@ -6,6 +6,7 @@ from Products.models import Order, OrderItem, Category
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .form import ProfileEdit 
+
 # Create your views here.
 def userProfile(request):
 
@@ -64,6 +65,7 @@ def userProfile(request):
 	return render(request,'userprofile/profile.html')
 
 
+
 def profile_edit(request):
 	images = request.FILES.get('image')
 	print(images)
@@ -71,6 +73,7 @@ def profile_edit(request):
 	profile.profile_image = images
 	profile.save()
 	return redirect('Profile:userprofile')
+
 
 
 def completeuserprofile(request):
@@ -98,24 +101,17 @@ def completeuserprofile(request):
 		
 		myorders = Order.objects.filter(customer=request.user.profile, complete=True)
 
-		print('------------------------myorders--------------')
-		print(myorders)
-		print('------------------------myorders--------------')
+		
 
 		all_orders = []
 
 		for order in myorders:
 
 			myorder_items = OrderItem.objects.filter(order_id=order.id)
-			print('[[[[[[[[[[[[[[[[[[[[[[')
+	
 			all_orders.append(myorder_items)
-			print('[[[[[[[[[[[[[[[[[[[[[[')
-			print(myorder_items)
-			print('--------------------------------')
-
-		print('++++++++++++++all orders+++++++++++++++++++')
-		print(all_orders)
-		print('++++++++++++++all orders+++++++++++++++++++')
+		
+		
 		
 		total_items = []
 
@@ -123,8 +119,6 @@ def completeuserprofile(request):
 			for i in item:
 				total_items.append(i)		
 
-		print(total_items)
-		print('==========================================')
 			
 		context.update({'items' : items, 'order':order,'cartItems':cartItems,'userinfo' : userinfo,'customer':customer,'total_items':total_items,'category':category})
 

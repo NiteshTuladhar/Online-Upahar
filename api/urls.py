@@ -46,6 +46,7 @@ urlpatterns = [
    path('profile_page/', views.ownProfilePage),
    path('editownprofile_page', views.editOwnProfilePage),
    path('editownprofile_picture', views.ownProfileEdit),
+   path('order_history/',views.orderHistory),
 
    #CMS API
    path('aboutus/', views.AboutUsPage.as_view()),

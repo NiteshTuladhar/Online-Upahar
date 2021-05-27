@@ -427,11 +427,10 @@ def cartPage(request):
 
 #----------------------------End of Store API----------------------------------#
 
+
 #---------------------------START of Profile API ---------------------------------
 
 
-<<<<<<< HEAD
-=======
 @permission_classes([IsAuthenticated])
 class ProfilePage(generics.ListAPIView):
     
@@ -439,6 +438,7 @@ class ProfilePage(generics.ListAPIView):
 
     def get_queryset(self):
         return Profile.objects.all()
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -450,6 +450,41 @@ def ownProfilePage(request):
     serializers = ProfileSerializer(query_set,many=False)
 
     return Response(serializers.data)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def orderHistory(request):
+
+    profile = Profile.objects.get(user_id=request.user.id)
+    query_set = Order.objects.filter(customer=profile, complete=True)
+
+
+
+    all_orders = []
+
+    for order in query_set:
+
+        myorder_items = OrderItem.objects.filter(order_id=order.id)
+
+        all_orders.append(myorder_items)
+
+
+
+    total_items = []
+
+    for item in all_orders:
+        for i in item:
+            total_items.append(i)		
+
+
+    
+
+    serializers = OrderItemsSerializer(total_items,many=True)
+    return Response(serializers.data)
+
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -479,6 +514,8 @@ def editOwnProfilePage(request):
 	    except:
 		    return Response({'error':'Erro occured'})
 
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def ownProfileEdit(request):
@@ -495,6 +532,7 @@ def ownProfileEdit(request):
         return Response({'success':'your profile has been updated'})
 #---------------------------END OF PROFILE API -----------------------------------------
 
+
 #--------------------------Start of CMS API ---------------------------------------------
 
 class AboutUsPage(generics.ListAPIView):
@@ -504,12 +542,14 @@ class AboutUsPage(generics.ListAPIView):
     def get_queryset(self):
         return AboutUs.objects.all()
 
+
 class TermsAndConditionPage(generics.ListAPIView):
     
     serializer_class = TermsAndConditionSerializer
 
     def get_queryset(self):
         return TermsAndConditions.objects.all()
+
 
 class PrivacyAndPolicyPage(generics.ListAPIView):
     
@@ -524,4 +564,3 @@ class PrivacyAndPolicyPage(generics.ListAPIView):
 
 
 
->>>>>>> 7ab1148c9e332f39dc864c9eb84c64dc5a526844
