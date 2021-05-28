@@ -7,6 +7,7 @@ from Store.models import *
 from Cms.models import *
 from Profile.models import *
 from Cms.models import *
+from Reviews.models import *
 from django.views.decorators.csrf import csrf_exempt
 from ContactMail.mail import CustomMail
 from rest_framework.parsers import JSONParser
@@ -562,5 +563,41 @@ class PrivacyAndPolicyPage(generics.ListAPIView):
 #---------------------------END OF CMS API -----------------------------------------
 
 
+#--------------------------REVIEW API----------------------------------------------
 
 
+@api_view(['GET'])
+def productReview(request,slug):
+    
+    product_visit = Product.objects.get(slug=slug)
+    print(product_visit)
+    print('-----------------pv')
+    query_set = Review.objects.filter(product=product_visit, reply=None).order_by('-comment_time')
+
+    serializers = ReviewSerializer(query_set,many=True)
+    return Response(serializers.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def giveReview(request, slug):
+
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    product = Product.objects.get(slug=slug)
+
+
+    data = request.data
+
+    try:
+        review = Review(user=user,profile=profile,product=product,message=data['message'])
+        review.save()
+
+        return JsonResponse({'success': 'Your review has been saved' })
+    
+    except:
+        return JsonResponse({'error':'Some error occured'})
+    
+
+
+#-------------------------END OF REVIEW API----------------------------------------

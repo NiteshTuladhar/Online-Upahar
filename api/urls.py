@@ -52,4 +52,10 @@ urlpatterns = [
    path('aboutus/', views.AboutUsPage.as_view()),
    path('termsandcondition/', views.TermsAndConditionPage.as_view()),
    path('privacyandpolicy/', views.PrivacyAndPolicyPage.as_view()),
+
+
+   #REVIEW API
+   path('review/<str:slug>', views.productReview),
+   path('add_review/<str:slug>', views.giveReview),
+
 ]
