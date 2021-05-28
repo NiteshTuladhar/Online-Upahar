@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from Products.models import *
 from Cms.models import *
-
+from Reviews.models import *
 
 #--------------PRODUCTS SERIALIZERS----------------------#
 class ProductSerializer(serializers.ModelSerializer):
@@ -153,3 +153,20 @@ class PrivacyAndPolicySerializer(serializers.ModelSerializer):
     class Meta:
         model = PrivacyAndPolicy
         fields = ['privacyAndPolicy_id','title','body']
+
+
+
+#-------------------REVIEW SERIALIZER--------------------------------
+
+class ReviewSerializer(serializers.ModelSerializer):
+    
+    review_id = serializers.ReadOnlyField(source='id')
+    profile_id  = serializers.ReadOnlyField(source='profile.id')
+
+    class Meta:
+        model = Review
+        fields = ['review_id','profile_id','product','message','reply','is_approved','comment_time']
+
+
+    
+            

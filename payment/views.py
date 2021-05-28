@@ -114,6 +114,7 @@ def esewa(request):
         root = ET.fromstring(resp.content)
         status = root[0].text.strip()
         date = datetime.datetime.now()
+        
         customer = Profile.objects.get(user=request.user)  
         shipping = ShippingAdress.objects.get(order_id = orderitem)
         cartItems = order.get_cart_items 

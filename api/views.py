@@ -7,6 +7,7 @@ from Store.models import *
 from Cms.models import *
 from Profile.models import *
 from Cms.models import *
+from Reviews.models import *
 from django.views.decorators.csrf import csrf_exempt
 from ContactMail.mail import CustomMail
 from rest_framework.parsers import JSONParser
@@ -427,6 +428,7 @@ def cartPage(request):
 
 #----------------------------End of Store API----------------------------------#
 
+
 #---------------------------START of Profile API ---------------------------------
 
 
@@ -438,6 +440,7 @@ class ProfilePage(generics.ListAPIView):
     def get_queryset(self):
         return Profile.objects.all()
 
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def ownProfilePage(request):
@@ -448,6 +451,41 @@ def ownProfilePage(request):
     serializers = ProfileSerializer(query_set,many=False)
 
     return Response(serializers.data)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def orderHistory(request):
+
+    profile = Profile.objects.get(user_id=request.user.id)
+    query_set = Order.objects.filter(customer=profile, complete=True)
+
+
+
+    all_orders = []
+
+    for order in query_set:
+
+        myorder_items = OrderItem.objects.filter(order_id=order.id)
+
+        all_orders.append(myorder_items)
+
+
+
+    total_items = []
+
+    for item in all_orders:
+        for i in item:
+            total_items.append(i)		
+
+
+    
+
+    serializers = OrderItemsSerializer(total_items,many=True)
+    return Response(serializers.data)
+
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -477,6 +515,8 @@ def editOwnProfilePage(request):
 	    except:
 		    return Response({'error':'Erro occured'})
 
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def ownProfileEdit(request):
@@ -493,6 +533,7 @@ def ownProfileEdit(request):
         return Response({'success':'your profile has been updated'})
 #---------------------------END OF PROFILE API -----------------------------------------
 
+
 #--------------------------Start of CMS API ---------------------------------------------
 
 class AboutUsPage(generics.ListAPIView):
@@ -502,12 +543,14 @@ class AboutUsPage(generics.ListAPIView):
     def get_queryset(self):
         return AboutUs.objects.all()
 
+
 class TermsAndConditionPage(generics.ListAPIView):
     
     serializer_class = TermsAndConditionSerializer
 
     def get_queryset(self):
         return TermsAndConditions.objects.all()
+
 
 class PrivacyAndPolicyPage(generics.ListAPIView):
     
@@ -520,5 +563,41 @@ class PrivacyAndPolicyPage(generics.ListAPIView):
 #---------------------------END OF CMS API -----------------------------------------
 
 
+#--------------------------REVIEW API----------------------------------------------
 
 
+@api_view(['GET'])
+def productReview(request,slug):
+    
+    product_visit = Product.objects.get(slug=slug)
+    print(product_visit)
+    print('-----------------pv')
+    query_set = Review.objects.filter(product=product_visit, reply=None).order_by('-comment_time')
+
+    serializers = ReviewSerializer(query_set,many=True)
+    return Response(serializers.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def giveReview(request, slug):
+
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    product = Product.objects.get(slug=slug)
+
+
+    data = request.data
+
+    try:
+        review = Review(user=user,profile=profile,product=product,message=data['message'])
+        review.save()
+
+        return JsonResponse({'success': 'Your review has been saved' })
+    
+    except:
+        return JsonResponse({'error':'Some error occured'})
+    
+
+
+#-------------------------END OF REVIEW API----------------------------------------

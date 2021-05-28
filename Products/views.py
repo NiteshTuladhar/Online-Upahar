@@ -55,6 +55,7 @@ def productDetails(request,slug):
 		return HttpResponseRedirect(request.path_info)
 
 
+
 def wishlist(request, id):
 	category = Category.objects.all()
 	wishlist = Wishlist.objects.filter(user_id=id)
@@ -101,6 +102,7 @@ def wishlist_edit(request, id):
 			wish.save()
 
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 
 def wishlist_delete(request, id):
