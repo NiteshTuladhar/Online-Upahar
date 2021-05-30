@@ -349,21 +349,9 @@ def terms_condition(request):
 	category = Category.objects.all()
 	tnc_content = TermsAndConditions.objects.get()
 
-	if request.user.is_authenticated: 
-		customer = request.user.profile
-		print(customer)
-		order, created = Order.objects.get_or_create(customer=customer,complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
-		print(items)
-	else:
-		customer = 'Anonymous User'
-		items = []
-		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
-		cartItems = order['get_cart_items']
+	
 
-
-	context = {'tnc_content':tnc_content,'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer,'category':category}
+	context = {'tnc_content':tnc_content,'category':category}
 
 	return render(request,'terms_and_conditions.html',context)
 
@@ -373,19 +361,8 @@ def privacy_policy(request):
 
 	category = Category.objects.all()
 	content = PrivacyAndPolicy.objects.get(id=1)
-	if request.user.is_authenticated: 
-		customer = request.user.profile
-		print(customer)
-		order, created = Order.objects.get_or_create(customer=customer,complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
-		print(items)
-	else:
-		customer = 'Anonymous User'
-		items = []
-		order = {'get_cart_grandtotal':0,'get_cart_total':0,'get_cart_items':0,'shipping':False}
-		cartItems = order['get_cart_items']
 
-	context = {'content':content, 'items' : items, 'order':order,'cartItems':cartItems,'id': id,'customer':customer,'category':category}
+
+	context = {'content':content, 'category':category}
 
 	return render(request,'privacy_and_policy.html', context)
