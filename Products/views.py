@@ -156,7 +156,7 @@ def wishlist_add_to_cart(request, id):
 
 
 def details_add_to_cart(request,slug):
- 
+	
 	item = Product.objects.get(slug=slug)
 	order, created = Order.objects.get_or_create(
 
@@ -166,6 +166,7 @@ def details_add_to_cart(request,slug):
     )
 	print(order.order_items)
 	print('==================yolo=============================')
+
 	if OrderItem.objects.filter(product=item, order = order).exists():
 		x = OrderItem.objects.get(product=item, order = order)
 		print(x)

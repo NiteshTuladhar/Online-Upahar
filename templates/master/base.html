@@ -253,7 +253,7 @@ $(document).ready(function() {
 							<div class="sinlge-bar shopping">
 								{% if user.is_authenticated %}
 								
-									<a href="{% url 'Store:cartpage' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>
+									<a href="{% url 'Store:cartpage' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count" id="total-count">{{cartItems}}</span></a>
 							
 								{% else %}
 									<a href="{% url 'Account:login' %}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{cartItems}}</span></a>

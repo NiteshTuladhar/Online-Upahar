@@ -94,13 +94,16 @@
     
  
     <!-- Product Pricing -->
-    <div class="product-prices">
+    <div class="product-prices" id="product-price">
       
       {% if user.is_authenticated %}
-          <a href="{% url 'Products:add_to_cart' details.slug %}"  class="cart-btn" style="float: left;">Add to cart</a>
+
+          <input type='submit' id="cart-btn" class="cart-btn" value='Add to cart' style="float: left;background-color: #3D79B1;" onclick = "addToCart()"></input>
           <a href="{% url 'Products:buynow' details.slug %}"  class="cart-btn" style="float: right; background-color: #f57224;">Buy Now</a>
       {% else %}
+
            <a href="{% url 'Account:login' %}"  class="cart-btn" style="float: left;">Add to cart</a>
+
           <a href="{% url 'Account:login' %}"  class="cart-btn" style="float: right; background-color: #f57224;">Gift Now</a>
       {% endif %}
     </div>
@@ -187,7 +190,48 @@ $(function(){
 
     });
 
+
+
+function addToCart(){
+  
+  var productprices = document.getElementById('product-price');
+  var cartbtn = document.getElementById('cart-btn');
+  var cartCount = document.getElementById('total-count');
+  
+  
+
+  cartbtn.value = 'Added to cart';
+
+
+  $.ajax({
+    url : "{% url 'Products:add_to_cart' details.slug %}",
+  })
+
+
+  c= '{{cartItems}}'+ 1;
+
+  const url = 'http://localhost:8000/api/cart_page';
+
+  fetch(url)
+  .then(response => response.json())
+  .then(repos => {
+    const reposList = repos.map(repo => repo.quantity)
+    const sum = reposList.reduce((a, b) => a + b, 0)
+    console.log(reposList)
+    console.log(sum)
+    document.getElementById('total-count').innerHTML = sum
+  })
+
+  
+};
+
+
+
 </script>
 
+<!--  -->
 
 {% endblock %}
+
+
+
