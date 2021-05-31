@@ -217,8 +217,7 @@ function addToCart(){
   .then(repos => {
     const reposList = repos.map(repo => repo.quantity)
     const sum = reposList.reduce((a, b) => a + b, 0)
-    console.log(reposList)
-    console.log(sum)
+ 
     document.getElementById('total-count').innerHTML = sum
   })
 
