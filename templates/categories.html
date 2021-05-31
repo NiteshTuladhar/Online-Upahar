@@ -183,7 +183,7 @@
                               </div>
                               <div class="product-action-2">
                                 {% if user.is_authenticated %}
-                                  <a data-product="{{p.id}}" data-action="add" class="add-btn update-cart" id="update-cart">Add to Cart</a>
+                                  <a class="add-btn update-cart" id="{% url 'Products:add_to_cart' p.slug %}" dataurl = "{% url 'Products:add_to_cart' p.slug %}" onclick = "addToCart(this.id)">Add to Cart</a>
                                 {% else %}
                                   <a href="{% url 'Account:login' %}"  class="add-btn update-cart" id="update-cart">Add to Cart</a>
                                 {% endif %}
@@ -229,5 +229,25 @@
     </div>
 </div>
 
+<script>
+  function addToCart(slugs){ 
+  $.ajax({
+    url : slugs,
+  })
+  const urls = 'http://localhost:8000/api/cart_page';
 
-{% endblock %}
+  fetch(urls)
+  .then(response => response.json())
+  .then(repos => {
+    const reposList = repos.map(repo => repo.quantity)
+    const sum = reposList.reduce((a, b) => a + b, 0)
+    console.log(reposList)
+    console.log(sum)
+    document.getElementById('total-count').innerHTML = sum
+   
+
+  })
+}
+ 
+</script>
+  {% endblock %}
