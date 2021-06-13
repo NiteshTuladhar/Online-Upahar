@@ -372,7 +372,9 @@ width: 45px;
 									<div class="hero-text">
 										
 											<h1><span></span>{{banner_content.title}}</h1>
-											<p>{{banner_content.body}}</p>
+											{% autoescape off %}
+												<p>{{banner_content.body}}</p>
+											{% endautoescape %}
 											<div class="button">
 												<a href="{% url 'Store:categoriesItem' %}" class="btn">{{banner_content.button_text}}</a>
 											</div>
