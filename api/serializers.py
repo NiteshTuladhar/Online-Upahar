@@ -111,8 +111,6 @@ class OrderItemsSerializer(serializers.ModelSerializer):
 
 #--------------USER PROFILE SERIALIZERS----------------------#
 class ProfileSerializer(serializers.ModelSerializer):
-
-
     
     profile_id = serializers.ReadOnlyField(source='id')
     profile_user = serializers.ReadOnlyField(source='user.email')

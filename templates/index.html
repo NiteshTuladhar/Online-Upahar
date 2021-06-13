@@ -151,11 +151,10 @@ width: 45px;
 						<div class="right-content">
 							<ul class="list-main">
 								<li><i class="fa fa-user"></i> <a href="{% url 'SellerAccount:sellerlogin' %}">Become a Seller</a></li>
-								<li><i class="ti-location-pin"></i> SolteeMod-10, Kathmandu, Nepal</li>
 								<!-- This Daily Deals is commented on 9/22/2020 beside store location because we decide not to keep for now Sushek-->
 								<!--<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>-->
 								{% if user.is_authenticated %}
-									<li><i class="ti-user"></i> <a href="{% url 'Profile:completeuserprofile' %}">My account</a></li>
+									<li><i class="ti-user"></i> <a href="{% url 'Profile:completeuserprofile' %}">My account</a></>
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:logout' %}">Logout</a></li>
 								{% else %}
 									<li><i class="ti-power-off"></i><a href="{% url 'Account:login' %}">Login</a></li>
@@ -1059,7 +1058,7 @@ width: 45px;
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<h1 style="color: #606060;">Online Upahar </h1>
+								<h1 style="color: #000000;">Online Upahar </h1>
 							</div>
 							<p class="text" style="color:#888888;">OnlineUpahar is Nepal's first eCommerce marketplace that promotes authentic Nepali products and helps the grassroots level producer get better income. It aims to serve Nepalese customers with purely made in Nepal products and promote Nepal's overall production ecosystem. In short, it is the marketplace dedicated to helping Nepalese products get the value they deserve. 
 							</p>
@@ -1132,14 +1131,16 @@ width: 45px;
 					<div class="row">
 						<div class="col-lg-6 col-12">
 							<div class="left">
+								<br>
 								<p>Copyright © 2021 <a href="#" target="_blank">OnlineUpahar</a>  -  All Rights Reserved.</p>
 							</div>
 						</div>
 						<div class="col-lg-6 col-12">
-							<div class="right">
-								<img src="{% static 'images/esewa.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
-								<img src="{% static 'images/khalti.jpg' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
-								<img src="{% static 'images/fone.png' %}" alt="#" style="width: 65px;height: auto;padding-right: 15px;">
+							<div class="right" style="margin-right: 70px;">
+								<p style="text-align: center;">WE ACCEPT: </p>
+								<img src="{% static 'images/esewa.png' %}" alt="#" style="width: 65px;height: auto; border-top: 1px solid black;border-bottom: 1px solid black;">
+								<img src="{% static 'images/khalti.jpg' %}" alt="#" style="width: 65px; height: auto; border-top: 1px solid black;border-bottom: 1px solid black;">
+								<img src="{% static 'images/fone.png' %}" alt="#" style="width: 65px; height: auto; border-top: 1px solid black;border-bottom: 1px solid black;">
 
 								<a id="back2Top" title="Back to top" href="#">&#10148;</a>
 							</div>

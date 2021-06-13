@@ -1,6 +1,5 @@
 ---
 deployment:
  tasks:
- - export DEPLOYPATH=/home5/roopinve/online.pandamotions.com
- - /bin/cp index.html $DEPLOYPATH
- - /bin/cp style.css $DEPLOYPATH
+ - export DEPLOYPATH=/home2/onlineup/onlineupahar.com
+ - /bin/cp * $DEPLOYPATH
