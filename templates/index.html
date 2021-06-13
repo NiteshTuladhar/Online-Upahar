@@ -371,11 +371,12 @@ width: 45px;
 							<div class="row">
 								<div class="col-lg-7 col-12">
 									<div class="hero-text">
-										<h1><span>UP TO 10% OFF </span>Gifts For Your Loved Ones.</h1>
-										<p>Send gifts to the ones that you love <br> and make their day more special and joyfull <br> odiy maboriosm.</p>
-										<div class="button">
-											<a href="{% url 'Store:categoriesItem' %}" class="btn">Gift Now!</a>
-										</div>
+										
+											<h1><span></span>{{banner_content.title}}</h1>
+											<p>{{banner_content.body}}</p>
+											<div class="button">
+												<a href="{% url 'Store:categoriesItem' %}" class="btn">{{banner_content.button_text}}</a>
+											</div>
 									</div>
 								</div>
 							</div>

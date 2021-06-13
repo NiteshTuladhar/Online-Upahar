@@ -39,6 +39,7 @@ class Banner(models.Model):
 	title = models.CharField(max_length=200)
 	body = RichTextField()
 	profile_image = models.ImageField(upload_to='banner_front',blank=True,null=True)
+	button_text = models.CharField(max_length=50,blank=True,null=True)
 
 	def __str__(self):
 

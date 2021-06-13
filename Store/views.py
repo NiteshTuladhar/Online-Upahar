@@ -60,7 +60,6 @@ def home(request):
 		'maincategories' : maincategories,
 		'subcategory' : subcategory,
 		'banner_content': banner_content,
-		
 	}
 
 	return render(request,'index.html', context)
