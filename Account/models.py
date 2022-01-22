@@ -83,8 +83,6 @@ class Account(AbstractBaseUser):
 
 
 
-
-
 def sendAccountCreationMail(sender, **kwargs):
     current_user = kwargs['instance']
     current_user_mail = current_user.email
